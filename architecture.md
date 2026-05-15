@@ -9,7 +9,7 @@ El proyecto es una aplicación Laravel simple con un dominio claro:
 - `requirements.md`: especificaciones funcionales y no funcionales.
 - `schema.md`: esquema de base de datos y modelo de datos.
 - `architecture.md`: esta guía.
-- `app/`: aplicación Laravel real.
+- `project/`: aplicación Laravel real.
 
 La arquitectura sigue principios de programación orientada a objetos y código limpio, manteniendo responsabilidad única por clase/archivo.
 
@@ -21,7 +21,7 @@ La arquitectura sigue principios de programación orientada a objetos y código 
   requirements.md
   schema.md
   architecture.md
-  app/              # Aplicación Laravel
+  project/              # Aplicación Laravel
     artisan
     composer.json
     package.json
@@ -53,11 +53,11 @@ La arquitectura sigue principios de programación orientada a objetos y código 
 
 ## 3. Qué hace cada carpeta
 
-### `app/` (raíz de la aplicación Laravel)
+### `project/` (raíz de la aplicación Laravel)
 
 Contiene la aplicación backend, rutas, configuración y assets.
 
-### `app/app/Models/`
+### `project/app/Models/`
 
 Modelos que representan tablas y comportamientos del dominio.
 
@@ -74,7 +74,7 @@ Cada modelo debe incluir métodos claros para reglas de negocio, por ejemplo:
 - `Participant::needsQrToken()`.
 - `Certificate::isValid()`.
 
-### `app/app/Http/Controllers/`
+### `project/app/Http/Controllers/`
 
 Controladores HTTP que reciben peticiones y devuelven respuestas.
 
@@ -87,7 +87,7 @@ Controladores HTTP que reciben peticiones y devuelven respuestas.
 
 Cada controlador debe delegar la lógica pesada a servicios y usar `FormRequest` para validar datos.
 
-### `app/app/Http/Requests/`
+### `project/app/Http/Requests/`
 
 Clases para validación de formularios.
 
@@ -98,7 +98,7 @@ Clases para validación de formularios.
 
 Esto mantiene los controladores pequeños y seguros.
 
-### `app/app/Http/Middleware/`
+### `project/app/Http/Middleware/`
 
 Middleware para políticas transversales.
 
@@ -106,7 +106,7 @@ Middleware para políticas transversales.
 - `VerifyStreamingAccess.php`: protege la URL de streaming.
 - `PreventBruteForce.php`: bloqueo de intentos de login.
 
-### `app/app/Services/`
+### `project/app/Services/`
 
 Servicios orientados a casos de uso.
 
@@ -118,21 +118,21 @@ Servicios orientados a casos de uso.
 
 Los servicios contienen lógica transaccional y transacciones de base datos al nivel de aplicación.
 
-### `app/app/Providers/`
+### `project/app/Providers/`
 
 Servicios y bindings globales.
 
 - `AppServiceProvider.php`: registro de servicios de dominio.
 - `AuthServiceProvider.php`: políticas de acceso.
 
-### `app/routes/web.php`
+### `project/routes/web.php`
 
 Define las rutas públicas y de administración.
 
 - Rutas públicas: listado de jornadas, inscripciones, acceso a streaming.
 - Rutas admin: gestión de eventos, participantes, pagos, QR, estadísticas.
 
-### `app/database/migrations/`
+### `project/database/migrations/`
 
 Migraciones que crean las tablas definidas en `schema.md`.
 
@@ -142,24 +142,24 @@ Migraciones que crean las tablas definidas en `schema.md`.
 - `create_certificates_table.php`
 - `create_logs_table.php`
 
-### `app/database/seeders/`
+### `project/database/seeders/`
 
 Semillas iniciales.
 
 - `DatabaseSeeder.php`: debe crear el primer administrador.
 
-### `app/resources/views/`
+### `project/resources/views/`
 
 Vistas Blade para frontend.
 
 - `public/`: listado de jornadas, formulario de inscripción, transmisión.
 - `admin/`: panel de eventos, inscripciones, pagos, QR, estadísticas.
 
-### `app/public/`
+### `project/public/`
 
 Punto de entrada web (`index.php`) y assets compilados.
 
-### `app/tests/`
+### `project/tests/`
 
 Tests automáticos.
 
@@ -209,13 +209,13 @@ Tests automáticos.
 ### Logs y auditoría
 
 - `Log.php` registra acciones.
-- `app/app/Services/LogService.php` guarda eventos de creación, pago, QR, certificados.
+- `project/app/Services/LogService.php` guarda eventos de creación, pago, QR, certificados.
 
 ### Transmisión en vivo y preguntas
 
 - `StreamingController.php` inserta iframe solo para participantes autorizados.
 - `resources/views/public/stream.blade.php` muestra la transmisión.
-- `app/app/Services/StreamingAccessService.php` valida la URL en backend.
+- `project/app/Services/StreamingAccessService.php` valida la URL en backend.
 
 ## 5. Recomendaciones de clean code
 
@@ -228,41 +228,41 @@ Tests automáticos.
 
 ## 6. Propuesta de archivos nuevos importantes
 
-- `app/app/Services/MercadoPagoService.php`
-- `app/app/Services/QrService.php`
-- `app/app/Services/CertificateService.php`
-- `app/app/Services/LogService.php`
-- `app/app/Http/Requests/RegisterParticipantRequest.php`
-- `app/app/Http/Middleware/VerifyStreamingAccess.php`
-- `app/app/Http/Controllers/Admin/EventController.php`
-- `app/app/Http/Controllers/PaymentController.php`
-- `app/app/Http/Controllers/QrCheckinController.php`
-- `app/app/Http/Controllers/CertificateController.php`
+- `project/app/Services/MercadoPagoService.php`
+- `project/app/Services/QrService.php`
+- `project/app/Services/CertificateService.php`
+- `project/app/Services/LogService.php`
+- `project/app/Http/Requests/RegisterParticipantRequest.php`
+- `project/app/Http/Middleware/VerifyStreamingAccess.php`
+- `project/app/Http/Controllers/Admin/EventController.php`
+- `project/app/Http/Controllers/PaymentController.php`
+- `project/app/Http/Controllers/QrCheckinController.php`
+- `project/app/Http/Controllers/CertificateController.php`
 
 ## 7. Resumen visual
 
-- `app/app/Models/` → entidad del dominio.
-- `app/app/Http/Controllers/` → controladores HTTP.
-- `app/app/Http/Requests/` → validación segura.
-- `app/app/Http/Middleware/` → seguridad y acceso.
-- `app/app/Services/` → lógica de negocio compleja.
-- `app/database/migrations/` → esquema físico.
-- `app/resources/views/` → interfaz para usuario.
-- `tests/` → garantías automáticas.
+- `project/app/Models/` → entidad del dominio.
+- `project/app/Http/Controllers/` → controladores HTTP.
+- `project/app/Http/Requests/` → validación segura.
+- `project/app/Http/Middleware/` → seguridad y acceso.
+- `project/app/Services/` → lógica de negocio compleja.
+- `project/database/migrations/` → esquema físico.
+- `project/resources/views/` → interfaz para usuario.
+- `project/tests/` → garantías automáticas.
 
 Con esta estructura, el sistema queda organizado para que cada requerimiento tenga una ubicación clara y el código sea fácil de entender, mantener y ampliar.
 
 ## 8. Mapa visual de carpetas y archivos
 
-`app/` -- núcleo de la aplicación Laravel
-    `app/app/Models/` -- modelos de dominio
+`project/` -- núcleo de la aplicación Laravel
+    `project/app/Models/` -- modelos de dominio
         `User.php` -- datos y reglas de administradores
         `Event.php` -- datos y reglas de jornadas
         `Participant.php` -- datos y reglas de inscripciones
         `Certificate.php` -- gestión de certificados
         `Log.php` -- auditoría de eventos importantes
 
-    `app/app/Http/Controllers/` -- controladores de peticiones
+    `project/app/Http/Controllers/` -- controladores de peticiones
         `Admin/EventController.php` -- CRUD de jornadas
         `Admin/ParticipantController.php` -- edición manual de inscriptos
         `PaymentController.php` -- creación de pagos y lógica de webhooks
@@ -270,18 +270,18 @@ Con esta estructura, el sistema queda organizado para que cada requerimiento ten
         `StreamingController.php` -- protección de streaming y acceso
         `CertificateController.php` -- emisión y descarga de certificados
 
-    `app/app/Http/Requests/` -- validación de formularios
+    `project/app/Http/Requests/` -- validación de formularios
         `StoreEventRequest.php` -- validación de datos de eventos
         `RegisterParticipantRequest.php` -- validación de inscripción y cupo
         `PaymentWebhookRequest.php` -- validación de notificaciones de pago
         `QrValidationRequest.php` -- validación de lectura de código QR
 
-    `app/app/Http/Middleware/` -- filtros de solicitud
+    `project/app/Http/Middleware/` -- filtros de solicitud
         `Authenticate.php` -- protege paneles privados
         `VerifyStreamingAccess.php` -- controla acceso al stream
         `PreventBruteForce.php` -- limita intentos de login
 
-    `app/app/Services/` -- lógica de negocio reutilizable
+    `project/app/Services/` -- lógica de negocio reutilizable
         `MercadoPagoService.php` -- API de Mercado Pago
         `QrService.php` -- generación y verificación de QR
         `CertificateService.php` -- generación de certificados digitales
@@ -289,28 +289,28 @@ Con esta estructura, el sistema queda organizado para que cada requerimiento ten
         `EmailService.php` -- envío de correos automáticos
         `LogService.php` -- creación de registros de auditoría
 
-    `app/app/Providers/` -- bindings y servicios del contenedor
+    `project/app/Providers/` -- bindings y servicios del contenedor
         `AppServiceProvider.php` -- registro de servicios de dominio
         `AuthServiceProvider.php` -- políticas de autorización
 
-`app/routes/web.php` -- define las rutas públicas y privadas
+`project/routes/web.php` -- define las rutas públicas y privadas
     - rutas públicas: jornadas, inscripción, streaming
     - rutas admin: eventos, participantes, pagos, QR, estadísticas
 
-`app/database/migrations/` -- creación de tablas del esquema
+`project/database/migrations/` -- creación de tablas del esquema
     `create_users_table.php` -- administradores
     `create_events_table.php` -- jornadas
     `create_participants_table.php` -- inscripciones
     `create_certificates_table.php` -- certificados
     `create_logs_table.php` -- auditoría
 
-`app/database/seeders/` -- datos iniciales
+`project/database/seeders/` -- datos iniciales
     `DatabaseSeeder.php` -- primer administrador
 
-`app/resources/views/` -- UI del sistema
+`project/resources/views/` -- UI del sistema
     `public/` -- vistas de usuario y eventos
     `admin/` -- panel administrativo
 
-`app/tests/` -- verificación automática
+`project/tests/` -- verificación automática
     `Feature/` -- flujos completos (registro, pago, QR, permisos)
     `Unit/` -- pruebas de modelos y servicios

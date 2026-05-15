@@ -18,7 +18,7 @@ Este roadmap contiene todas las tareas necesarias para construir el sistema comp
    - Crear primer admin en `DatabaseSeeder`.
 
 3. Crear estructura de rutas y controladores básicos
-   - Configurar `routes/web.php` con rutas públicas y admin.
+   - Configurar `project/routes/web.php` con rutas públicas y admin.
    - Crear controlador base `Controller` y controladores iniciales.
 
 4. Implementar gestión de jornadas
