@@ -251,3 +251,66 @@ Tests automáticos.
 - `tests/` → garantías automáticas.
 
 Con esta estructura, el sistema queda organizado para que cada requerimiento tenga una ubicación clara y el código sea fácil de entender, mantener y ampliar.
+
+## 8. Mapa visual de carpetas y archivos
+
+`app/` -- núcleo de la aplicación Laravel
+    `app/app/Models/` -- modelos de dominio
+        `User.php` -- datos y reglas de administradores
+        `Event.php` -- datos y reglas de jornadas
+        `Participant.php` -- datos y reglas de inscripciones
+        `Certificate.php` -- gestión de certificados
+        `Log.php` -- auditoría de eventos importantes
+
+    `app/app/Http/Controllers/` -- controladores de peticiones
+        `Admin/EventController.php` -- CRUD de jornadas
+        `Admin/ParticipantController.php` -- edición manual de inscriptos
+        `PaymentController.php` -- creación de pagos y lógica de webhooks
+        `QrCheckinController.php` -- validación de QR y check-in
+        `StreamingController.php` -- protección de streaming y acceso
+        `CertificateController.php` -- emisión y descarga de certificados
+
+    `app/app/Http/Requests/` -- validación de formularios
+        `StoreEventRequest.php` -- validación de datos de eventos
+        `RegisterParticipantRequest.php` -- validación de inscripción y cupo
+        `PaymentWebhookRequest.php` -- validación de notificaciones de pago
+        `QrValidationRequest.php` -- validación de lectura de código QR
+
+    `app/app/Http/Middleware/` -- filtros de solicitud
+        `Authenticate.php` -- protege paneles privados
+        `VerifyStreamingAccess.php` -- controla acceso al stream
+        `PreventBruteForce.php` -- limita intentos de login
+
+    `app/app/Services/` -- lógica de negocio reutilizable
+        `MercadoPagoService.php` -- API de Mercado Pago
+        `QrService.php` -- generación y verificación de QR
+        `CertificateService.php` -- generación de certificados digitales
+        `StreamingAccessService.php` -- reglas de acceso al stream
+        `EmailService.php` -- envío de correos automáticos
+        `LogService.php` -- creación de registros de auditoría
+
+    `app/app/Providers/` -- bindings y servicios del contenedor
+        `AppServiceProvider.php` -- registro de servicios de dominio
+        `AuthServiceProvider.php` -- políticas de autorización
+
+`app/routes/web.php` -- define las rutas públicas y privadas
+    - rutas públicas: jornadas, inscripción, streaming
+    - rutas admin: eventos, participantes, pagos, QR, estadísticas
+
+`app/database/migrations/` -- creación de tablas del esquema
+    `create_users_table.php` -- administradores
+    `create_events_table.php` -- jornadas
+    `create_participants_table.php` -- inscripciones
+    `create_certificates_table.php` -- certificados
+    `create_logs_table.php` -- auditoría
+
+`app/database/seeders/` -- datos iniciales
+    `DatabaseSeeder.php` -- primer administrador
+
+`app/resources/views/` -- UI del sistema
+    `public/` -- vistas de usuario y eventos
+    `admin/` -- panel administrativo
+
+`app/tests/` -- verificación automática
+    `Feature/` -- flujos completos (registro, pago, QR, permisos)
+    `Unit/` -- pruebas de modelos y servicios
