@@ -5,9 +5,13 @@
 <section class="hero-section">
 
     <div class="container custom-container">
+
         <div class="hero-card">
-            <div class="row g-4 align-items-start">
-                <div class="col-12 col-lg-5">
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-12 col-lg-6">
+
                     <h1 class="hero-title">
                         {{ $jornada['titulo'] }}
                     </h1>
@@ -17,19 +21,25 @@
                     </p>
 
                     <div class="hero-info-box">
+
                         <ul>
+
                             <li>
                                 Fecha: {{ $jornada['fecha'] }}
                             </li>
+
                             <li>
                                 Horario: {{ $jornada['hora'] }}
                             </li>
+
                             <li>
                                 Modalidad: {{ $jornada['modalidad'] }}
                             </li>
+
                             <li>
                                 Lugar: {{ $jornada['lugar'] }}
                             </li>
+
                         </ul>
 
                     </div>
@@ -56,7 +66,7 @@
 
                 </div>
 
-                <div class="col-12 col-lg-7">
+                <div class="col-12 col-lg-6">
 
                     <img
                         src="{{ asset($jornada['imagen']) }}"
@@ -64,8 +74,10 @@
                         class="hero-image">
 
                     <p class="hero-price">
+
                         Arancel de la jornada:
                         {{ $jornada['precio'] }}
+
                     </p>
 
                 </div>
@@ -90,14 +102,15 @@
 
         <div class="sobre-card">
 
-            <div class="row g-4">
+            <div class="row g-4 align-items-stretch">
 
-                {{-- INFO --}}
                 <div class="col-12 col-lg-5">
 
                     <p class="sobre-text">
+
                         Lorem ipsum is simply dummy text of the printing and
                         typesetting industry.
+
                     </p>
 
                     <div class="info-mini-box">
@@ -126,7 +139,6 @@
 
                 </div>
 
-                {{-- FLYER --}}
                 <div class="col-12 col-lg-7">
 
                     <img
@@ -170,9 +182,11 @@
 
             @foreach($cronogramas as $cronograma)
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-6 col-lg-4">
 
-                    @include('components.cronograma-card')
+                    @include('components.cronograma-card', [
+                        'cronograma' => $cronograma
+                    ])
 
                 </div>
 
@@ -198,7 +212,7 @@
 
             @foreach($jornadasAnteriores as $item)
 
-                <div class="col-6 col-md-4">
+                <div class="col-12 col-sm-6 col-lg-4">
 
                     @include('components.jornada-card', [
                         'titulo' => $item['titulo'],
