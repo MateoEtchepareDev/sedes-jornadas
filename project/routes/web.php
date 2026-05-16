@@ -1,12 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
-// Página pública de inicio: muestra eventos destacados y enlaces a inscripciones.
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 // Página de listado de eventos: muestra eventos publicados y permite filtrar por estado/fecha.
 Route::get('/eventos', [App\Http\Controllers\EventController::class, 'index'])->name('eventos.index');
