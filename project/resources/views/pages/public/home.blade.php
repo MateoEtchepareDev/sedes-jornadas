@@ -50,7 +50,7 @@
                     <div class="hero-buttons col-8">
 
                         <a
-                            href="#"
+                            href="/inscripcion"
                             class="btn-yellow" >
 
                             Inscribirse

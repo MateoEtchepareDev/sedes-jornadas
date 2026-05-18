@@ -32,6 +32,14 @@
         rel="stylesheet"
         href="{{ asset('css/app.css') }}">
 
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/inscription.css') }}">
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/code.css') }}">
+
 </head>
 
 <body>
@@ -40,7 +48,19 @@
 
     <main>
 
-        @yield('content')
+        @if(!empty($inscripcion))
+
+                @yield('form')
+
+            @elseif(!empty($code))
+
+                @yield('input-code')
+
+            @else
+
+                @yield('content')
+
+        @endif
 
     </main>
 

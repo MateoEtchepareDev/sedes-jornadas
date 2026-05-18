@@ -86,7 +86,7 @@ class HomeController extends Controller
             ],
         ];
 
-        return view('pages.home', compact(
+        return view('pages.public.home', compact(
             'jornada',
             'cronogramas',
             'jornadasAnteriores'

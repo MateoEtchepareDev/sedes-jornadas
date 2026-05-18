@@ -1,0 +1,93 @@
+.page-container{
+    max-width: 1500px;
+}
+
+.code-card{
+    background: white;
+    padding: 50px 32px 80px;
+    border-radius: 30px;
+}
+
+.code-card-header h1{
+    font-size: 50px;
+    font-weight: 700;
+    color: #0d4d8b;
+}
+
+.code-card-header p{
+    font-size: 20px;
+    color: #333;
+}
+
+.code-card-body{
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+.code-form-card{
+    background: #d9e5f0;
+    width: 100%;
+    max-width: 420px;
+    padding: 50px;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.312);
+}
+
+.code-card-info{
+    font-size: 15px;
+    color: #1e1e1e;
+    margin-bottom: 32px;
+}
+
+.code-label{
+    width: 100%;
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: #1f3f73;
+
+    margin-bottom: 11px;
+}
+
+.code-input{
+    border-radius: 10px;
+    border: 1px solid #1f5aa6;
+    height: 50px;
+}
+
+.code-input:focus{
+    border-color: #0d4d8b;
+    box-shadow: 0 0 0 3px rgba(13,77,139,.15);
+}
+
+.code-button{
+    background: #efb92d;
+    border: none;
+
+    width: 180px;
+    height: 45px;
+
+    border-radius: 8px;
+
+    font-weight: 700;
+    color: #111;
+}
+
+.code-button:hover{
+    background: #dca91f;
+}
+
+@media(max-width: 768px){
+
+    .code-card{
+        padding: 48px 19px;
+    }
+
+    .code-form-card{
+        padding: 24px;
+    }
+
+}

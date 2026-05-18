@@ -4,7 +4,7 @@
 
         <a
             class="navbar-brand d-flex align-items-center gap-3"
-            href="#">
+            href="/">
 
             <img
                 src="{{ asset('images/SedesCompleto.png') }}"
@@ -28,67 +28,71 @@
 
         </a>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarContent">
+        @if(!isset($inscripcion) && !isset($code))
 
-            <span class="navbar-toggler-icon"></span>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
 
-        </button>
+                <span class="navbar-toggler-icon"></span>
 
-        <div
-            class="collapse navbar-collapse justify-content-end"
-            id="navbarContent">
+            </button>
 
-            <ul class="navbar-nav align-items-lg-center gap-lg-3">
+            <div
+                class="collapse navbar-collapse justify-content-end"
+                id="navbarContent">
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link nav-link-custom"
-                        href="#sobre">
+                <ul class="navbar-nav align-items-lg-center gap-lg-3">
 
-                        Información
+                    <li class="nav-item">
+                        <a
+                            class="nav-link nav-link-custom"
+                            href="#sobre">
 
-                    </a>
-                </li>
+                            Información
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link nav-link-custom"
-                        href="#anteriores">
+                        </a>
+                    </li>
 
-                        Jornadas
+                    <li class="nav-item">
+                        <a
+                            class="nav-link nav-link-custom"
+                            href="#anteriores">
 
-                    </a>
-                </li>
+                            Jornadas
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link nav-link-custom"
-                        href="#cronograma">
+                        </a>
+                    </li>
 
-                        Cronograma
+                    <li class="nav-item">
+                        <a
+                            class="nav-link nav-link-custom"
+                            href="#cronograma">
 
-                    </a>
-                </li>
+                            Cronograma
 
-                <li class="nav-item mt-3 mt-lg-0">
+                        </a>
+                    </li>
 
-                    <a
-                        href="#"
-                        class="btn btn-inscribirse">
+                    <li class="nav-item mt-3 mt-lg-0">
 
-                        Inscribirse
+                        <a
+                            href="/inscripcion"
+                            class="btn btn-inscribirse">
 
-                    </a>
+                            Inscribirse
 
-                </li>
+                        </a>
 
-            </ul>
+                    </li>
 
-        </div>
+                </ul>
+
+            </div>
+
+        @endif
 
     </div>
 
