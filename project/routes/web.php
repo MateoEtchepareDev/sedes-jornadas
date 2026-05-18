@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ParticipantsController;
+
 //<<<<<<< Updated upstream
 Route::get('/', function () {
     return view('welcome');
@@ -12,6 +14,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/inscription', function() {
     return view('pages.inscription');
 })->name('inscription');
+
+Route::resource('participants', ParticipantsController::class);
 
 // Página de listado de eventos: muestra eventos publicados y permite filtrar por estado/fecha.
 Route::get('/eventos', [App\Http\Controllers\EventController::class, 'index'])->name('eventos.index');

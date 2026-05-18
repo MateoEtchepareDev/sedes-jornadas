@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Participants;
+
 class ParticipantsController extends Controller
 {
     /**
@@ -11,8 +13,8 @@ class ParticipantsController extends Controller
      */
     public function index()
     {
-        $participants = Participants::all();
-        return view('participants.index', compact('participants'));
+        $participant = Participants::all();
+        return view('participants.index', compact('participant'));
     }
 
     /**
@@ -28,19 +30,24 @@ class ParticipantsController extends Controller
      */
     public function store(Request $request)
     {
+
+        dd($request->all());
+
         $request->validate([
             'event_id' => 'required|exists:events,id',
             'full_name' => 'required|string|max:255',
             'dni' => 'required|string|max:20|unique:participants',
             'email' => 'required|string|email|max:255|unique:participants',
-            'modality' => 'required|in: in_person, virtual',
-            'payment_status' => 'required|in: pending, approved, rejected,
-                refunded, charged_back, cancelled',
+            'role' => 'required|in:profesor,alumno,oyente',
+            'modality' => 'required|in:in_person,virtual',
+            'payment_status' => 'required|in:pending,approved,rejected,refunded,charged_back,cancelled',
+            'payment_method' => 'required|in:mercado_pago,cash',
             'payment_external_id' => 'nullable|string|max:255',
             'qr_token' => 'nullable|string|max:255',
             'checkin_confirmed' => 'nullable|boolean',
-            'access_code' => 'nullable|date',
+            'access_code' => 'nullable|string|max:30',
             'questions_completed' => 'nullable|boolean',
+            'registered_at' => 'nullable|date',
             'paid_at' => 'nullable|date',
         ]);
 
@@ -49,13 +56,16 @@ class ParticipantsController extends Controller
             'full_name',
             'dni',
             'email',
+            'role',
             'modality',
             'payment_status',
+            'payment_method',
             'payment_external_id',
             'qr_token',
             'checkin_confirmed',
             'access_code',
             'questions_completed',
+            'registered_at',
             'paid_at',
         ]));
 
@@ -66,7 +76,7 @@ class ParticipantsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Participants $participant)
     {
         return view('participants.show', compact('participant'));
     }
@@ -74,29 +84,31 @@ class ParticipantsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Participants $participant)
     {
-        return view('participants.show', compact('participant'));
+        return view('participants.edit', compact('participant'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Participants $participant)
     {
         $request->validate([
             'event_id' => 'required|exists:events,id',
             'full_name' => 'required|string|max:255',
-            'dni' => 'required|string|max:20|unique:participants,dni,' . $id,
-            'email' => 'required|string|email|max:255|unique:participants,email,' . $id,
-            'modality' => 'required|in: in_person, virtual',
-            'payment_status' => 'required|in: pending, approved, rejected,
-                refunded, charged_back, cancelled',
+            'dni' => 'required|string|max:20|unique:participants,dni,' . $participant->$id,
+            'email' => 'required|string|email|max:255|unique:participants,email,' . $participant->$id,
+            'role' => 'required|in:profesor,alumno,oyente',
+            'modality' => 'required|in:in_person,virtual',
+            'payment_status' => 'required|in:pending,approved,rejected,refunded,charged_back,cancelled',
+            'payment_method' => 'required|in:mercado_pago,cash',
             'payment_external_id' => 'nullable|string|max:255',
             'qr_token' => 'nullable|string|max:255',
             'checkin_confirmed' => 'nullable|boolean',
-            'access_code' => 'nullable|date',
+            'access_code' => 'nullable|string|max:30',
             'questions_completed' => 'nullable|boolean',
+            'registered_at' => 'nullable|date',
             'paid_at' => 'nullable|date',
         ]);
 
@@ -105,13 +117,16 @@ class ParticipantsController extends Controller
             'full_name'=>$request->full_name,
             'dni'=>$request->dni,
             'email'=>$request->email,
+            'role'=>$request->role,
             'modality'=>$request->modality,
             'payment_status'=>$request->payment_status,
+            'payment_method'=>$request->payment_method,
             'payment_external_id'=>$request->payment_external_id,
             'qr_token'=>$request->qr_token,
             'checkin_confirmed'=>$request->checkin_confirmed,
             'access_code'=>$request->access_code,
             'questions_completed'=>$request->questions_completed,
+            'registered_at'=>$request->registered_at,
             'paid_at'=>$request->paid_at,
         ]);
 
@@ -122,7 +137,7 @@ class ParticipantsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Participants $participant)
     {
         $participant->delete();
 

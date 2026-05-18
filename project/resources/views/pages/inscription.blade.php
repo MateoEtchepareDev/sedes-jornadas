@@ -12,7 +12,23 @@
             Formulario de Inscripción
         </h1>
 
-        <form>
+        @if ($errors->any())
+
+            <div>
+
+                @foreach ($errors->all() as $error)
+
+                    <p>{{ $error }}</p>
+
+                @endforeach
+
+            </div>
+
+        @endif
+
+        <form method="POST" action="/participants">
+
+        @csrf
 
             <div class="form-grid">
 
@@ -24,7 +40,9 @@
 
                     <input
                         type="text"
-                        class="field-input">
+                        class="field-input"
+                        name="full_name"
+                        required>
 
                 </div>
 
@@ -36,7 +54,9 @@
 
                     <input
                         type="text"
-                        class="field-input">
+                        class="field-input"
+                        name="dni"
+                        required>
 
                 </div>
 
@@ -48,7 +68,9 @@
 
                     <input
                         type="email"
-                        class="field-input">
+                        class="field-input"
+                        name="email"
+                        required>
 
                 </div>
 
@@ -58,33 +80,26 @@
                         Rol
                     </label>
 
-                    <select class="field-select">
+                    <select 
+                    class="field-select"
+                    name="role">
 
-                        <option>
+                        <option
+                            value="profesor">
                             Profesor
                         </option>
 
-                        <option>
+                        <option
+                            value="alumno">
                             Alumno
                         </option>
 
-                        <option>
+                        <option
+                            value="oyente">
                             Oyente
                         </option>
 
                     </select>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        Teléfono
-                    </label>
-
-                    <input
-                        type="text"
-                        class="field-input">
 
                 </div>
 
@@ -96,21 +111,29 @@
 
                     <div class="option-row">
 
-                        <button
-                            type="button"
-                            class="option-btn">
+                        <label class="option-btn">
 
-                            FISICO
+                            <input
+                                type="radio"
+                                name="modality"
+                                value="in_person"
+                                hidden>
 
-                        </button>
+                                FISICO
 
-                        <button
-                            type="button"
-                            class="option-btn">
+                        </label>
 
-                            VIRTUAL
+                        <label class="option-btn">
 
-                        </button>
+                            <input
+                                type="radio"
+                                name="modality"
+                                value="virtual"
+                                hidden>
+
+                                VIRTUAL
+
+                        </label>
 
                     </div>
 
@@ -120,23 +143,45 @@
 
             <div class="payment-row">
 
-                <div class="payment-card">
+                <label class="payment-card">
+
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="mercado_pago"
+                        hidden>
 
                     <span>
                         Mercado Pago
                     </span>
 
-                </div>
+                </label>
 
-                <div class="payment-card">
+                <label class="payment-card">
+
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="cash"
+                        hidden>
 
                     <span>
                         Efectivo
                     </span>
 
-                </div>
+                </label>
 
             </div>
+
+            <input
+                type="hidden"
+                name="event_id"
+                value="{{ $event->id ?? 1 }}">
+
+            <input
+                type="hidden"
+                name="payment_status"
+                value="pending">
 
             <div class="submit-zone">
 
