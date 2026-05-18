@@ -40,15 +40,18 @@
                                 Lugar: {{ $jornada['lugar'] }}
                             </li>
 
+                            <li>
+                                Arancel de la jornada: {{ $jornada['precio'] }}
+                            </li>
                         </ul>
 
                     </div>
 
-                    <div class="hero-buttons">
+                    <div class="hero-buttons col-8">
 
                         <a
                             href="#"
-                            class="btn-yellow">
+                            class="btn-yellow" >
 
                             Inscribirse
 
@@ -69,17 +72,9 @@
                 <div class="col-12 col-lg-6">
 
                     <img
-                        src="{{ asset($jornada['imagen']) }}"
+                        src="{{ asset($jornada['flyer']) }}"
                         alt="jornada"
                         class="hero-image">
-
-                    <p class="hero-price">
-
-                        Arancel de la jornada:
-                        {{ $jornada['precio'] }}
-
-                    </p>
-
                 </div>
 
             </div>
@@ -90,17 +85,12 @@
 
 </section>
 
-<section
-    id="sobre"
-    class="section-custom">
-
-    <div class="container custom-container">
-
-        <h2 class="section-title">
-            Sobre la jornada
-        </h2>
-
+<section id="sobre" class="section-custom section-white">
+    <div class="container custom-container sobre-container">
         <div class="sobre-card">
+            <h2 class="section-title">
+                Sobre la jornada
+            </h2>
 
             <div class="row g-4 align-items-stretch">
 
@@ -144,8 +134,7 @@
                     <img
                         src="{{ asset($jornada['flyer']) }}"
                         alt="flyer"
-                        class="flyer-image">
-
+                        class="flyer-image flyer-small">
                 </div>
 
             </div>

@@ -1,23 +1,21 @@
-<footer class="footer-custom">
+<footer class="footer">
 
     <div class="container custom-container">
 
-        <div class="row align-items-center gy-4">
+        <div class="footer-top">
 
-            <div class="col-12 col-md-6">
+            <div class="footer-col footer-brand">
 
                 <img
-                    src="{{ asset('images/logo-footer.png') }}"
+                    src="{{ asset('images/SedesCompleto.png') }}"
                     alt="logo"
                     class="footer-logo">
 
             </div>
 
-            <div class="col-12 col-md-3 text-md-center">
+            <div class="footer-col">
 
-                <h3 class="footer-title">
-                    Contacto
-                </h3>
+                <h3 class="footer-title">Contacto</h3>
 
                 <p class="footer-text">
                     jornadas@sedessapientiae.edu.ar
@@ -25,22 +23,37 @@
 
             </div>
 
-            <div class="col-12 col-md-3 text-md-center">
+            <div class="footer-col">
 
-                <h3 class="footer-title">
-                    Seguinos
-                </h3>
+                <h3 class="footer-title">Seguinos</h3>
 
                 <div class="footer-icons">
 
-                    <span>▶</span>
-                    <span>f</span>
+                    <a href="#" class="icon">
+                        <img src="{{ asset('images/facebook.png') }}" alt="facebook">
+                    </a>
+
+                    <a href="#" class="icon">
+                        <img src="{{ asset('images/youtube.png') }}" alt="youtube">
+                    </a>
 
                 </div>
 
             </div>
 
         </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Sedes Sapientiae | Todos los derechos reservados
+        </p>
+
+        <a href="/admin" class="admin-access">
+            Acceso administradores
+        </a>
 
     </div>
 
