@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-
+use App\Models\Participants;
 
 class Events extends Model
 {
@@ -20,4 +20,8 @@ class Events extends Model
         'max_participants',
         'status'
     ];
+     public function participants()
+    {
+        return $this->hasMany(Participants::class);
+    }
 }
