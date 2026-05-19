@@ -27,6 +27,7 @@ class RegisterParticipantRequest extends FormRequest
             'event_id' => 'required|exists:events,id',
             'full_name' => 'required|string|max:255',
             'dni' => 'required|string|max:20',
+            'modality' => 'required|in:virtual,in_person',
             'email' => 'required|email',
         ];
     }
@@ -36,7 +37,7 @@ class RegisterParticipantRequest extends FormRequest
             $evente = Events::find($this->event_id); 
             if (!$event){
                 return;
-            }
+            } //ver si hay cupos disponibles
           if ($event->participants()->count() >= $event->max_participants){
             $validator->errors()->add(
                 'event_id',
@@ -47,12 +48,23 @@ class RegisterParticipantRequest extends FormRequest
             now()->lt($event->registration_opens_at) ||
             now()->gt($event->registration_closes_at)
         ) {
-
+            //fechas de inscripcion
             $validator->errors()->add(
                 'event_id',
                 'Las inscripciones para este evento no están disponibles.'
             );
         }   
+
+        $alredyRegistered = $event->participants()
+            ->where('email', $this->email)
+            ->exists(); 
+
+        if ($alredyRegistered){
+            $validator -> errors() -> add(
+                'email',
+                'Este email ya está registrado para este evento.'
+            );
+        }
     });
     }
 }   
