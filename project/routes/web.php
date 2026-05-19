@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,7 +25,7 @@ require __DIR__.'/auth.php';
 Route::get('/', [HomeController::class, 'index']);
 
 // Página de listado de eventos: muestra eventos publicados y permite filtrar por estado/fecha.
-Route::get('/eventos', [App\Http\Controllers\EventController::class, 'index'])->name('eventos.index');
+Route::get('/eventos', [EventController::class, 'index'])->name('eventos.index');
 
 // Página de detalle del evento: muestra información del evento, fechas, cupo y botón de inscripción.
 Route::get('/eventos/{event}', [Controller::class, 'method']);
@@ -39,7 +40,9 @@ Route::post('/eventos/{event}/inscribirse', [Controller::class, 'method']);
 Route::get('/eventos/{event}/streaming', [Controller::class, 'method']);
 
 // Página de certificado: permite ver/validar el certificado usando su UUID.
-Route::get('/eventos/{event}/certificados/uuid',);
+Route::get('/eventos/{event}/certificados/{uuid}', function () {
+
+});
 
 // Página de login: muestra formulario de acceso para administradores.
 Route::get('/admin/login',);
@@ -47,16 +50,42 @@ Route::get('/admin/login',);
 // Acción de login: autentica administrador y redirige al panel.
 Route::post('/admin/login',);
 
-
 // Acción de logout: cierra sesión del administrador.
+Route::post('/admin/logout', function () {
+
+});
+
 // Página de solicitud de restablecimiento de contraseña: solicita email para enviar enlace.
+Route::get('/admin/restablecer');
+
 // Acción de envío de correo de restablecimiento: genera token y envía el email.
+Route::post('/admin/restablecer', function () {
+
+});
+
 // Página de restablecimiento de contraseña: permite ingresar nueva contraseña con token.
+Route::get('/admin/restablecer-nueva', function () {
+
+});
+
 // Acción de actualización de contraseña: guarda la nueva contraseña y autentica al admin.
+Route::post('/admin/restablecer-nueva', function () {
+
+});
 
 // Panel admin: muestra resumen y accesos rápidos de jornadas e inscripciones.
+Route::get('/admin/panel', [Controller::class, 'method']);
+
 // Página de listado de jornadas admin: lista jornadas con acciones de editar, publicar/ocultar y eliminar.
+Route::get('/admin/panel/jornadas', function() {
+
+});
+
 // Página de creación de jornada admin: muestra formulario para crear evento.
+Route::get('/admin/panel/jornadas/nueva', function () {
+
+});
+
 // Acción de guardar jornada admin: valida datos y crea el evento.
 // Página de edición de jornada admin: muestra formulario con datos existentes.
 // Acción de actualizar jornada admin: valida cambios y guarda el evento.
@@ -73,4 +102,3 @@ Route::post('/admin/login',);
 // Página de edición de administrador: muestra formulario para actualizar datos.
 // Acción de actualizar administrador: guarda cambios del usuario.
 // Acción de eliminar administrador: borra o desactiva al administrador.
-
