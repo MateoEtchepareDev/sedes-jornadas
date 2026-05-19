@@ -1,11 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipantsController;
 
-//<<<<<<< Updated upstream
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/inscripcion', function () {
+    return view('pages.public.inscription');
+});
+
+Route::get('/code', function () {
+    return view('pages.public.code');
+});
+
+/* Route::get('/', function () {
     return view('welcome');
 });
 //=======
@@ -13,7 +22,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/inscription', function() {
     return view('pages.inscription');
-})->name('inscription');
+})->name('inscription'); */
 
 Route::resource('participants', ParticipantsController::class);
 
