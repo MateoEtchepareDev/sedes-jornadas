@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Events;
+
+class EventsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $events = Event::all();
+        return view('events.index', compact('events'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('events.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'stream_url' => 'nullable|url|max:500',
+            'registration_opens_at' => 'nullable|date',
+            'registration_closes_at' => 'nullable|date|after:registration_opens_at',
+            'event_starts_at' => 'required|date',
+            'event_ends_at' => 'required|date|after:event_starts_at',
+            'max_participants' => 'nullable|integer|min:1',
+            'status' => 'required|in:draft,published,active,finished,cancelled',
+        ]);
+
+        Product::create($request->only([
+            'title',
+            'description',
+            'price',
+            'stream_url',
+            'registration_opens_at',
+            'registration_closes_at',
+            'event_starts_at',
+            'event_ends_at',
+            'max_participants',
+            'status',
+        ]));
+
+        return redirect()->route('events.index')
+                        ->with('success', 'Evento creado correctamente.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        return view('events.show', compact('event'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        return view('events.show', compact('event'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'stream_url' => 'nullable|url|max:500',
+            'registration_opens_at' => 'nullable|date',
+            'registration_closes_at' => 'nullable|date|after:registration_opens_at',
+            'event_starts_at' => 'required|date',
+            'event_ends_at' => 'required|date|after:event_starts_at',
+            'max_participants' => 'nullable|integer|min:1',
+            'status' => 'required|in:draft,published,active,finished,cancelled',
+        ]);
+
+        $event->update([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'price'=>$request->price,
+            'stream_url'=>$request->stream_url,
+            'registration_opens_at'=>$request->registration_opens_at,
+            'registration_closes_at'=>$request->registration_closes_at,
+            'event_starts_at'=>$request->event_starts_at,
+            'event_ends_at'=>$request->event_ends_at,
+            'max_participants'=>$request->max_participants,
+            'status'=>$request->status,
+        ]);
+
+        return redirect()->route('events.index')
+                        ->with('success', 'Evento actualizado correctamente.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $event->delete();
+
+        return redirect()->route('events.index')
+                        ->with('success', 'Evento eliminado correctamente.');
+    }
+}
