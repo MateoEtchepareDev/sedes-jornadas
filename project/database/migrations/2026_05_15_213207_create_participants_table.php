@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('full_name');
             $table->string('dni', 20);
             $table->string('email');
+            $table->string('role');
             $table->enum('modality', ['in_person', 'virtual']);
             $table->enum('payment_status', ['pending', 'approved', 'rejected',
                 'refunded', 'charged_back', 'cancelled'])->default('pending');
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('access_code', 64)->nullable(); // Código de acceso al stream, NULL si es presencial
             $table->boolean('questions_completed')->nullable(); // NULL si es presencial
             $table->dateTime('registered_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('registered_at')->nullable();
             $table->dateTime('paid_at')->nullable();
             $table->timestamps();
         });

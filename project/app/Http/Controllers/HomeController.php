@@ -41,52 +41,52 @@ class HomeController extends Controller
         $jornadasAnteriores = [
             [
                 'titulo' => '1° Jornada',
-                'descripcion' => 'Desafíos y oportunidades en la era digital.',
-                'url' => 'https://google.com'
+                'descripcion' => 'Enseñar y aprender en la Sociedad de la Información y del Conocimiento.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornadas/jornadas.htm'
             ],
             [
                 'titulo' => '2° Jornada',
-                'descripcion' => 'Tecnologías emergentes en educación.',
-                'url' => 'https://google.com'
+                'descripcion' => 'Pensando la docencia en clave de diseño.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornadas-18/jornadas2018-sedes3.htm'
             ],
             [
                 'titulo' => '3° Jornada',
-                'descripcion' => 'Transformación digital educativa.',
-                'url' => 'https://google.com'
+                'descripcion' => 'La lectura y la escritura como clave transversal para todo aprendizaje.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornadas-19/jornadas2019.html'
             ],
                         [
                 'titulo' => '4° Jornada',
-                'descripcion' => 'Desafíos y oportunidades en la era digital.',
-                'url' => 'https://google.com'
+                'descripcion' => 'De prácticas y mediaciones en la virtualidad repentina.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornada-IV/jornada-iv.html'
             ],
             [
                 'titulo' => '5° Jornada',
-                'descripcion' => 'Tecnologías emergentes en educación.',
-                'url' => 'https://google.com'
+                'descripcion' => 'El arte docente en tiempos de incertidumbre.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornada-V/index.htm'
             ],
             [
                 'titulo' => '6° Jornada',
-                'descripcion' => 'Transformación digital educativa.',
-                'url' => 'https://google.com'
+                'descripcion' => 'Aulas Inclusivas: hacia la diversificacion curricular y la identificacion de barreras para el aprendizaje.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornada-VI/index.htm'
             ],
                         [
                 'titulo' => '7° Jornada',
-                'descripcion' => 'Desafíos y oportunidades en la era digital.',
-                'url' => 'https://google.com'
+                'descripcion' => 'Educación emocional como eje transversal del proceso educativo.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornada-VII/index.htm'
             ],
             [
                 'titulo' => '8° Jornada',
-                'descripcion' => 'Tecnologías emergentes en educación.',
-                'url' => 'https://google.com'
+                'descripcion' => 'Desafios y oportunidades en la era de la inteligencia artificial generativa ¿Estamos preparados para esta revolución educativa?.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornada-VIII/index.htm'
             ],
             [
                 'titulo' => '9° Jornada',
-                'descripcion' => 'Transformación digital educativa.',
-                'url' => 'https://google.com'
+                'descripcion' => 'Convivir para aprender: claves para construir entornos escolares seguros; prevencion y tratamiento de la violencia escolar.',
+                'url' => 'https://www.sedessapientiae.edu.ar/jornada-IX/index.htm'
             ],
         ];
 
-        return view('pages.home', compact(
+        return view('pages.public.home', compact(
             'jornada',
             'cronogramas',
             'jornadasAnteriores'
