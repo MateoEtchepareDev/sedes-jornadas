@@ -40,6 +40,10 @@
         rel="stylesheet"
         href="{{ asset('css/code.css') }}">
 
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/edit.css') }}">
+
 </head>
 
 <body>
@@ -55,6 +59,10 @@
             @elseif(!empty($code))
 
                 @yield('input-code')
+            
+            @elseif(!empty($edit))
+
+                @yield('edit')
 
             @else
 

@@ -31,10 +31,8 @@ class ParticipantsController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
-
         $request->validate([
-            'event_id' => 'required|exists:events,id',
+            'event_id' => 'required',
             'full_name' => 'required|string|max:255',
             'dni' => 'required|string|max:20|unique:participants',
             'email' => 'required|string|email|max:255|unique:participants',
@@ -95,10 +93,10 @@ class ParticipantsController extends Controller
     public function update(Request $request, Participants $participant)
     {
         $request->validate([
-            'event_id' => 'required|exists:events,id',
+            'event_id' => 'required',
             'full_name' => 'required|string|max:255',
-            'dni' => 'required|string|max:20|unique:participants,dni,' . $participant->$id,
-            'email' => 'required|string|email|max:255|unique:participants,email,' . $participant->$id,
+            'dni' => 'required|string|max:20|unique:participants,dni,' . $participant->id,
+            'email' => 'required|string|email|max:255|unique:participants,email,' . $participant->id,
             'role' => 'required|in:profesor,alumno,oyente',
             'modality' => 'required|in:in_person,virtual',
             'payment_status' => 'required|in:pending,approved,rejected,refunded,charged_back,cancelled',
