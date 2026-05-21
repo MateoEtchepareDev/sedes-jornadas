@@ -409,4 +409,3 @@ Los logs son importantes.
   - ingresos,
   - modificaciones administrativas,
   - revocaciones.
-

@@ -154,6 +154,7 @@ CREATE TABLE participants (
 CREATE TABLE certificates (
     id                  BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     participant_id      BIGINT UNSIGNED  NOT NULL,
+    event_id            BIGINT UNSIGNED  NOT NULL
     certificate_uuid    CHAR(36)         NOT NULL,   -- UUIDv4
     issued_at           DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

@@ -12,6 +12,7 @@
             Formulario de Inscripción
         </h1>
 
+
         @if ($errors->any())
 
             <div>
@@ -29,6 +30,7 @@
         <form method="POST" action="/participants">
 
         @csrf
+
 
             <div class="form-grid">
 
@@ -143,13 +145,7 @@
 
             <div class="payment-row">
 
-                <label class="payment-card">
-
-                    <input
-                        type="radio"
-                        name="payment_method"
-                        value="mercado_pago"
-                        hidden>
+                <div class="payment-card">
 
                     <span>
                         Mercado Pago

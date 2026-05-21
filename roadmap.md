@@ -21,10 +21,10 @@ Este roadmap contiene todas las tareas necesarias para construir el sistema comp
    - Configurar `project/routes/web.php` con rutas públicas y admin.
    - Crear controlador base `Controller` y controladores iniciales.
 
-4. Implementar gestión de jornadas
+<!-- 4. Implementar gestión de jornadas
    - `Admin/EventController`: crear, editar, listar, publicar y ocultar eventos.
    - Validación usando `StoreEventRequest`.
-   - Soporte a estados de evento y fechas de registro.
+   - Soporte a estados de evento y fechas de registro. -->
 
 5. Implementar inscripciones y validación de cupo
    - `Participant` con modalidad `in_person`/`virtual`.
