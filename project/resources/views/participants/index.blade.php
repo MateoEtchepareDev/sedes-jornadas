@@ -24,7 +24,7 @@
 
         <div class="participants-grid">
 
-            @foreach($participants as $participant)
+            @foreach($participant as $participants)
 
                 <div class="participant-card">
 
@@ -36,7 +36,7 @@
 
                         <div class="field-display">
 
-                            {{ $participant->full_name }}
+                            {{ $participants->full_name }}
 
                         </div>
 
@@ -50,7 +50,7 @@
 
                         <div class="field-display">
 
-                            {{ $participant->email }}
+                            {{ $participants->email }}
 
                         </div>
 
@@ -64,7 +64,7 @@
 
                         <div class="field-display">
 
-                            {{ $participant->dni }}
+                            {{ $participants->dni }}
 
                         </div>
 
@@ -78,7 +78,7 @@
 
                         <div class="field-display">
 
-                            {{ ucfirst($participant->role) }}
+                            {{ ucfirst($participants->role) }}
 
                         </div>
 
@@ -92,7 +92,7 @@
 
                         <div class="field-display">
 
-                            {{ $participant->modality == 'virtual' ? 'Virtual' : 'Presencial' }}
+                            {{ $participants->modality == 'virtual' ? 'Virtual' : 'Presencial' }}
 
                         </div>
 
@@ -106,7 +106,7 @@
 
                         <div class="field-display">
 
-                            {{ $participant->payment_method == 'mercado_pago' ? 'Mercado Pago' : 'Efectivo' }}
+                            {{ $participants->payment_method == 'mercado_pago' ? 'Mercado Pago' : 'Efectivo' }}
 
                         </div>
 
@@ -118,7 +118,7 @@
 
         </div>
         
-            <a href="{{ route('participants.edit', $participant->id) }}">
+            <a href="{{ route('participants.edit', $participants->id) }}">
                 editar participante
             </a>
 
