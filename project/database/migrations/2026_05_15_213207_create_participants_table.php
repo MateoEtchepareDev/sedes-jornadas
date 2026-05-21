@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('modality', ['in_person', 'virtual']);
             $table->enum('payment_status', ['pending', 'approved', 'rejected',
                 'refunded', 'charged_back', 'cancelled'])->default('pending');
+            $table->enum('payment_method', ['mercado_pago', 'cash'])->default('mercado_pago');
             $table->string('payment_external_id')->nullable(); // ID de pago externo (Mercado Pago), NULL si es pago manual o gratuito
             // Campos para modalidad presencial
             $table->string('qr_token', 500)->nullable(); // JWT firmado, NULL si es virtual
@@ -29,7 +30,6 @@ return new class extends Migration
             $table->string('access_code', 64)->nullable(); // Código de acceso al stream, NULL si es presencial
             $table->boolean('questions_completed')->nullable(); // NULL si es presencial
             $table->dateTime('registered_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('registered_at')->nullable();
             $table->dateTime('paid_at')->nullable();
             $table->timestamps();
         });
