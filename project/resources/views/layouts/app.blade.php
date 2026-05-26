@@ -44,6 +44,10 @@
         rel="stylesheet"
         href="{{ asset('css/edit.css') }}">
 
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/stream.css') }}">
+
 </head>
 
 <body>
@@ -63,6 +67,10 @@
             @elseif(!empty($edit))
 
                 @yield('edit')
+
+            @elseif(!empty($transmission))
+
+                @yield('stream')
 
             @else
 

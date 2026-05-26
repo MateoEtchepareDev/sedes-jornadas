@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #dfeaf3;
+    font-family: 'Poppins', sans-serif;
+    color: #1e2d44;
+}
+
+/* =========================
+   STREAM SECTION
+========================= */
+
+.stream-section {
+    padding: 60px 0;
+    min-height: 80vh;
+}
+
+.stream-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.stream-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 22px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.stream-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2367a4;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.stream-subtitle {
+    text-align: center;
+    font-size: 17px;
+    color: #4e5d6c;
+    margin-bottom: 35px;
+}
+
+.stream-video-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+    background: #000;
+}
+
+.stream-video-wrapper iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    display: block;
+}
+
+/* =========================
+   INFO BOX
+========================= */
+
+.stream-info {
+    margin-top: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.stream-info h3 {
+    color: #2367a4;
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.stream-info p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4d5a68;
+}
+
+/* =========================
+   LIVE BADGE
+========================= */
+
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #e21582;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(226, 21, 130, 0.35);
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 1.3s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+
+    .stream-title {
+        font-size: 34px;
+    }
+
+    .stream-video-wrapper iframe {
+        height: 500px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .stream-section {
+        padding: 35px 0;
+    }
+
+    .stream-container {
+        padding: 0 15px;
+    }
+
+    .stream-card {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .stream-title {
+        font-size: 28px;
+    }
+
+    .stream-subtitle {
+        font-size: 15px;
+    }
+
+    .stream-video-wrapper iframe {
+        height: 250px;
+    }
+
+    .stream-info {
+        padding: 18px;
+    }
+
+    .stream-info h3 {
+        font-size: 20px;
+    }
+
+}

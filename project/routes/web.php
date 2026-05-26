@@ -11,6 +11,10 @@ Route::get('/inscripcion', function () {
     return view('pages.public.inscription');
 });
 
+Route::get('/transmission', function () {
+    return view('pages.public.transmission');
+});
+
 Route::get('/code', function () {
     return view('pages.public.code');
 });

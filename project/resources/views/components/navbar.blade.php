@@ -28,7 +28,7 @@
 
         </a>
 
-        @if(!isset($inscripcion) && !isset($code))
+        @if(!isset($inscripcion) && !isset($code) && !isset($edit) && !isset($transmission))
 
             <button
                 class="navbar-toggler"
