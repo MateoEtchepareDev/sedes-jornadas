@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipantsController;
+use App\Http\Controllers\FormController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -18,6 +19,11 @@ Route::get('/transmission', function () {
 Route::get('/code', function () {
     return view('pages.public.code');
 });
+
+Route::post(
+    '/enviar',
+    [FormController::class, 'enviar']
+)->name('formulario.enviar');
 
 /* Route::get('/', function () {
     return view('welcome');

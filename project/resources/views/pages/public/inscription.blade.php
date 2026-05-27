@@ -27,7 +27,7 @@
 
         @endif
 
-        <form method="POST" action="/participants">
+        <form method="POST" action="{{ route('formulario.enviar') }}">
 
         @csrf
 
