@@ -19,6 +19,9 @@ Route::get('/code', function () {
     return view('pages.public.code');
 });
 
+//te redirige a la pagina para hacer el pago
+Route::get('/pagar', [PaymentController::class, 'checkout']);
+
 /* Route::get('/', function () {
     return view('welcome');
 });

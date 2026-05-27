@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Participants;
+use Database\Factories\EventFactory;
 
 class Events extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
         'title',
         'description',
@@ -20,8 +23,15 @@ class Events extends Model
         'max_participants',
         'status'
     ];
-     public function participants()
+    
+    public function participants()
     {
         return $this->hasMany(Participants::class);
     }
+
+    protected static function newFactory()
+    {
+        return EventFactory::new();
+    }
+
 }
