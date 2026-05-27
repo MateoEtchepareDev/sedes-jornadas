@@ -5,196 +5,88 @@
 @section('form')
 
 <section class="form-wrapper">
+    <div class="container">
+        <div class="form-box">
 
-    <div class="form-box">
+            <h1 class="form-heading">Formulario de Inscripción</h1>
 
-        <h1 class="form-heading">
-            Formulario de Inscripción
-        </h1>
-
-
-        @if ($errors->any())
-
-            <div>
-
-                @foreach ($errors->all() as $error)
-
-                    <p>{{ $error }}</p>
-
-                @endforeach
-
-            </div>
-
-        @endif
-
-        <form method="POST" action="/participants">
-
-        @csrf
-
-
-            <div class="form-grid">
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        Nombre Completo
-                    </label>
-
-                    <input
-                        type="text"
-                        class="field-input"
-                        name="full_name"
-                        required>
-
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
+            @endif
 
-                <div class="field-group">
+            <form method="POST" action="/participants">
+                @csrf
 
-                    <label class="field-label">
-                        DNI
-                    </label>
+                <div class="row g-3">
 
-                    <input
-                        type="text"
-                        class="field-input"
-                        name="dni"
-                        required>
+                    <div class="col-md-6">
+                        <label class="field-label">Nombre Completo</label>
+                        <input type="text" name="full_name" class="form-control field-input" required>
+                    </div>
 
-                </div>
+                    <div class="col-md-6">
+                        <label class="field-label">DNI</label>
+                        <input type="text" name="dni" class="form-control field-input" required>
+                    </div>
 
-                <div class="field-group">
+                    <div class="col-md-6">
+                        <label class="field-label">Email</label>
+                        <input type="email" name="email" class="form-control field-input" required>
+                    </div>
 
-                    <label class="field-label">
-                        Email
-                    </label>
+                    <div class="col-md-6">
+                        <label class="field-label">Rol</label>
+                        <select name="role" class="form-select field-select">
+                            <option value="profesor">Profesor</option>
+                            <option value="alumno">Alumno</option>
+                            <option value="oyente">Oyente</option>
+                        </select>
+                    </div>
 
-                    <input
-                        type="email"
-                        class="field-input"
-                        name="email"
-                        required>
+                    <div class="col-12">
+                        <label class="field-label">Certificado</label>
+                        <div class="option-row">
+                            <input type="radio" id="mod_in_person" name="modality" value="in_person" class="d-none option-cetificate">
+                            <label for="mod_in_person" class="option-btn btn">FISICO</label>
 
-                </div>
+                            <input type="radio" id="mod_virtual" name="modality" value="virtual" class="d-none option-cetificate">
+                            <label for="mod_virtual" class="option-btn btn">VIRTUAL</label>
+                        </div>
+                    </div>
 
-                <div class="field-group">
+                    <div class="col-12">
+                        <label class="field-label">Pago</label>
+                        <div class="payment-row">
+                            <input type="radio" id="pay_mercado" name="payment_method" value="mercadopago" class="d-none" action="/pagar">
+                            <label for="pay_mercado" class="payment-card btn">
+                                <img class="bi bi-wallet2" src=""></img>
+                                <span>Mercado Pago</span>
+                            </label>
 
-                    <label class="field-label">
-                        Rol
-                    </label>
-
-                    <select 
-                    class="field-select"
-                    name="role">
-
-                        <option
-                            value="profesor">
-                            Profesor
-                        </option>
-
-                        <option
-                            value="alumno">
-                            Alumno
-                        </option>
-
-                        <option
-                            value="oyente">
-                            Oyente
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        Certificado
-                    </label>
-
-                    <div class="option-row">
-
-                        <label class="option-btn">
-
-                            <input
-                                type="radio"
-                                name="modality"
-                                value="in_person"
-                                hidden>
-
-                                FISICO
-
-                        </label>
-
-                        <label class="option-btn">
-
-                            <input
-                                type="radio"
-                                name="modality"
-                                value="virtual"
-                                hidden>
-
-                                VIRTUAL
-
-                        </label>
-
+                            <input type="radio" id="pay_cash" name="payment_method" value="cash" class="d-none">
+                            <label for="pay_cash" class="payment-card btn">
+                                <img class="bi bi-cash-stack" src="{{ asset('images/cash.png') }}"></img>
+                                <span>Efectivo</span>
+                            </label>
+                        </div>
                     </div>
 
                 </div>
 
-            </div>
+                <input type="hidden" name="event_id" value="{{ $event->id ?? 1 }}">
+                <input type="hidden" name="payment_status" value="pending">
 
-            <div class="payment-row">
+                <div class="submit-zone">
+                    <button type="submit" class="btn btn-warning submit-btn">Inscribirse</button>
+                </div>
+            </form>
 
-                <div class="payment-card">
-
-                    <span>
-                        Mercado Pago
-                    </span>
-
-                </label>
-
-                <label class="payment-card">
-
-                    <input
-                        type="radio"
-                        name="payment_method"
-                        value="cash"
-                        hidden>
-
-                    <span>
-                        Efectivo
-                    </span>
-
-                </label>
-
-            </div>
-
-            <input
-                type="hidden"
-                name="event_id"
-                value="{{ $event->id ?? 1 }}">
-
-            <input
-                type="hidden"
-                name="payment_status"
-                value="pending">
-
-            <div class="submit-zone">
-
-                <button
-                    type="submit"
-                    class="submit-btn">
-
-                    Inscribirse
-
-                </button>
-
-            </div>
-
-        </form>
-
+        </div>
     </div>
-
-</section>
-
 @endsection
