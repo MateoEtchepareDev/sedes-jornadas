@@ -28,11 +28,21 @@
 
                 <div class="card-header participants-card-header bg-white border-0">
 
-                    <div>
+                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
 
-                        <h1 class="h3 mb-1 text-dark">Participantes Registrados</h1>
+                        <div>
 
-                        <p class="text-muted mb-0">Listado claro y ordenado de todos los participantes.</p>
+                            <h1 class="h3 mb-1 text-dark">Participantes Registrados</h1>
+
+                            <p class="text-muted mb-0">Listado claro y ordenado de todos los participantes.</p>
+
+                        </div>
+
+                        <a href="{{ route('participants.create') }}" class="btn btn-primary">
+
+                            Nuevo participante
+
+                        </a>
 
                     </div>
 
@@ -96,11 +106,25 @@
 
                                             <td class="text-end">
 
-                                                <a href="{{ route('participants.edit', $item->id) }}" class="btn btn-outline-primary btn-sm">
+                                                <a href="{{ route('participants.edit', $item->id) }}" class="btn btn-outline-primary btn-sm me-2">
 
                                                     Editar
 
                                                 </a>
+
+                                                <form action="{{ route('participants.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este participante?');">
+
+                                                    @csrf
+
+                                                    @method('DELETE')
+
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+
+                                                        Eliminar
+
+                                                    </button>
+
+                                                </form>
 
                                             </td>
 

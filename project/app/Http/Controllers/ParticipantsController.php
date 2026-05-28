@@ -71,16 +71,13 @@ class ParticipantsController extends Controller
             'paid_at',
         ]));
 
-        if ($participants->payment_method == "cash") {
+        if ($participants->payment_method == 'cash') {
             Mail::to($participants->email)->send(
                 new FormularioMail($participants->full_name)
             );
 
             return redirect()->route('participants.index')
-                        ->with('success', 'Participante registrado correctamente.');
-        }
-        else {
-            
+                            ->with('success', 'Participante creado correctamente y correo enviado.');
         }
     }
 
