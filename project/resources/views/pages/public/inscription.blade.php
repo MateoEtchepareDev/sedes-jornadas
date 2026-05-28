@@ -27,7 +27,7 @@
 
         @endif
 
-        <form method="POST" action="{{ route('formulario.enviar') }}">
+        <form method="POST" action="{{ route('participants.store') }}">
 
         @csrf
 
@@ -145,7 +145,13 @@
 
             <div class="payment-row">
 
-                <div class="payment-card">
+                <label class="payment-card">
+
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="mercado_pago"
+                        hidden>
 
                     <span>
                         Mercado Pago

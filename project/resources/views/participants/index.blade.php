@@ -22,105 +22,105 @@
 
         @endif
 
-        <div class="participants-grid">
+        <section class="participants-page">
 
-            @foreach($participant as $participants)
+            <div class="card participants-card shadow-sm border-0">
 
-                <div class="participant-card">
+                <div class="card-header participants-card-header bg-white border-0">
 
-                    <div class="field-group">
+                    <div>
 
-                        <label class="field-label">
-                            Nombre Completo
-                        </label>
+                        <h1 class="h3 mb-1 text-dark">Participantes Registrados</h1>
 
-                        <div class="field-display">
-
-                            {{ $participants->full_name }}
-
-                        </div>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="field-label">
-                            Email
-                        </label>
-
-                        <div class="field-display">
-
-                            {{ $participants->email }}
-
-                        </div>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="field-label">
-                            DNI
-                        </label>
-
-                        <div class="field-display">
-
-                            {{ $participants->dni }}
-
-                        </div>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="field-label">
-                            Rol
-                        </label>
-
-                        <div class="field-display">
-
-                            {{ ucfirst($participants->role) }}
-
-                        </div>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="field-label">
-                            Modalidad
-                        </label>
-
-                        <div class="field-display">
-
-                            {{ $participants->modality == 'virtual' ? 'Virtual' : 'Presencial' }}
-
-                        </div>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="field-label">
-                            Método de Pago
-                        </label>
-
-                        <div class="field-display">
-
-                            {{ $participants->payment_method == 'mercado_pago' ? 'Mercado Pago' : 'Efectivo' }}
-
-                        </div>
+                        <p class="text-muted mb-0">Listado claro y ordenado de todos los participantes.</p>
 
                     </div>
 
                 </div>
 
-            @endforeach
+                <div class="card-body p-0">
 
-        </div>
-        
-            <a href="{{ route('participants.edit', $participants->id) }}">
-                editar participante
-            </a>
+                    @if($participant->isEmpty())
+
+                        <div class="empty-state text-center py-5">
+
+                            <p class="mb-0 text-muted">No hay participantes registrados todavía.</p>
+
+                        </div>
+
+                    @else
+
+                        <div class="table-responsive">
+
+                            <table class="table table-hover align-middle participants-table mb-0">
+
+                                <thead class="table-light">
+
+                                    <tr>
+
+                                        <th scope="col">Nombre completo</th>
+
+                                        <th scope="col">Email</th>
+
+                                        <th scope="col">DNI</th>
+
+                                        <th scope="col">Rol</th>
+
+                                        <th scope="col">Modalidad</th>
+
+                                        <th scope="col">Pago</th>
+
+                                        <th scope="col" class="text-end">Acciones</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    @foreach($participant as $item)
+
+                                        <tr>
+
+                                            <td class="fw-semibold">{{ $item->full_name }}</td>
+
+                                            <td>{{ $item->email }}</td>
+
+                                            <td>{{ $item->dni }}</td>
+
+                                            <td>{{ ucfirst($item->role) }}</td>
+
+                                            <td>{{ $item->modality == 'virtual' ? 'Virtual' : 'Presencial' }}</td>
+
+                                            <td>{{ $item->payment_method == 'mercado_pago' ? 'Mercado Pago' : 'Efectivo' }}</td>
+
+                                            <td class="text-end">
+
+                                                <a href="{{ route('participants.edit', $item->id) }}" class="btn btn-outline-primary btn-sm">
+
+                                                    Editar
+
+                                                </a>
+
+                                            </td>
+
+                                        </tr>
+
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        </section>
 
     </div>
 

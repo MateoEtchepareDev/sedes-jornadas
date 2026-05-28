@@ -48,6 +48,10 @@
         rel="stylesheet"
         href="{{ asset('css/stream.css') }}">
 
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/participants.css') }}">
+
 </head>
 
 <body>
