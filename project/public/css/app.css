@@ -260,44 +260,6 @@ body {
     margin: 0;
 }
 
-.cronograma-box {
-    background: white;
-    border-radius: 14px;
-    padding: 25px;
-    height: 100%;
-    border: 1px solid #d9d9d9;
-    transition: 0.3s;
-}
-
-.cronograma-box:hover {
-    transform: translateY(-4px);
-}
-
-.cronograma-hour {
-    display: inline-block;
-    background: #2367a4;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.cronograma-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #2367a4;
-    margin-bottom: 10px;
-}
-
-.cronograma-description {
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0;
-}
-
-
 .jornada-card {
     background: white;
     border: 1px solid #d8d8d8;
@@ -381,9 +343,6 @@ body {
     transition: 0.25s ease;
 }
 
-.footer-icons img:hover {
-    transform: translateY(-3px);
-}
 
 .footer-bottom {
     width: 100%;

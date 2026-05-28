@@ -61,11 +61,11 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="field-label">Pago</label>
+                        <label class="field-label metodoPago">Metodo de Pago</label>
                         <div class="payment-row">
-                            <input type="radio" id="pay_mercado" name="payment_method" value="mercadopago" class="d-none" action="/pagar">
+                            <input type="radio" id="pay_mercado" name="payment_method" value="mercado_pago" class="d-none" action="/pagar">
                             <label for="pay_mercado" class="payment-card btn">
-                                <img class="bi bi-wallet2" src=""></img>
+                                <img class="bi bi-wallet2" src="{{ asset('images/mercadopago.png') }}"></img>
                                 <span>Mercado Pago</span>
                             </label>
 
@@ -87,6 +87,14 @@
                 </div>
             </form>
 
+            <div id="successMessage" style="display:none;" class="alert alert-success mt-4">
+                <h4>Inscripción finalizada</h4>
+                <p>Pasar por mesa a pagar.</p>
+            </div>
+
         </div>
     </div>
+
+    <script src="{{ asset('js/inscription.js') }}"></script>
+
 @endsection

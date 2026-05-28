@@ -158,36 +158,6 @@
 </section>
 
 <section
-    id="cronograma"
-    class="section-custom">
-
-    <div class="container custom-container">
-
-        <h2 class="section-title">
-            Cronograma
-        </h2>
-
-        <div class="row g-4">
-
-            @foreach($cronogramas as $cronograma)
-
-                <div class="col-12 col-md-6 col-lg-4">
-
-                    @include('components.cronograma-card', [
-                        'cronograma' => $cronograma
-                    ])
-
-                </div>
-
-            @endforeach
-
-        </div>
-
-    </div>
-
-</section>
-
-<section
     id="anteriores"
     class="section-custom">
 

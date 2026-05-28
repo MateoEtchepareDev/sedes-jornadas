@@ -66,15 +66,6 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a
-                            class="nav-link nav-link-custom"
-                            href="#cronograma">
-
-                            Cronograma
-
-                        </a>
-                    </li>
 
                     <li class="nav-item mt-3 mt-lg-0">
 
