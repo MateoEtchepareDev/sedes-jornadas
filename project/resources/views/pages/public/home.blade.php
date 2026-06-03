@@ -8,9 +8,9 @@
 
         <div class="hero-card">
 
-            <div class="row align-items-center g-5">
+            <div class="container-custom row align-items-center g-5">
 
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-4">
 
                     <h1 class="hero-title">
                         {{ $jornada['titulo'] }}
@@ -25,29 +25,29 @@
                         <ul>
 
                             <li>
-                                Fecha: {{ $jornada['fecha'] }}
+                                <strong>Fecha: </strong>{{ $jornada['fecha'] }}
                             </li>
 
                             <li>
-                                Horario: {{ $jornada['hora'] }}
+                                <strong>Horario: </strong>{{ $jornada['hora'] }}
                             </li>
 
                             <li>
-                                Modalidad: {{ $jornada['modalidad'] }}
+                                <strong>Modalidad: </strong>{{ $jornada['modalidad'] }}
                             </li>
 
                             <li>
-                                Lugar: {{ $jornada['lugar'] }}
+                                <strong>Lugar: </strong>{{ $jornada['lugar'] }}
                             </li>
 
                             <li>
-                                Arancel de la jornada: {{ $jornada['precio'] }}
+                                <strong>Precio: </strong>{{ $jornada['precio'] }}
                             </li>
                         </ul>
 
                     </div>
 
-                    <div class="hero-buttons col-8">
+                    <div class="hero-buttons col-12">
 
                         <a
                             href="/inscripcion"
@@ -69,10 +69,10 @@
 
                 </div>
 
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-8">
 
                     <img
-                        src="{{ asset($jornada['flyer']) }}"
+                        src="{{ asset($jornada['flyer2']) }}"
                         alt="jornada"
                         class="hero-image">
                 </div>

@@ -4,6 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipantsController;
+use App\Http\Controllers\MercadoPagoController;
+
+Route::post('/create-preference', [MercadoPagoController::class, 'createPaymentPreference']);
+Route::get('/mercadopago/success', [MercadoPagoController::class, 'success'])->name('mercadopago.success');
+Route::get('/mercadopago/failed', [MercadoPagoController::class, 'failed'])->name('mercadopago.failed');
+Route::get('/mercadopago/pending', [MercadoPagoController::class, 'pending'])->name('mercadopago.pending');
+
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -15,8 +22,6 @@ Route::get('/code', function () {
     return view('pages.public.code');
 });
 
-//te redirige a la pagina para hacer el pago
-Route::get('/pagar', [PaymentController::class, 'checkout']);
 
 /* Route::get('/', function () {
     return view('welcome');

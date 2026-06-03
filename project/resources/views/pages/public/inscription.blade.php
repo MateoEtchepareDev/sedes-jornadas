@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="/participants">
+            <form id="inscription-form" method="POST" action="/participants">
                 @csrf
 
                 <div class="row g-3">
@@ -63,11 +63,16 @@
                     <div class="col-12">
                         <label class="field-label metodoPago">Metodo de Pago</label>
                         <div class="payment-row">
-                            <input type="radio" id="pay_mercado" name="payment_method" value="mercado_pago" class="d-none" action="/pagar">
+                            
+                            <input type="radio" id="pay_mercado" name="payment_method" value="mercado_pago" class="d-none" action="/MercadoPagoController@createPaymentPreference">
                             <label for="pay_mercado" class="payment-card btn">
                                 <img class="bi bi-wallet2" src="{{ asset('images/mercadopago.png') }}"></img>
-                                <span>Mercado Pago</span>
+                                <span>Mercado Pago</span> 
                             </label>
+
+                            <!-- <button class="btn-submit" id="checkout-btn" type="button">
+                                <span class="icon-credit-card text-center">💳</span>Pagar
+                            </button> -->
 
                             <input type="radio" id="pay_cash" name="payment_method" value="cash" class="d-none">
                             <label for="pay_cash" class="payment-card btn">
@@ -95,6 +100,13 @@
         </div>
     </div>
 
+    <!-- <script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>window.mercadoPagoPublicKey = "{{ env('MERCADOPAGO_PUBLIC_KEY') }}";</script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        window.mercadoPagoPublicKey = "{{ env('MERCADOPAGO_PUBLIC_KEY') }}";
+    </script>
     <script src="{{ asset('js/inscription.js') }}"></script>
 
 @endsection
