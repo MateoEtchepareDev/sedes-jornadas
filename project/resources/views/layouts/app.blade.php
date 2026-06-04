@@ -58,6 +58,8 @@
 
     <main>
 
+        {{ $slot ?? '' }}
+
         @if(!empty($inscripcion))
 
                 @yield('form')
