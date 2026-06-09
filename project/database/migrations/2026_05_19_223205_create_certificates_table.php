@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('participant_id')->constrained('participants')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('event_id')->constrained('events')->onDelete('cascade')->onUpdate('cascade');
             $table->string('certificate_url', 500);
             $table->dateTime('issued_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();

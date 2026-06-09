@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Participants;
 
+use App\Mail\FormularioMail;
+
+use Illuminate\Support\Facades\Mail;
+
 class ParticipantsController extends Controller
 {
     /**
@@ -49,7 +53,7 @@ class ParticipantsController extends Controller
             'paid_at' => 'nullable|date',
         ]);
 
-        Participants::create($request->only([
+        $participants = Participants::create($request->only([
             'event_id',
             'full_name',
             'dni',
@@ -66,6 +70,12 @@ class ParticipantsController extends Controller
             'registered_at',
             'paid_at',
         ]));
+
+        if ($participants->payment_method === 'cash') {
+            Mail::to($participants->email)->send(
+            new FormularioMail($participants->full_name)
+            );
+        }
 
         return redirect()->route('participants.index')
                         ->with('success', 'Participante registrado correctamente.');
