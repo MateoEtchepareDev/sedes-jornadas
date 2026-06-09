@@ -24,11 +24,6 @@ Route::get('/code', function () {
     return view('pages.public.code');
 });
 
-Route::post(
-    '/enviar',
-    [FormController::class, 'enviar']
-)->name('formulario.enviar');
-
 /* Route::get('/', function () {
     return view('welcome');
 });
