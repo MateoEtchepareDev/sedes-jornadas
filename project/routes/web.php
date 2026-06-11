@@ -9,6 +9,7 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -23,6 +24,9 @@ Route::get('/transmission', function () {
 Route::get('/code', function () {
     return view('pages.public.code');
 });
+
+//te redirige a la pagina para hacer el pago
+Route::get('/pagar', [PaymentController::class, 'checkout']);
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -59,13 +63,20 @@ Route::get('/eventos/{event}/streaming', [Controller::class, 'method']);
 Route::get('/eventos/{event}/certificados/uuid',);
 
 // Página de login: muestra formulario de acceso para administradores.
-Route::get('/admin/login',);
+Route::get('/admin', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
 
 // Acción de login: autentica administrador y redirige al panel.
 Route::post('/admin/login',);
 
  */
+Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])
+    ->name('admin.login');
+
 // Acción de logout: cierra sesión del administrador.
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
+
 // Página de solicitud de restablecimiento de contraseña: solicita email para enviar enlace.
 // Acción de envío de correo de restablecimiento: genera token y envía el email.
 // Página de restablecimiento de contraseña: permite ingresar nueva contraseña con token.
