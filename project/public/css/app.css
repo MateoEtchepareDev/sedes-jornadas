@@ -5,9 +5,16 @@
 }
 
 body {
-    background: #dfeaf3;
+    background: #f5f8fb;
     font-family: 'Poppins', sans-serif;
     color: #1e2d44;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 .custom-container {
@@ -295,7 +302,7 @@ body {
     background: linear-gradient(135deg, #2f6ea5, #2367a4);
     color: white;
     padding: 30px 0 0;
-    margin-top: 80px;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
 }
@@ -350,18 +357,19 @@ body {
 
 .footer-bottom {
     width: 100%;
-    background: white;
-    color: #1e2d44;
+    background: #244b7a;
+    color: white;
     margin-top: auto;
     padding: 14px 20px;
     position: relative;
     text-align: center;
     font-size: 13px;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .footer-bottom p {
     margin: 0;
+    color: white;
 }
 
 .admin-access {
@@ -370,7 +378,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     font-size: 11px;
-    color: #7a7a7a;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: 0.2s ease;
 }

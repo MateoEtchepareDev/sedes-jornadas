@@ -6,12 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\MercadoPagoController;
 
-Route::post('/create-preference', [MercadoPagoController::class, 'createPaymentPreference']);
-Route::get('/mercadopago/success', [MercadoPagoController::class, 'success'])->name('mercadopago.success');
-Route::get('/mercadopago/failed', [MercadoPagoController::class, 'failed'])->name('mercadopago.failed');
-Route::get('/mercadopago/pending', [MercadoPagoController::class, 'pending'])->name('mercadopago.pending');
-
-
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/inscripcion', function () {
@@ -20,18 +14,15 @@ Route::get('/inscripcion', function () {
 
 Route::get('/code', function () {
     return view('pages.public.code');
-});
+}) ->name('code');
 
+Route::post('/create-preference', [MercadoPagoController::class, 'createPaymentPreference']);
+Route::get('/mercadopago/success', [MercadoPagoController::class, 'success'])->name('mercadopago.success');
+Route::get('/mercadopago/failed', [MercadoPagoController::class, 'failed'])->name('mercadopago.failed');
+Route::get('/mercadopago/pending', [MercadoPagoController::class, 'pending'])->name('mercadopago.pending');
 
-/* Route::get('/', function () {
-    return view('welcome');
-});
-//=======
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/inscription', function() {
-    return view('pages.inscription');
-})->name('inscription'); */
+// Webhook de Mercado Pago (sin CSRF)
+Route::post('/webhook/mercadopago', [\App\Http\Controllers\WebhookController::class, 'handleMercadoPagoWebhook'])->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class);
 
 Route::resource('participants', ParticipantsController::class);
 

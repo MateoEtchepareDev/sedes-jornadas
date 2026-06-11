@@ -70,10 +70,6 @@
                                 <span>Mercado Pago</span> 
                             </label>
 
-                            <!-- <button class="btn-submit" id="checkout-btn" type="button">
-                                <span class="icon-credit-card text-center">💳</span>Pagar
-                            </button> -->
-
                             <input type="radio" id="pay_cash" name="payment_method" value="cash" class="d-none">
                             <label for="pay_cash" class="payment-card btn">
                                 <img class="bi bi-cash-stack" src="{{ asset('images/cash.png') }}"></img>
@@ -99,9 +95,8 @@
 
         </div>
     </div>
+</section>
 
-    <!-- <script src="https://sdk.mercadopago.com/js/v2"></script>
-<script>window.mercadoPagoPublicKey = "{{ env('MERCADOPAGO_PUBLIC_KEY') }}";</script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script>
