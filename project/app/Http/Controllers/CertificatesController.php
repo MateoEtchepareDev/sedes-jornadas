@@ -13,7 +13,8 @@ class CertificatesController extends Controller
      */
     public function index()
     {
-        return view('certificates.index');
+        $certificate = Certificates::all();
+        return view('certificates.index', compact('certificate'));
     }
 
     /**
@@ -32,14 +33,14 @@ class CertificatesController extends Controller
         $request->validate([
             'participant_id' => 'required|exists:participants,id',
             'event_id' => 'required|exists:events,id',
-            'certificate_uuid' => 'required|string|max:255|unique:certificates',
+            'certificate_url' => 'required|string|max:255|unique:certificates',
             'issued_at' => 'required|date',
         ]);
 
-        Certificates::create($request->only([
+        $certificate = Certificates::create($request->only([
             'participant_id',
             'event_id',
-            'certificate_uuid',
+            'certificate_url',
             'issued_at',
         ]));
 
@@ -52,6 +53,7 @@ class CertificatesController extends Controller
      */
     public function show(string $id)
     {
+        $certificate = Certificates::findOrFail($id);
         return view('certificates.show', compact('certificate'));
     }
 
@@ -60,7 +62,8 @@ class CertificatesController extends Controller
      */
     public function edit(string $id)
     {
-        return view('certificates.show', compact('certificate'));
+        $certificate = Certificates::findOrFail($id);
+        return view('certificates.edit', compact('certificate'));
     }
 
     /**
@@ -68,17 +71,17 @@ class CertificatesController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $certificate = Certificates::findOrFail($id);
         $request->validate([
             'participant_id' => 'required|exists:participants,id',
             'event_id' => 'required|exists:events,id',
-            'certificate_uuid' => 'required|string|max:255|unique:certificates,certificate_uuid,' . $id,
+            'certificate_url' => 'required|string|max:255|unique:certificates,certificate_url,' . $id,
             'issued_at' => 'required|date',
         ]);
-
         $certificate->update($request->only([
             'participant_id',
             'event_id',
-            'certificate_uuid',
+            'certificate_url',
             'issued_at',
         ]));
 
@@ -91,6 +94,7 @@ class CertificatesController extends Controller
      */
     public function destroy(string $id)
     {
+        $certificate = Certificates::findOrFail($id);
         $certificate->delete();
 
         return redirect()->route('certificates.index')

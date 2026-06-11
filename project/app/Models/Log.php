@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Logs extends Model
 {
-    protected $fillable = ['event_id', 'participant_id', 'action', 'timestamp'];
+    public $timestamps = false;
+
+    protected $fillable = ['user_id', 'event_id', 'action_type', 'actor_type', 'affected_table', 'entity_id', 'created_at'];
+
+    protected $casts = [
+        'before_data' => 'array',
+        'after_data' => 'array',
+    ];
 }

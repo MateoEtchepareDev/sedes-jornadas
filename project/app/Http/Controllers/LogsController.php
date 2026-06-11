@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Logs;
 
 class LogsController extends Controller
@@ -13,7 +12,9 @@ class LogsController extends Controller
      */
     public function index()
     {
-        return view('logs.index');
+        $log = Logs::all();
+
+        return view('logs.index', compact('log'));
     }
 
     /**
@@ -29,22 +30,19 @@ class LogsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'event_id' => 'required|exists:events,id',
-            'participant_id' => 'required|exists:participants,id',
-            'action' => 'required|string|max:255',
-            'timestamp' => 'required|date',
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'event_id' => 'nullable|exists:events,id',
+            'action_type' => 'required|string|max:100',
+            'actor_type' => 'required|in:admin,system',
+            'affected_table' => 'required|string|max:100',
+            'entity_id' => 'required|integer|min:1',
         ]);
 
-        Logs::create($request->only([
-            'event_id',
-            'participant_id',
-            'action',
-            'timestamp',
-        ]));
+        Logs::create($validated);
 
         return redirect()->route('logs.index')
-                        ->with('success', 'Log creado correctamente.');
+            ->with('success', 'Log creado correctamente.');
     }
 
     /**
@@ -52,6 +50,8 @@ class LogsController extends Controller
      */
     public function show(string $id)
     {
+        $log = Logs::findOrFail($id);
+
         return view('logs.show', compact('log'));
     }
 
@@ -60,7 +60,9 @@ class LogsController extends Controller
      */
     public function edit(string $id)
     {
-        return view('logs.show', compact('log'));
+        $log = Logs::findOrFail($id);
+
+        return view('logs.edit', compact('log'));
     }
 
     /**
@@ -68,22 +70,21 @@ class LogsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'event_id' => 'required|exists:events,id',
-            'participant_id' => 'required|exists:participants,id',
-            'action' => 'required|string|max:255',
-            'timestamp' => 'required|date',
+        $log = Logs::findOrFail($id);
+
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'event_id' => 'nullable|exists:events,id',
+            'action_type' => 'required|string|max:100',
+            'actor_type' => 'required|in:admin,system',
+            'affected_table' => 'required|string|max:100',
+            'entity_id' => 'required|integer|min:1',
         ]);
 
-        $log->update($request->only([
-            'event_id',
-            'participant_id',
-            'action',
-            'timestamp',
-        ]));
+        $log->update($validated);
 
         return redirect()->route('logs.index')
-                        ->with('success', 'Log actualizado correctamente.');
+            ->with('success', 'Log actualizado correctamente.');
     }
 
     /**
@@ -91,9 +92,11 @@ class LogsController extends Controller
      */
     public function destroy(string $id)
     {
+        $log = Logs::findOrFail($id);
+
         $log->delete();
 
         return redirect()->route('logs.index')
-                        ->with('success', 'Log eliminado correctamente.');
+            ->with('success', 'Log eliminado correctamente.');
     }
 }

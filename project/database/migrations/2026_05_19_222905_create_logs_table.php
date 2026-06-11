@@ -19,8 +19,6 @@ return new class extends Migration
             $table->enum('actor_type', ['admin', 'system'])->default('admin');
             $table->string('affected_table', 100);
             $table->unsignedBigInteger('entity_id');
-            $table->json('before_data')->nullable();
-            $table->json('after_data')->nullable();
             $table->timestamp('created_at')->useCurrent();
 
             $table->index(['user_id'], 'idx_logs_user');
