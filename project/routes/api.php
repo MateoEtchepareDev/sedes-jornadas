@@ -1,3 +1,4 @@
+
 // Lista de rutas API del sistema: sólo estructura y comportamiento esperado.
 
 // Obtener listado de eventos: devuelve eventos publicados y datos para filtro en frontend.

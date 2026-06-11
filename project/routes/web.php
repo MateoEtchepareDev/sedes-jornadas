@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -13,15 +14,21 @@ Route::get('/inscripcion', function () {
 });
 
 Route::get('/transmission', function () {
+   /* if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
+        return redirect('/code');
+    }*/
     return view('pages.public.transmission');
 });
 
 Route::get('/code', function () {
     return view('pages.public.code');
 });
+Route::post('/code', [StreamingController::class, 'validateCode']);
 
 //te redirige a la pagina para hacer el pago
 Route::get('/pagar', [PaymentController::class, 'checkout']);
+
+Route::post ('/comments', [CommentController::class, 'store']);
 
 /* Route::get('/', function () {
     return view('welcome');

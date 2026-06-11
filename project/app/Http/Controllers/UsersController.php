@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Users;
 
+use Illuminate\Support\Str;
+
 class UsersController extends Controller
 {
     /**
@@ -43,6 +45,9 @@ class UsersController extends Controller
             'password_hash',
             'is_admin',
         ]));
+
+        $user->access_code = strtoupper(Str::random(6));
+        $user->save();
 
         return redirect()->route('users.index')
                         ->with('success', 'Usuario creado correctamente.');
