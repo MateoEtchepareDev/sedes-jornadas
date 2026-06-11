@@ -5,6 +5,104 @@
 @section('form')
 
 <section class="form-wrapper">
+
+    <div class="form-box">
+
+        <h1 class="form-heading">
+            Formulario de Inscripción
+        </h1>
+
+
+        @if ($errors->any())
+
+            <div>
+
+                @foreach ($errors->all() as $error)
+
+                    <p>{{ $error }}</p>
+
+                @endforeach
+
+            </div>
+
+        @endif
+
+        <form method="POST" action="{{ route('participants.store') }}">
+
+        @csrf
+
+
+            <div class="form-grid">
+
+                <div class="field-group">
+
+                    <label class="field-label">
+                        Nombre Completo
+                    </label>
+
+                    <input
+                        type="text"
+                        class="field-input"
+                        name="full_name"
+                        required>
+
+                </div>
+
+                <div class="field-group">
+
+                    <label class="field-label">
+                        DNI
+                    </label>
+
+                    <input
+                        type="text"
+                        class="field-input"
+                        name="dni"
+                        required>
+
+                </div>
+
+                <div class="field-group">
+
+                    <label class="field-label">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        class="field-input"
+                        name="email"
+                        required>
+
+                </div>
+
+                <div class="field-group">
+
+                    <label class="field-label">
+                        Rol
+                    </label>
+
+                    <select 
+                    class="field-select"
+                    name="role">
+
+                        <option
+                            value="profesor">
+                            Profesor
+                        </option>
+
+                        <option
+                            value="alumno">
+                            Alumno
+                        </option>
+
+                        <option
+                            value="oyente">
+                            Oyente
+                        </option>
+
+                    </select>
+
     <div class="container">
         <div class="form-box">
 
@@ -79,6 +177,21 @@
 
                 </div>
 
+            </div>
+
+            <div class="payment-row">
+
+                <label class="payment-card">
+
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="mercado_pago"
+                        hidden>
+
+                    <span>
+                        Mercado Pago
+                    </span>
                 <input type="hidden" name="event_id" value="{{ $event->id ?? 1 }}">
                 <input type="hidden" name="payment_status" value="pending">
 

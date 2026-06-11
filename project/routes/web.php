@@ -4,6 +4,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipantsController;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\LogsController;
+use App\Http\Controllers\CertificatesController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -34,8 +39,12 @@ Route::get('/inscription', function() {
 })->name('inscription'); */
 
 Route::resource('participants', ParticipantsController::class);
+Route::resource('events', EventsController::class);
+Route::resource('certificates', CertificatesController::class);
+Route::resource('users', UsersController::class);
+Route::resource('logs', LogsController::class);
 
-// Página de listado de eventos: muestra eventos publicados y permite filtrar por estado/fecha.
+/* // Página de listado de eventos: muestra eventos publicados y permite filtrar por estado/fecha.
 Route::get('/eventos', [App\Http\Controllers\EventController::class, 'index'])->name('eventos.index');
 
 // Página de detalle del evento: muestra información del evento, fechas, cupo y botón de inscripción.
@@ -58,6 +67,9 @@ Route::get('/admin', [AuthenticatedSessionController::class, 'create'])
     ->name('login');
 
 // Acción de login: autentica administrador y redirige al panel.
+Route::post('/admin/login',);
+
+ */
 Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])
     ->name('admin.login');
 

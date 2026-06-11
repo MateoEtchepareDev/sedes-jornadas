@@ -3,51 +3,25 @@
     ]) 
 
 @section('edit')
-
 <div class="form-wrapper">
 
+    <div class="form-box">
+
         <h1 class="form-heading">
-            Editar Participante
+            Nuevo Participante
         </h1>
-
-        <div class="table-responsive">
-            <table class="table table-sm table-bordered participant-table mb-4">
-                <thead class="table-light">
-                    <tr>
-                        <th>Evento</th>
-                        <th>Nombre</th>
-                        <th>DNI</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Modalidad</th>
-                        <th>Estado Pago</th>
-                        <th>Método</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>{{ $participant->event_id }}</td>
-                        <td>{{ $participant->full_name }}</td>
-                        <td>{{ $participant->dni }}</td>
-                        <td>{{ $participant->email }}</td>
-                        <td>{{ $participant->role }}</td>
-                        <td>{{ $participant->modality }}</td>
-                        <td>{{ $participant->payment_status }}</td>
-                        <td>{{ $participant->payment_method }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <br><br>
-
-        <div class="form-box">
-
-        <form method="POST" action="{{ route('participants.update', $participant->id) }}">
+        @if ($errors->any())
+            <div style="color:red">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form method="POST" action="{{ route('participants.store') }}">
 
             @csrf
-            @method('PUT')
 
             <div class="form-grid">
 
@@ -62,7 +36,6 @@
                         class="field-input"
                         type="text"
                         name="full_name"
-                        value="{{ old('full_name', $participant->full_name) }}"
                         required
                     >
                 </div>
@@ -73,7 +46,6 @@
                         class="field-input"
                         type="number"
                         name="dni"
-                        value="{{ old('dni', $participant->dni) }}"
                         required
                     >
                 </div>
@@ -84,7 +56,6 @@
                         class="field-input"
                         type="email"
                         name="email"
-                        value="{{ old('email', $participant->email) }}"
                         required
                     >
                 </div>
@@ -96,15 +67,15 @@
                         name="role"
                         required
                     >
-                        <option value="profesor" {{ old('role', $participant->role) == 'profesor' ? 'selected' : '' }}>
+                        <option value="profesor">
                             Profesor
                         </option>
 
-                        <option value="alumno" {{ old('role', $participant->role) == 'alumno' ? 'selected' : '' }}>
+                        <option value="alumno">
                             Alumno
                         </option>
 
-                        <option value="oyente" {{ old('role', $participant->role) == 'oyente' ? 'selected' : '' }}>
+                        <option value="oyente">
                             Oyente
                         </option>
                     </select>
@@ -117,8 +88,8 @@
                         name="modality"
                         required
                     >
-                        <option value="in_person" {{ old('modality', $participant->modality) == 'in_person' ? 'selected' : '' }}>Presencial</option>
-                        <option value="virtual" {{ old('modality', $participant->modality) == 'virtual' ? 'selected' : '' }}>Virtual</option>
+                        <option value="in_person">Presencial</option>
+                        <option value="virtual">Virtual</option>
 
                     </select>
                 </div>
@@ -131,24 +102,29 @@
                         required
                     >
 
-                        <option value="pending" {{ old('payment_status', $participant->payment_status) == 'pending' ? 'selected' : '' }}>Pendiente</option>
-                        <option value="approved" {{ old('payment_status', $participant->payment_status) == 'approved' ? 'selected' : '' }}>Aprobado</option>
-                        <option value="rejected" {{ old('payment_status', $participant->payment_status) == 'rejected' ? 'selected' : '' }}>Rechazado</option>
-                        <option value="refunded" {{ old('payment_status', $participant->payment_status) == 'refunded' ? 'selected' : '' }}>Reembolsado</option>
-                        <option value="charged_back" {{ old('payment_status', $participant->payment_status) == 'charged_back' ? 'selected' : '' }}>Cobrado de nuevo</option>
-                        <option value="cancelled" {{ old('payment_status', $participant->payment_status) == 'cancelled' ? 'selected' : '' }}>Cancelado</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="approved">Aprobado</option>
+                        <option value="rejected">Rechazado</option>
+                        <option value="refunded">Reembolsado</option>
+                        <option value="charged_back">Cobrado de nuevo</option>
+                        <option value="cancelled">Cancelado</option>
                     </select>
                 </div>
 
                 <div class="field-group">
                     <label class="field-label">Método de Pago</label>
-                    <input 
-                        class="field-input"
-                        type="text"
+                    <select 
+                        class="field-select"
                         name="payment_method"
-                        value="{{ old('payment_method', $participant->payment_method) }}"
-                        required
-                    >
+                        required>
+                        <option value="cash">
+                            Efectivo
+                        </option>
+
+                        <option value="mercado_pago">
+                            Mercado Pago
+                        </option>
+                    </select>
                 </div>
 
                 <div class="field-group">
@@ -157,7 +133,6 @@
                         class="field-input"
                         type="text"
                         name="payment_external_id"
-                        value="{{ old('payment_external_id', $participant->payment_external_id) }}"
                     >
                 </div>
 
@@ -167,18 +142,23 @@
                         class="field-input"
                         type="text"
                         name="qr_token"
-                        value="{{ old('qr_token', $participant->qr_token) }}"
                     >
                 </div>
 
                 <div class="field-group">
                     <label class="field-label">Check-in</label>
-                    <input 
-                        class="field-input"
-                        type="text"
+                    <select 
+                        class="field-select"
                         name="checkin_confirmed"
-                        value="{{ old('checkin_confirmed', $participant->checkin_confirmed) }}"
-                    >
+                        required>
+                        <option value="1">
+                            Sí
+                        </option>
+
+                        <option value="0">
+                            No
+                        </option>
+                    </select>
                 </div>
 
                 <div class="field-group">
@@ -187,7 +167,6 @@
                         class="field-input"
                         type="text"
                         name="access_code"
-                        value="{{ old('access_code', $participant->access_code) }}"
                     >
                 </div>
 
@@ -197,11 +176,11 @@
                         class="field-select"
                         name="questions_completed"
                         required>
-                        <option value="1" {{ old('questions_completed', $participant->questions_completed) == 1 ? 'selected' : '' }}>
+                        <option value="1">
                             Sí
                         </option>
 
-                        <option value="0" {{ old('questions_completed', $participant->questions_completed) == 0 ? 'selected' : '' }}>
+                        <option value="0">
                             No
                         </option>
                     </select>
@@ -209,29 +188,19 @@
 
                 <div class="field-group">
                     <label class="field-label">Registrado</label>
-                    <input 
-                        class="field-input"
-                        type="text"
-                        name="registered_at"
-                        value="{{ old('registered_at', $participant->registered_at) }}"
-                    >
+                    <input type="datetime-local" name="registered_at">
                 </div>
 
                 <div class="field-group">
                     <label class="field-label">Pagado</label>
-                    <input 
-                        class="field-input"
-                        type="text"
-                        name="paid_at"
-                        value="{{ old('paid_at', $participant->paid_at) }}"
-                    >
+                    <input type="datetime-local" name="paid_at">
                 </div>
 
             </div>
 
             <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
                 <button type="submit" class="btn btn-primary">
-                    Actualizar Participante
+                    Crear Participante
                 </button>
                 <a href="{{ route('participants.index') }}" class="btn btn-secondary">
                     Volver al listado
