@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Participants;
 use Database\Factories\EventFactory;
 
-class Events extends Model
+class Event extends Model
 {
     use HasFactory;
     

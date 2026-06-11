@@ -13,6 +13,14 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
+<<<<<<< HEAD
+       User::create([
+        'name' => 'Camila',
+        'email' => 'camilad923@gmail.com',
+        'password' => Hash::make('entrix25'),
+        'is_admin' => 1,
+    ]); 
+=======
         Users::query()->firstOrCreate(
             ['email' => 'camilad923@gmail.com'],
             [
@@ -21,5 +29,6 @@ class AdminUserSeeder extends Seeder
                 'is_admin' => true,
             ]
         );
+>>>>>>> origin/main
     }
 }

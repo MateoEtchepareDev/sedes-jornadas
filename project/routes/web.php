@@ -10,6 +10,8 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -26,7 +28,7 @@ Route::get('/code', function () {
 });
 
 //te redirige a la pagina para hacer el pago
-Route::get('/pagar', [PaymentController::class, 'checkout']);
+// Route::get('/pagar', [PaymentController::class, 'checkout']);
 
 /* Route::get('/', function () {
     return view('welcome');
@@ -60,7 +62,7 @@ Route::post('/eventos/{event}/inscribirse', [Controller::class, 'method']);
 Route::get('/eventos/{event}/streaming', [Controller::class, 'method']);
 
 // Página de certificado: permite ver/validar el certificado usando su UUID.
-Route::get('/eventos/{event}/certificados/uuid',);
+Route::get('/eventos/{event}/certificados/uuid');
 
 // Página de login: muestra formulario de acceso para administradores.
 Route::get('/admin', [AuthenticatedSessionController::class, 'create'])
@@ -83,6 +85,11 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 // Acción de actualización de contraseña: guarda la nueva contraseña y autentica al admin.
 
 // Panel admin: muestra resumen y accesos rápidos de jornadas e inscripciones.
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('events', EventController::class);
+});
+
 // Página de listado de jornadas admin: lista jornadas con acciones de editar, publicar/ocultar y eliminar.
 // Página de creación de jornada admin: muestra formulario para crear evento.
 // Acción de guardar jornada admin: valida datos y crea el evento.
