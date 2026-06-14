@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Logs;
+use App\Models\Log;
 
 class LogSeeder extends Seeder
 {
     public function run(): void
     {
         for ($i = 1; $i <= 5; $i++) {
-            Logs::create([
+            Log::create([
                 'user_id' => 1,
                 'event_id' => $i,
                 'action_type' => 'event_created',

@@ -26,6 +26,9 @@ return new class extends Migration
             $table->index(['affected_table', 'entity_id'], 'idx_logs_entity');
             $table->index(['created_at'], 'idx_logs_created');
             $table->index(['action_type'], 'idx_logs_action');
+
+            $table->json('before_data')->nullable();
+            $table->json('after_data')->nullable();
         });
         /* CREATE TABLE logs (
     id              BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,

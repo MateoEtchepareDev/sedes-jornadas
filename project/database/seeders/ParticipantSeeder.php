@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Participants;
+use App\Models\Participant;
 
 class ParticipantSeeder extends Seeder
 {
     public function run(): void
     {
         for ($i = 1; $i <= 5; $i++) {
-            Participants::create([
+            Participant::create([
                 'event_id' => $i,
                 'full_name' => "Participante $i",
                 'dni' => "4000000$i",

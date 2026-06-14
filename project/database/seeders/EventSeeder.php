@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Events;
+use App\Models\Event;
 
 class EventSeeder extends Seeder
 {
     public function run(): void
     {
         for ($i = 1; $i <= 5; $i++) {
-            Events::create([
+            Event::create([
                 'title' => "Evento $i",
                 'description' => "Descripción del evento $i",
                 'price' => rand(1000, 5000),
