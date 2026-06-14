@@ -51,7 +51,7 @@
             © 2026 Sedes Sapientiae | Todos los derechos reservados
         </p>
 
-        <a href="/admin" class="admin-access">
+        <a href="{{ route('login') }}" class="admin-access">
             Acceso administradores
         </a>
 
