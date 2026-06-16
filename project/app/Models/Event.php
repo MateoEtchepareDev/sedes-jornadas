@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Participants;
+use App\Models\Participant;
 use Database\Factories\EventFactory;
 
 class Event extends Model
@@ -33,7 +33,7 @@ class Event extends Model
 
     public function participants()
     {
-        return $this->hasMany(Participants::class);
+        return $this->hasMany(Participant::class);
     }
 
     protected static function newFactory()

@@ -8,9 +8,9 @@
 
         <div class="hero-card">
 
-            <div class="row align-items-center g-5">
+            <div class="container-custom row align-items-center g-5">
 
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-4">
 
                     <h1 class="hero-title">
                         {{ $jornada['titulo'] }}
@@ -25,29 +25,29 @@
                         <ul>
 
                             <li>
-                                Fecha: {{ $jornada['fecha'] }}
+                                <strong>Fecha: </strong>{{ $jornada['fecha'] }}
                             </li>
 
                             <li>
-                                Horario: {{ $jornada['hora'] }}
+                                <strong>Horario: </strong>{{ $jornada['hora'] }}
                             </li>
 
                             <li>
-                                Modalidad: {{ $jornada['modalidad'] }}
+                                <strong>Modalidad: </strong>{{ $jornada['modalidad'] }}
                             </li>
 
                             <li>
-                                Lugar: {{ $jornada['lugar'] }}
+                                <strong>Lugar: </strong>{{ $jornada['lugar'] }}
                             </li>
 
                             <li>
-                                Arancel de la jornada: {{ $jornada['precio'] }}
+                                <strong>Precio: </strong>{{ $jornada['precio'] }}
                             </li>
                         </ul>
 
                     </div>
 
-                    <div class="hero-buttons col-8">
+                    <div class="hero-buttons col-12">
 
                         <a
                             href="/inscripcion"
@@ -69,10 +69,10 @@
 
                 </div>
 
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-8">
 
                     <img
-                        src="{{ asset($jornada['flyer']) }}"
+                        src="{{ asset($jornada['flyer2']) }}"
                         alt="jornada"
                         class="hero-image">
                 </div>
@@ -97,10 +97,13 @@
                 <div class="col-12 col-lg-5">
 
                     <p class="sobre-text">
-
-                        Lorem ipsum is simply dummy text of the printing and
-                        typesetting industry.
-
+                        La X Jornada de Innovación y Práctica Docente invita a docentes,
+                        directivos, estudiantes y profesionales de la educación a reflexionar
+                        sobre los desafíos que plantea la cultura digital en los procesos de
+                        enseñanza y aprendizaje. En esta edición, bajo el lema
+                        "El aula en tiempos de algoritmos, pantallas e inmediatez",
+                        se propone un espacio de diálogo, análisis e intercambio de experiencias
+                        para comprender y resignificar las prácticas educativas contemporáneas.
                     </p>
 
                     <div class="info-mini-box">
@@ -110,7 +113,10 @@
                         </h3>
 
                         <p>
-                            Lorem ipsum is simply dummy text.
+                            Generar un espacio de reflexión y formación que permita analizar el
+                            impacto de las tecnologías digitales, los algoritmos y las nuevas formas
+                            de comunicación en los procesos educativos, promoviendo prácticas
+                            pedagógicas críticas, inclusivas y significativas.
                         </p>
 
                     </div>
@@ -122,7 +128,10 @@
                         </h3>
 
                         <p>
-                            Lorem ipsum is simply dummy text.
+                            Favorecer el intercambio de conocimientos y experiencias entre docentes
+                            y especialistas, impulsando nuevas perspectivas para habitar y
+                            resignificar la enseñanza en un contexto atravesado por la inmediatez,
+                            las pantallas y las transformaciones culturales producidas por la era digital.
                         </p>
 
                     </div>
@@ -141,45 +150,24 @@
 
             <div class="contenido-box">
 
-                <h3>
-                    Contenido de la Jornada
-                </h3>
+                <h3>Contenido de la Jornada</h3>
 
                 <p>
-                    Lorem ipsum is simply dummy text of the printing industry.
+                Durante la jornada se abordarán temáticas vinculadas con la educación y
+                la cultura digital, entre ellas:
                 </p>
 
+                <ul>
+                    <li>El aula en tiempos de algoritmos, pantallas e inmediatez.</li>
+                    <li>Las formas contemporáneas de consumo y expresión digital.</li>
+                    <li>El uso crítico y significativo de las tecnologías en educación.</li>
+                    <li>La participación estudiantil en la cultura digital.</li>
+                    <li>La enseñanza y el aprendizaje en contextos de transformación tecnológica.</li>
+                    <li>Los desafíos pedagógicos frente a la dispersión y la dependencia digital.</li>
+                    <li>Nuevas formas de pensar, crear y producir conocimiento.</li>
+                </ul>
+
             </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section
-    id="cronograma"
-    class="section-custom">
-
-    <div class="container custom-container">
-
-        <h2 class="section-title">
-            Cronograma
-        </h2>
-
-        <div class="row g-4">
-
-            @foreach($cronogramas as $cronograma)
-
-                <div class="col-12 col-md-6 col-lg-4">
-
-                    @include('components.cronograma-card', [
-                        'cronograma' => $cronograma
-                    ])
-
-                </div>
-
-            @endforeach
 
         </div>
 

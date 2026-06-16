@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-custom">
+<nav class="navbar navbar-expand-lg navbar-custom {{ isset($transmission) ? 'navbar-static' : '' }}">
 
     <div class="container custom-container navbar-container">
 
@@ -28,7 +28,7 @@
 
         </a>
 
-        @if(!isset($inscripcion) && !isset($code) && !isset($edit) && !isset($transmission))
+        @if(!isset($inscripcion) && !isset($code) && !isset($success) && !isset($pending) && !isset($failed) && !isset($edit) && !isset($transmission))
 
             <button
                 class="navbar-toggler"
@@ -66,15 +66,6 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a
-                            class="nav-link nav-link-custom"
-                            href="#cronograma">
-
-                            Cronograma
-
-                        </a>
-                    </li>
 
                     <li class="nav-item mt-3 mt-lg-0">
 

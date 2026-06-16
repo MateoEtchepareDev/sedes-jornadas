@@ -5,104 +5,6 @@
 @section('form')
 
 <section class="form-wrapper">
-
-    <div class="form-box">
-
-        <h1 class="form-heading">
-            Formulario de Inscripción
-        </h1>
-
-
-        @if ($errors->any())
-
-            <div>
-
-                @foreach ($errors->all() as $error)
-
-                    <p>{{ $error }}</p>
-
-                @endforeach
-
-            </div>
-
-        @endif
-
-        <form method="POST" action="{{ route('participants.store') }}">
-
-        @csrf
-
-
-            <div class="form-grid">
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        Nombre Completo
-                    </label>
-
-                    <input
-                        type="text"
-                        class="field-input"
-                        name="full_name"
-                        required>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        DNI
-                    </label>
-
-                    <input
-                        type="text"
-                        class="field-input"
-                        name="dni"
-                        required>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        class="field-input"
-                        name="email"
-                        required>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="field-label">
-                        Rol
-                    </label>
-
-                    <select 
-                    class="field-select"
-                    name="role">
-
-                        <option
-                            value="profesor">
-                            Profesor
-                        </option>
-
-                        <option
-                            value="alumno">
-                            Alumno
-                        </option>
-
-                        <option
-                            value="oyente">
-                            Oyente
-                        </option>
-
-                    </select>
-
     <div class="container">
         <div class="form-box">
 
@@ -118,7 +20,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="/participants">
+            <form id="inscription-form" method="POST" action="/participants">
                 @csrf
 
                 <div class="row g-3">
@@ -159,12 +61,13 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="field-label">Pago</label>
+                        <label class="field-label metodoPago">Metodo de Pago</label>
                         <div class="payment-row">
-                            <input type="radio" id="pay_mercado" name="payment_method" value="mercadopago" class="d-none" action="/pagar">
+                            
+                            <input type="radio" id="pay_mercado" name="payment_method" value="mercado_pago" class="d-none" action="/MercadoPagoController@createPaymentPreference">
                             <label for="pay_mercado" class="payment-card btn">
-                                <img class="bi bi-wallet2" src=""></img>
-                                <span>Mercado Pago</span>
+                                <img class="bi bi-wallet2" src="{{ asset('images/mercadopago.png') }}"></img>
+                                <span>Mercado Pago</span> 
                             </label>
 
                             <input type="radio" id="pay_cash" name="payment_method" value="cash" class="d-none">
@@ -177,21 +80,6 @@
 
                 </div>
 
-            </div>
-
-            <div class="payment-row">
-
-                <label class="payment-card">
-
-                    <input
-                        type="radio"
-                        name="payment_method"
-                        value="mercado_pago"
-                        hidden>
-
-                    <span>
-                        Mercado Pago
-                    </span>
                 <input type="hidden" name="event_id" value="{{ $event->id ?? 1 }}">
                 <input type="hidden" name="payment_status" value="pending">
 
@@ -200,6 +88,20 @@
                 </div>
             </form>
 
+            <div id="successMessage" style="display:none;" class="alert alert-success mt-4">
+                <h4>Inscripción finalizada</h4>
+                <p>Pasar por mesa a pagar.</p>
+            </div>
+
         </div>
     </div>
+</section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        window.mercadoPagoPublicKey = "{{ env('MERCADOPAGO_PUBLIC_KEY') }}";
+    </script>
+    <script src="{{ asset('js/inscription.js') }}"></script>
+
 @endsection

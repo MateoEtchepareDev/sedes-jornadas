@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Mail\FormularioMail;
 
-use App\Models\Participants;
+use App\Models\Participant;
 
 class ParticipantsController extends Controller
 {
@@ -17,7 +17,7 @@ class ParticipantsController extends Controller
      */
     public function index()
     {
-        $participant = Participants::all();
+        $participant = Participant::all();
         return view('participants.index', compact('participant'));
     }
 
@@ -53,7 +53,7 @@ class ParticipantsController extends Controller
             'paid_at' => 'nullable|date',
         ]);
 
-        $participant = Participants::create($request->only([
+        $participant = Participant::create($request->only([
             'event_id',
             'full_name',
             'dni',
@@ -95,7 +95,7 @@ class ParticipantsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Participants $participant)
+    public function show(Participant $participant)
     {
         return view('participants.show', compact('participant'));
     }
@@ -103,7 +103,7 @@ class ParticipantsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Participants $participant)
+    public function edit(Participant $participant)
     {
         return view('participants.edit', compact('participant'));
     }
@@ -111,7 +111,7 @@ class ParticipantsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Participants $participant)
+    public function update(Request $request, Participant $participant)
     {
         $request->validate([
             'event_id' => 'required',
@@ -156,7 +156,7 @@ class ParticipantsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Participants $participant)
+    public function destroy(Participant $participant)
     {
         $participant->delete();
 

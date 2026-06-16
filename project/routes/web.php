@@ -4,45 +4,35 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CommentController;
-
 use App\Http\Controllers\ParticipantsController;
+use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
-
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
-
-
-// rutas a ordenar 
-////////////////////////////////////////
-
-//te redirige a la pagina para hacer el pago
-Route::get('/pagar', [PaymentController::class, 'checkout']);
-
-Route::post ('/comments', [CommentController::class, 'store']);
-
-////////////////////////////////////////
-
-
-/*
-|--------------------------------------------------------------------------
-| Public Routes
-|--------------------------------------------------------------------------
-*/
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
+Route::get('/code', function () {
+    return view('pages.public.code');
+});
+
+Route::post ('/comments', [CommentController::class, 'store']);
+
+
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
 
-Route::view('/transmision', 'pages.public.transmision')
-    ->name('pages.public.transmision');
+Route::view('/transmision', 'pages.public.transmission')
+    ->name('pages.public.transmission');
 
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
+
+Route::resource('participants', ParticipantsController::class);
 
 Route::post('/code', [StreamingController::class, 'validateCode']);
 
@@ -55,6 +45,13 @@ Route::get('/transmission', function () {
     return view('pages.public.transmission');
 });
 
+/*RUTAS MERCADO PAGO*/
+
+Route::post('/create-preference', [MercadoPagoController::class, 'createPaymentPreference']);
+Route::get('/mercadopago/success', [MercadoPagoController::class, 'success'])->name('mercadopago.success');
+Route::get('/mercadopago/failed', [MercadoPagoController::class, 'failed'])->name('mercadopago.failed');
+Route::get('/mercadopago/pending', [MercadoPagoController::class, 'pending'])->name('mercadopago.pending');
+Route::post('/webhook/mercadopago', [\App\Http\Controllers\WebhookController::class, 'handleMercadoPagoWebhook'])->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class);
 
 
 /*
