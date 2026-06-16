@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CommentController;
 
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\EventsController;
@@ -12,6 +13,18 @@ use App\Http\Controllers\UsersController;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+
+
+// rutas a ordenar 
+////////////////////////////////////////
+
+//te redirige a la pagina para hacer el pago
+Route::get('/pagar', [PaymentController::class, 'checkout']);
+
+Route::post ('/comments', [CommentController::class, 'store']);
+
+////////////////////////////////////////
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +43,19 @@ Route::view('/transmision', 'pages.public.transmision')
 
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
+
+Route::post('/code', [StreamingController::class, 'validateCode']);
+
+
+// no se si esta ruta va en esta categoria
+Route::get('/transmission', function () {
+   /* if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
+        return redirect('/code');
+    }*/
+    return view('pages.public.transmission');
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
