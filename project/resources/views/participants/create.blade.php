@@ -19,7 +19,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="{{ route('participants.store') }}">
+        <form method="POST" action="{{ route('/participants.storeCrud') }}">
 
             @csrf
 
