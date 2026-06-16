@@ -8,7 +8,7 @@
 
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
             <h1 class="form-heading mb-0">Eventos</h1>
-            <a href="{{ route('events.create') }}" class="btn btn-primary">Crear evento</a>
+            <a href="{{ route('admin.events.create') }}" class="btn btn-primary">Crear evento</a>
         </div>
 
         @if(session('success'))
@@ -49,7 +49,7 @@
                                 <td class="text-end">
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('events.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-                                        <form action="{{ route('events.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este evento?');">
+                                        <form action="{{ route('admin.events.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este evento?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
