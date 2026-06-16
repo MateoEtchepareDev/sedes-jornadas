@@ -32,7 +32,11 @@ Route::view('/transmision', 'pages.public.transmission')
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
 
-Route::resource('participants', ParticipantsController::class);
+Route::post('/participantCrud', [ParticipantsController::class, 'storeCrud'])
+    ->name('participants.storeCrud');
+
+Route::post('/participants', [ParticipantsController::class, 'storeFormulario'])
+    ->name('participants.storeFormulario');
 
 Route::post('/code', [StreamingController::class, 'validateCode']);
 
@@ -138,7 +142,7 @@ Route::middleware(['auth'])
 
         Route::resource('events', EventController::class);
 
-        Route::resource('participants', ParticipantsController::class);
+/*         Route::resource('participants', ParticipantsController::class); */
 
         Route::resource('certificates', CertificatesController::class);
 
