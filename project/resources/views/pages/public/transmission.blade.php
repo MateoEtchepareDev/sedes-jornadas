@@ -44,6 +44,20 @@
                     Si tienes problemas de reproducción, actualiza la página o verifica tu conexión a internet.
                 </p>
 
+                <form action="/comments" method="POST">
+                @csrf
+
+                <textarea
+                    name="message"
+                    placeholder="Escribí tu pregunta o comentario..."
+                    required
+                ></textarea>
+
+                <button type="submit">
+                      Enviar
+                </button>
+            </form>
+
             </div>
 
         </div>
