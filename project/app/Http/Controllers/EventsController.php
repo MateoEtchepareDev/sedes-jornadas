@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Events;
+use App\Models\Event;
 
 class EventsController extends Controller
 {
@@ -13,7 +13,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Events::all();
+        $events = Event::all();
         return view('events.index', compact('events'));
     }
 
@@ -43,7 +43,7 @@ class EventsController extends Controller
             'status' => 'required|in:draft,published,active,finished,cancelled',
         ]);
 
-        Events::create($request->only([
+        Event::create($request->only([
             'title',
             'description',
             'price',
@@ -65,7 +65,7 @@ class EventsController extends Controller
      */
     public function show(string $id)
     {
-        $events = Events::findOrFail($id);
+        $events = Event::findOrFail($id);
         return view('events.show', compact('events'));
     }
 
@@ -74,7 +74,7 @@ class EventsController extends Controller
      */
     public function edit(string $id)
     {
-        $events = Events::findOrFail($id);
+        $events = Event::findOrFail($id);
         return view('events.edit', compact('events'));
     }
 
@@ -96,7 +96,7 @@ class EventsController extends Controller
             'status' => 'required|in:draft,published,active,finished,cancelled',
         ]);
 
-        $events = Events::findOrFail($id);
+        $events = Event::findOrFail($id);
         $events->update([
             'title'=>$request->title,
             'description'=>$request->description,
@@ -119,7 +119,7 @@ class EventsController extends Controller
      */
     public function destroy(string $id)
     {
-        $events = Events::findOrFail($id);
+        $events = Event::findOrFail($id);
         $events->delete();
 
         return redirect()->route('events.index')

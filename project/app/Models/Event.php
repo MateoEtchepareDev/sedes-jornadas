@@ -10,7 +10,7 @@ use Database\Factories\EventFactory;
 class Event extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'title',
         'description',
@@ -23,7 +23,14 @@ class Event extends Model
         'max_participants',
         'status'
     ];
-    
+
+    protected $casts = [
+        'registration_opens_at' => 'datetime',
+        'registration_closes_at' => 'datetime',
+        'event_starts_at' => 'datetime',
+        'event_ends_at' => 'datetime',
+    ];
+
     public function participants()
     {
         return $this->hasMany(Participants::class);
@@ -33,5 +40,4 @@ class Event extends Model
     {
         return EventFactory::new();
     }
-
 }
