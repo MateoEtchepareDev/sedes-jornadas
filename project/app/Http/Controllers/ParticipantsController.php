@@ -32,7 +32,50 @@ class ParticipantsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeCrud(Request $request)
+    {
+
+        $request->validate([
+            'event_id' => 'required',
+            'full_name' => 'required|string|max:255',
+            'dni' => 'required|string|max:20|unique:participants',
+            'email' => 'required|string|email|max:255|unique:participants',
+            'role' => 'required|in:profesor,alumno,oyente',
+            'modality' => 'required|in:in_person,virtual',
+            'payment_status' => 'required|in:pending,approved,rejected,refunded,charged_back,cancelled',
+            'payment_method' => 'required|in:mercado_pago,cash',
+            'payment_external_id' => 'nullable|string|max:255',
+            'qr_token' => 'nullable|string|max:255',
+            'checkin_confirmed' => 'nullable|boolean',
+            'access_code' => 'nullable|string|max:30',
+            'questions_completed' => 'nullable|boolean',
+            'registered_at' => 'nullable|date',
+            'paid_at' => 'nullable|date',
+        ]);
+
+        $participant = Participant::create($request->only([
+            'event_id',
+            'full_name',
+            'dni',
+            'email',
+            'role',
+            'modality',
+            'payment_status',
+            'payment_method',
+            'payment_external_id',
+            'qr_token',
+            'checkin_confirmed',
+            'access_code',
+            'questions_completed',
+            'registered_at',
+            'paid_at',
+        ]));
+        
+         return redirect()->route('participants.index')
+                            ->with('success', 'Participante creado correctamente.');
+    }
+
+    public function storeFormulario(Request $request)
     {
 
         $request->validate([
@@ -71,25 +114,18 @@ class ParticipantsController extends Controller
             'paid_at',
         ]));
 
-        if ($participant->payment_method == 'cash') {
-             try {
-
                 Mail::to($participant->email)->send(
                     new FormularioMail(
-                        $participant->full_name
+                        $participant->full_name,
+                        $participant->payment_method,
+                        $participant->payment_status
                     )
                 );
-
-            } catch (\Exception $e) {
-
-                \Log::error($e->getMessage());
-
-            }
-
-        }
         
-         return redirect()->route('participants.index')
-                            ->with('success', 'Participante creado correctamente y correo enviado.');
+        if ($participant->payment_method == 'cash' && $participant->payment_status == 'pending') {
+            return redirect()->route('cash.success')
+                            ->with('success', 'Por favor, complete el pago en efectivo para recibir el correo con el código de acceso.');
+        }
     }
 
     /**
