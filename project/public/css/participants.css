@@ -1,0 +1,32 @@
+.participants-page {
+    padding: 2rem 1rem 3rem;
+}
+
+.participants-card {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.participants-card-header {
+    padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.participants-table thead th {
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #495057;
+}
+
+.participants-table td,
+.participants-table th {
+    padding: 0.95rem 1rem;
+}
+
+.participants-table tbody tr:hover {
+    background-color: #f8fbff;
+}
+
+.empty-state {
+    padding: 2rem 1rem;
+}

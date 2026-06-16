@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Events;
+use App\Models\Event;
 
 class EventsController extends Controller
 {
@@ -43,7 +43,7 @@ class EventsController extends Controller
             'status' => 'required|in:draft,published,active,finished,cancelled',
         ]);
 
-        Product::create($request->only([
+        Event::create($request->only([
             'title',
             'description',
             'price',
@@ -65,7 +65,8 @@ class EventsController extends Controller
      */
     public function show(string $id)
     {
-        return view('events.show', compact('event'));
+        $events = Event::findOrFail($id);
+        return view('events.show', compact('events'));
     }
 
     /**
@@ -73,7 +74,8 @@ class EventsController extends Controller
      */
     public function edit(string $id)
     {
-        return view('events.show', compact('event'));
+        $events = Event::findOrFail($id);
+        return view('events.edit', compact('events'));
     }
 
     /**
@@ -94,7 +96,8 @@ class EventsController extends Controller
             'status' => 'required|in:draft,published,active,finished,cancelled',
         ]);
 
-        $event->update([
+        $events = Event::findOrFail($id);
+        $events->update([
             'title'=>$request->title,
             'description'=>$request->description,
             'price'=>$request->price,
@@ -116,7 +119,8 @@ class EventsController extends Controller
      */
     public function destroy(string $id)
     {
-        $event->delete();
+        $events = Event::findOrFail($id);
+        $events->delete();
 
         return redirect()->route('events.index')
                         ->with('success', 'Evento eliminado correctamente.');

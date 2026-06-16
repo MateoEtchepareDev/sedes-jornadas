@@ -19,8 +19,6 @@ return new class extends Migration
             $table->enum('actor_type', ['admin', 'system'])->default('admin');
             $table->string('affected_table', 100);
             $table->unsignedBigInteger('entity_id');
-            $table->json('before_data')->nullable();
-            $table->json('after_data')->nullable();
             $table->timestamp('created_at')->useCurrent();
 
             $table->index(['user_id'], 'idx_logs_user');
@@ -28,6 +26,9 @@ return new class extends Migration
             $table->index(['affected_table', 'entity_id'], 'idx_logs_entity');
             $table->index(['created_at'], 'idx_logs_created');
             $table->index(['action_type'], 'idx_logs_action');
+
+            $table->json('before_data')->nullable();
+            $table->json('after_data')->nullable();
         });
         /* CREATE TABLE logs (
     id              BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,

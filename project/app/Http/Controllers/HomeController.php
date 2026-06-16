@@ -11,31 +11,13 @@ class HomeController extends Controller
         $jornada = [
             'titulo' => '10° Jornada',
             'subtitulo' => 'El aula en tiempo de algoritmos, pantalla e inmediatez',
-            'fecha' => '15 de Junio, 2026',
-            'hora' => '10:00 hs',
+            'fecha' => '31 de Julio, 2026',
+            'hora' => '16:15hs a 20hs',
             'modalidad' => 'Virtual y Presencial',
             'lugar' => 'Instituto Sedes Sapientiae',
             'precio' => '$15.000',
-            'imagen' => 'images/imagen.png',
+            'flyer2' => 'images/promo-a.png',
             'flyer' => 'images/flyer.jpeg'
-        ];
-
-        $cronogramas = [
-            [
-                'hora' => '09:00',
-                'titulo' => 'Acreditación',
-                'descripcion' => 'Ingreso y presentación de participantes.'
-            ],
-            [
-                'hora' => '10:00',
-                'titulo' => 'Conferencia Principal',
-                'descripcion' => 'El impacto de la IA en educación.'
-            ],
-            [
-                'hora' => '12:00',
-                'titulo' => 'Mesa de Debate',
-                'descripcion' => 'Docentes y especialistas invitados.'
-            ],
         ];
         
         $jornadasAnteriores = [
@@ -88,7 +70,6 @@ class HomeController extends Controller
 
         return view('pages.public.home', compact(
             'jornada',
-            'cronogramas',
             'jornadasAnteriores'
         ));
     }

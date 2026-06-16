@@ -21,9 +21,11 @@ class CommentController extends Controller
         return back();
     }
 
+
     public function index(){
         $comments = Comment::latest()->get();
 
         return view ('comments.index', compact ('comments'));
     }
+
 }

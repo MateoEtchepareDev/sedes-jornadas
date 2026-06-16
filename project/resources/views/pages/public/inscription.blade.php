@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="/participants">
+            <form id="inscription-form" method="POST" action="/participants">
                 @csrf
 
                 <div class="row g-3">
@@ -61,12 +61,13 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="field-label">Pago</label>
+                        <label class="field-label metodoPago">Metodo de Pago</label>
                         <div class="payment-row">
-                            <input type="radio" id="pay_mercado" name="payment_method" value="mercadopago" class="d-none" action="/pagar">
+                            
+                            <input type="radio" id="pay_mercado" name="payment_method" value="mercado_pago" class="d-none" action="/MercadoPagoController@createPaymentPreference">
                             <label for="pay_mercado" class="payment-card btn">
-                                <img class="bi bi-wallet2" src=""></img>
-                                <span>Mercado Pago</span>
+                                <img class="bi bi-wallet2" src="{{ asset('images/mercadopago.png') }}"></img>
+                                <span>Mercado Pago</span> 
                             </label>
 
                             <input type="radio" id="pay_cash" name="payment_method" value="cash" class="d-none">
@@ -87,6 +88,20 @@
                 </div>
             </form>
 
+            <div id="successMessage" style="display:none;" class="alert alert-success mt-4">
+                <h4>Inscripción finalizada</h4>
+                <p>Pasar por mesa a pagar.</p>
+            </div>
+
         </div>
     </div>
+</section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        window.mercadoPagoPublicKey = "{{ env('MERCADOPAGO_PUBLIC_KEY') }}";
+    </script>
+    <script src="{{ asset('js/inscription.js') }}"></script>
+
 @endsection

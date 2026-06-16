@@ -15,11 +15,8 @@ return new class extends Migration
             $table->id(); // identifica al comentador
 
             $table->unsignedBigInteger('participant_id')->nullable();
-
             $table->string('full_name');
-            
             $table->text('message'); //comentario
-
             $table->timestamps(); //fecha y hora del comentario
         });
     }

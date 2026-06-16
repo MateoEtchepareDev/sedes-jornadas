@@ -29,11 +29,11 @@
 
                 <div class="footer-icons">
 
-                    <a href="#" class="icon">
+                    <a href="https://www.facebook.com/JornadasSedes/" class="icon">
                         <img src="{{ asset('images/facebook.png') }}" alt="facebook">
                     </a>
 
-                    <a href="#" class="icon">
+                    <a href="https://www.youtube.com/channel/UCZI9SsMtS-WsdHHqkqdBxQg" class="icon">
                         <img src="{{ asset('images/youtube.png') }}" alt="youtube">
                     </a>
 
@@ -51,7 +51,7 @@
             © 2026 Sedes Sapientiae | Todos los derechos reservados
         </p>
 
-        <a href="/admin" class="admin-access">
+        <a href="{{ route('login') }}" class="admin-access">
             Acceso administradores
         </a>
 

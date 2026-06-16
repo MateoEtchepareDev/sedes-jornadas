@@ -5,16 +5,24 @@
 }
 
 body {
-    background: #dfeaf3;
+    background: #f5f8fb;
     font-family: 'Poppins', sans-serif;
     color: #1e2d44;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 .custom-container {
     max-width: 1300px;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0 15px;
 }
+
 
 .navbar-custom {
     background: rgba(255, 255, 255, 0.76);
@@ -23,6 +31,10 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.navbar-static {
+    position: relative;
 }
 
 .navbar-container {
@@ -64,7 +76,7 @@ body {
 }
 
 .nav-link-custom:hover {
-    color: #F4B942;
+    color: #b62678;
 }
 
 .btn-inscribirse {
@@ -104,6 +116,7 @@ body {
     font-size: 24px;
     line-height: 1.4;
     margin-bottom: 25px;
+    max-width: 600px;
 }
 
 .hero-info-box {
@@ -111,6 +124,7 @@ body {
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
+    max-width: 400px;
 }
 
 .hero-info-box ul {
@@ -121,6 +135,7 @@ body {
 .hero-info-box li {
     margin-bottom: 8px;
     font-size: 14px;
+    
 }
 
 .hero-buttons {
@@ -134,8 +149,7 @@ body {
     text-align: center;
 }
 
-.btn-yellow,
-.btn-blue {
+.btn-yellow, .btn-blue {
     text-decoration: none;
     color: white;
     font-size: 20px;
@@ -172,6 +186,7 @@ body {
     width: 100%;
     border-radius: 12px;
     object-fit: cover;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.336);
 }
 
 .hero-price {
@@ -202,7 +217,7 @@ body {
 
 .sobre-card {
     border-radius: 16px;
-    padding: 30px;
+    padding: 0;
 }
 
 .sobre-text {
@@ -226,12 +241,12 @@ body {
 }
 
 .info-mini-box p {
-    font-size: 13px;
+    font-size: 15px;
     margin: 0;
 }
 
 .flyer-small {
-    max-width: 80%;
+    max-width: 95%;
     width: 100%;
     height: auto;
     display: block;
@@ -255,48 +270,10 @@ body {
     margin-bottom: 10px;
 }
 
-.contenido-box p {
+.contenido-box p li {
     font-size: 14px;
     margin: 0;
 }
-
-.cronograma-box {
-    background: white;
-    border-radius: 14px;
-    padding: 25px;
-    height: 100%;
-    border: 1px solid #d9d9d9;
-    transition: 0.3s;
-}
-
-.cronograma-box:hover {
-    transform: translateY(-4px);
-}
-
-.cronograma-hour {
-    display: inline-block;
-    background: #2367a4;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.cronograma-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #2367a4;
-    margin-bottom: 10px;
-}
-
-.cronograma-description {
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 0;
-}
-
 
 .jornada-card {
     background: white;
@@ -329,7 +306,7 @@ body {
     background: linear-gradient(135deg, #2f6ea5, #2367a4);
     color: white;
     padding: 30px 0 0;
-    margin-top: 80px;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
 }
@@ -381,24 +358,22 @@ body {
     transition: 0.25s ease;
 }
 
-.footer-icons img:hover {
-    transform: translateY(-3px);
-}
 
 .footer-bottom {
     width: 100%;
-    background: white;
-    color: #1e2d44;
+    background: #244b7a;
+    color: white;
     margin-top: auto;
     padding: 14px 20px;
     position: relative;
     text-align: center;
     font-size: 13px;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .footer-bottom p {
     margin: 0;
+    color: white;
 }
 
 .admin-access {
@@ -407,7 +382,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     font-size: 11px;
-    color: #7a7a7a;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: 0.2s ease;
 }

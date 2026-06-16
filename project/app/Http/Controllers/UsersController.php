@@ -58,7 +58,8 @@ class UsersController extends Controller
      */
     public function show(string $id)
     {
-        return view('users.show', compact('user'));
+        $users = Users::findOrFail($id);
+        return view('users.show', compact('users'));
     }
 
     /**
@@ -66,7 +67,8 @@ class UsersController extends Controller
      */
     public function edit(string $id)
     {
-        return view('users.show', compact('user'));
+        $users = Users::findOrFail($id);
+        return view('users.edit', compact('users'));
     }
 
     /**
@@ -74,6 +76,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $users = Users::findOrFail($id);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -97,6 +100,7 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
+        $users = Users::findOrFail($id);
         $users->delete();
 
         return redirect()->route('users.index')

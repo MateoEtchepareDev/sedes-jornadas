@@ -40,6 +40,7 @@
     color: #1e2d44;
     font-size: 14px;
     text-align: left;
+    word-break: break-word;
 }
 
 .participant-table th {
