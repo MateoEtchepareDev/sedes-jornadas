@@ -72,6 +72,8 @@ Route::post('/admin/login', [AuthenticatedSessionController::class, 'store'])
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
+Route::get('/admin/comments', [CommentController::class, 'index']);
+
 // Página de solicitud de restablecimiento de contraseña: solicita email para enviar enlace.
 // Acción de envío de correo de restablecimiento: genera token y envía el email.
 // Página de restablecimiento de contraseña: permite ingresar nueva contraseña con token.
