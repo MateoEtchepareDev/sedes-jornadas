@@ -10,6 +10,7 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\CertificatesController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\StreamingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 
@@ -37,6 +38,10 @@ Route::post('/participantCrud', [ParticipantsController::class, 'storeCrud'])
 
 Route::post('/participants', [ParticipantsController::class, 'storeFormulario'])
     ->name('participants.storeFormulario');
+
+Route::get('/cash/success', function () {
+    return view('cash.success');
+    })->name('cash.success');
 
 Route::post('/code', [StreamingController::class, 'validateCode']);
 
@@ -142,7 +147,7 @@ Route::middleware(['auth'])
 
         Route::resource('events', EventController::class);
 
-/*         Route::resource('participants', ParticipantsController::class); */
+        Route::resource('participants', ParticipantsController::class);
 
         Route::resource('certificates', CertificatesController::class);
 

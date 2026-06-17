@@ -19,8 +19,7 @@
                     </ul>
                 </div>
             @endif
-
-            <form id="inscription-form" method="POST" action="participants.storeFormulario">
+            <form id="inscription-form" method="POST" action=" {{ route('participants.storeFormulario') }} ">
                 @csrf
 
                 <div class="row g-3">
