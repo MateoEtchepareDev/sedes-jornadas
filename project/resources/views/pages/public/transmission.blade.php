@@ -44,19 +44,34 @@
                     Si tienes problemas de reproducción, actualiza la página o verifica tu conexión a internet.
                 </p>
 
+                @if(session('success'))
+
+                    <div style="
+                        background:#d4edda;
+                        color:#155724;
+                        padding:10px;
+                        border-radius:8px;
+                        margin-bottom:15px;
+                    ">
+                        {{ session('success') }}
+                    </div>
+
+                @endif
+
                 <form action="/comments" method="POST">
-                @csrf
+                    @csrf
 
-                <textarea
-                    name="message"
-                    placeholder="Escribí tu pregunta o comentario..."
-                    required
-                ></textarea>
+                    <textarea
+                        name="message"
+                        placeholder="Escribí tu pregunta o comentario..."
+                        required
+                    ></textarea>
 
-                <button type="submit">
-                      Enviar
-                </button>
-            </form>
+                    <button type="submit">
+                        Enviar
+                    </button>
+
+                </form>
 
             </div>
 

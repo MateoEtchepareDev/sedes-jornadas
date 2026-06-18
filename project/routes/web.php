@@ -19,13 +19,7 @@ Route::get('/inscripcion', function () {
     return view('pages.public.inscription');
 });
 
-Route::get('/transmission', function () {
-   /* if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
-        return redirect('/code');
-    }*/
-    return view('pages.public.transmission');
-});
-
+Route::get('/admin/transmission', [CommentController::class, 'adminTransmission']);
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -36,6 +30,9 @@ Route::get('/code', function () {
 Route::post('/code', [StreamingController::class, 'validateCode']);
 
 Route::post ('/comments', [CommentController::class, 'store']);
+
+Route::view('/transmission', 'pages.public.transmission')
+    ->name('pages.public.transmission');
 
 
 /* Route::get('/', function () {
@@ -48,8 +45,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
 
-Route::view('/transmision', 'pages.public.transmission')
-    ->name('pages.public.transmission');
 
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
@@ -119,8 +114,6 @@ Route::prefix('admin')->group(function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
-
-Route::get('/admin/comments', [CommentController::class, 'index']);
 
 // Página de solicitud de restablecimiento de contraseña: solicita email para enviar enlace.
 // Acción de envío de correo de restablecimiento: genera token y envía el email.

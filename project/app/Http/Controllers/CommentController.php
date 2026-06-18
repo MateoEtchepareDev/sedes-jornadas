@@ -18,7 +18,7 @@ class CommentController extends Controller
             'participant_id' => null,
             'message' => $request->message,
         ]);
-        return back();
+        return back()->with('success', 'Mensaje enviado');
     }
 
 
@@ -27,5 +27,15 @@ class CommentController extends Controller
 
         return view ('comments.index', compact ('comments'));
     }
+
+    public function adminTransmission()
+{
+    $comments = Comment::latest()->get();
+
+    return view(
+        'pages.admin.transmission',
+        compact('comments')
+    );
+}
 
 }
