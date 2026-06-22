@@ -18,7 +18,7 @@ class ParticipantsController extends Controller
     public function index()
     {
         $participant = Participant::all();
-        return view('participants.index', compact('participant'));
+        return view('pages.admin.participants.index', compact('participant'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ParticipantsController extends Controller
      */
     public function create()
     {
-        return view('participants.create');
+        return view('pages.admin.participants.create');
     }
 
     /**
@@ -71,7 +71,7 @@ class ParticipantsController extends Controller
             'paid_at',
         ]));
         
-         return redirect()->route('participants.index')
+         return redirect()->route('admin.participants.index')
                             ->with('success', 'Participante creado correctamente.');
     }
 
@@ -95,6 +95,19 @@ class ParticipantsController extends Controller
             'registered_at' => 'nullable|date',
             'paid_at' => 'nullable|date',
         ]);
+
+        /* dd($request->modality); */
+
+        if ($request->modality == 'virtual') {
+            do {
+                $codigo = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+            } while (\App\Models\Participant::where('access_code', $codigo)->exists());
+
+            /* dd($codigo); */
+
+        } else {
+            $codigo = null;
+        }
 
         $participant = Participant::create($request->only([
             'event_id',
@@ -122,10 +135,17 @@ class ParticipantsController extends Controller
                     )
                 );
         
+        $participant->access_code = $codigo;
+        $participant->save();
+
         if ($participant->payment_method == 'cash' && $participant->payment_status == 'pending') {
             return redirect()->route('cash.success')
                             ->with('success', 'Por favor, complete el pago en efectivo para recibir el correo con el código de acceso.');
         }
+
+/*         $participant->refresh();
+
+        dd($participant->access_code); */
     }
 
     /**
@@ -133,7 +153,7 @@ class ParticipantsController extends Controller
      */
     public function show(Participant $participant)
     {
-        return view('participants.show', compact('participant'));
+        return view('pages.admin.participants.show', compact('participant'));
     }
 
     /**
@@ -141,7 +161,7 @@ class ParticipantsController extends Controller
      */
     public function edit(Participant $participant)
     {
-        return view('participants.edit', compact('participant'));
+        return view('pages.admin.participants.edit', compact('participant'));
     }
 
     /**
@@ -185,7 +205,7 @@ class ParticipantsController extends Controller
             'paid_at'=>$request->paid_at,
         ]);
 
-        return redirect()->route('participants.index')
+        return redirect()->route('admin.participants.index')
                         ->with('success', 'Participante actualizado correctamente.');
     }
 
@@ -196,7 +216,7 @@ class ParticipantsController extends Controller
     {
         $participant->delete();
 
-        return redirect()->route('participants.index')
+        return redirect()->route('admin.participants.index')
                         ->with('success', 'Participante eliminado correctamente.');
     }
 }

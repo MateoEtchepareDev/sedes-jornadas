@@ -20,12 +20,15 @@ class StreamingController extends Controller
 
         session([
             'stream_access' => true,
-            'participant_id' => $participant->id   //si el codigo y el participante estan bien le da acceso
+            'participant_id' => $participant->id,   //si el codigo y el participante estan bien le da acceso
+            'participant_name' => $participant->full_name,
+            'participant_email' => $participant->email,
+            'participant_dni' => $participant->dni,
         ]);
 
-        if(!session('access_code')){
+        /* if(!session('access_code')){
             return redirect ('/code');
-        }
+        } */
         return redirect('/transmission');  // te redige a la transmision 
     }
 }

@@ -12,7 +12,8 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\StreamingController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\EventController;
+/* use App\Http\Controllers\Admin\EventController; */
+use App\Models\Event;
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -27,9 +28,9 @@ Route::post ('/comments', [CommentController::class, 'store']);
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
 
-Route::view('/transmision', 'pages.public.transmission')
+/* Route::view('/transmision', 'pages.public.transmission')
     ->name('pages.public.transmission');
-
+ */
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
 
@@ -43,15 +44,28 @@ Route::get('/cash/success', function () {
     return view('cash.success');
     })->name('cash.success');
 
-Route::post('/code', [StreamingController::class, 'validateCode']);
+Route::post('/code', [StreamingController::class, 'validateCode'])
+    ->name('code.validate');
 
 
 // no se si esta ruta va en esta categoria
 Route::get('/transmission', function () {
-   /* if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
+
+   if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
         return redirect('/code');
-    }*/
-    return view('pages.public.transmission');
+    }
+
+    $event = Event::where('status', 'active')->first();
+
+    if (!$event) {
+
+        session()->flush();
+
+        return redirect('/code')
+            ->with('error', 'No hay ninguna transmisión activa.');
+    }
+
+    return view('pages.public.transmission', compact('event'));
 });
 
 /*RUTAS MERCADO PAGO*/
@@ -145,7 +159,7 @@ Route::middleware(['auth'])
         |--------------------------------------------------------------------------
         */
 
-        Route::resource('events', EventController::class);
+        Route::resource('events', EventsController::class);
 
         Route::resource('participants', ParticipantsController::class);
 

@@ -19,7 +19,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="{{ route('/participants.storeCrud') }}">
+        <form method="POST" action="{{ route('participants.storeCrud') }}">
 
             @csrf
 
@@ -202,7 +202,7 @@
                 <button type="submit" class="btn btn-primary">
                     Crear Participante
                 </button>
-                <a href="{{ route('participants.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.participants.index') }}" class="btn btn-secondary">
                     Volver al listado
                 </a>
             </div>

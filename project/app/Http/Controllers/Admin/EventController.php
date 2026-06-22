@@ -34,7 +34,7 @@ class EventController extends Controller
         $event = Event::create($request->validated());
 
         return redirect()
-            ->route('admin.events.show', $event)
+            ->route('pages.admin.events.show', $event)
             ->with('success', 'Jornada creada correctamente.');
     }
 
@@ -48,7 +48,7 @@ class EventController extends Controller
         $event->update($request->validated());
 
         return redirect()
-            ->route('admin.events.show', $event)
+            ->route('pages.admin.events.show', $event)
             ->with('success', 'Jornada actualizada correctamente.');
     }
 
@@ -66,7 +66,7 @@ class EventController extends Controller
         $event->delete();
 
         return redirect()
-            ->route('admin.events.index')
+            ->route('pages.admin.events.index')
             ->with('success', 'Jornada eliminada correctamente.');
     }
 }
