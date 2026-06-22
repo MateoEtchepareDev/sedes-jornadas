@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Participants;
 use App\Models\Participant;
 
 class StreamingController extends Controller

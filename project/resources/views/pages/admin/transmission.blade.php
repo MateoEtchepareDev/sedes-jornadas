@@ -48,7 +48,7 @@
 <script>
     setTimeout(function () {
         location.reload();
-    }, 5000);
+    }, 30000);
 </script>
 
 @endsection
