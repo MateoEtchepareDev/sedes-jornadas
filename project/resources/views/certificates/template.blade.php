@@ -24,9 +24,9 @@
 
     <p class="label">has successfully completed</p>
 
-    <h3>{{ $participant->event->name }}</h3>
+    <h3>{{ $participant->event->title }}</h3>
 
-    <p>{{ \Carbon\Carbon::parse($participant->event->event_ends_at)->format('F j, Y') }}</p>
+    <p>{{ $participant->event->event_ends_at->format('F j, Y') }}</p>
 
 </body>
 </html>
