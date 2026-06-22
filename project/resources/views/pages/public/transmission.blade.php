@@ -4,50 +4,64 @@
 
 @section('stream')
 
-<section class="stream-section">
+<section class="stream-section py-5">
 
-    <div class="stream-container">
+    <div class="container">
 
         <div class="stream-card">
 
-            <div class="live-badge">
-                <span class="live-dot"></span>
-                EN VIVO
+            <div class="d-flex justify-content-center mb-3">
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    EN VIVO
+                </div>
             </div>
 
             <h1 class="stream-title">
-                Transmisión de la Jornada {{ $event->title}}
+                Transmisión de la Jornada {{ $event->title }}
             </h1>
-
-            <iframe width="560" 
-            height="315" 
-            src="{{ $event->stream_url }}" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; 
-            autoplay; clipboard-write; 
-            encrypted-media; gyroscope; 
-            picture-in-picture; 
-            web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen></iframe>
 
             <p class="stream-subtitle">
                 Sigue la transmisión en vivo del evento en tiempo real.
             </p>
+
+            <div class="video-wrapper mb-4">
+
+                <iframe
+                    src="{{ $event->stream_url }}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
+                    allow="autoplay"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+
+                <div class="cover-top-left"></div>
+                <div class="cover-bottom-left"></div>
+                <div class="cover-bottom-right"></div>
+
+            </div>
+
+            <div class="comments-card">
+
+                <h4 class="comments-title">
+                    Comentarios y Preguntas
+                </h4>
+
                 <form action="/comments" method="POST">
-                @csrf
+                    @csrf
 
-                <textarea
-                    name="message"
-                    placeholder="Escribí tu pregunta o comentario..."
-                    required
-                ></textarea>
+                    <textarea
+                        name="message"
+                        class="form-control mb-3"
+                        rows="5"
+                        placeholder="Escribí tu pregunta o comentario..."
+                        required></textarea>
 
-                <button type="submit">
-                    Enviar
-                </button>
-            </form>
+                    <div class="text-center">
+                        <button class="btn-send">
+                            Enviar Comentario
+                        </button>
+                    </div>
+                </form>
 
             </div>
 
