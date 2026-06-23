@@ -12,8 +12,17 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\StreamingController;
 use App\Http\Controllers\Admin\DashboardController;
-/* use App\Http\Controllers\Admin\EventController; */
+use App\Http\Controllers\Admin\EventController;
 use App\Models\Event;
+
+
+
+Route::get('/inscripcion', function () {
+    return view('pages.public.inscription');
+});
+
+Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
+
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -21,12 +30,24 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/code', function () {
     return view('pages.public.code');
 });
+Route::post('/code', [StreamingController::class, 'validateCode']);
 
 Route::post ('/comments', [CommentController::class, 'store']);
+
+Route::view('/transmission', 'pages.public.transmission')
+    ->name('pages.public.transmission');
+
+
+/* Route::get('/', function () {
+    return view('welcome');
+});
+//
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
+
 
 /* Route::view('/transmision', 'pages.public.transmission')
     ->name('pages.public.transmission');
@@ -120,6 +141,12 @@ Route::prefix('admin')->group(function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
+
+// Página de solicitud de restablecimiento de contraseña: solicita email para enviar enlace.
+// Acción de envío de correo de restablecimiento: genera token y envía el email.
+// Página de restablecimiento de contraseña: permite ingresar nueva contraseña con token.
+// Acción de actualización de contraseña: guarda la nueva contraseña y autentica al admin.
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Features (Planned)
@@ -138,6 +165,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 | POST /reset-password
 |
 */
+
 
 /*
 |--------------------------------------------------------------------------

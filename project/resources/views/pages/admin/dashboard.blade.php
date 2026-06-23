@@ -1,24 +1,71 @@
-<?php
+@extends('layouts.app', [
+    'dashboard' => true
+])
 
-// codigo tipo boilerplate hecho con IA
-?>
+@section('admin-dashboard')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
+<div class="dashboard-wrapper">
 
-    <h1>Panel Admin</h1>
+    <div class="container">
 
-    <p>Bienvenido {{ auth()->user()->name }}</p>
+        <div class="dashboard-header">
 
-    <a href="{{ route('admin.events.index') }}">Ver todas las jornadas</a>
-    <a href="{{ route('admin.participants.index') }}">Ver participantes</a>
-    <a href="{{ route('admin.users.index') }}">Ver usuarios</a>
-    <a href="{{ route('admin.logs.index') }}">Ver logs de actividad</a>
-    <a href="{{ route('admin.certificates.index') }}">Ver certificados</a>
+            <h1 class="dashboard-title">
+                Panel de Administración
+            </h1>
 
-</body>
-</html>
+            <p class="dashboard-subtitle">
+                Bienvenido, <strong>{{ auth()->user()->name }}</strong>
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-4">
+                <a href="{{ route('admin.events.index') }}" class="dashboard-card text-decoration-none">
+                    <div class="card-icon">📅</div>
+                    <h3>Jornadas</h3>
+                    <p>Gestionar jornadas y transmisiones.</p>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a href="{{ route('admin.participants.index') }}" class="dashboard-card text-decoration-none">
+                    <div class="card-icon">👥</div>
+                    <h3>Participantes</h3>
+                    <p>Ver inscriptos y asistencia.</p>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a href="{{ route('admin.users.index') }}" class="dashboard-card text-decoration-none">
+                    <div class="card-icon">👤</div>
+                    <h3>Usuarios</h3>
+                    <p>Administrar usuarios del sistema.</p>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a href="{{ route('admin.logs.index') }}" class="dashboard-card text-decoration-none">
+                    <div class="card-icon">📋</div>
+                    <h3>Logs</h3>
+                    <p>Historial de actividad.</p>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <a href="{{ route('admin.certificates.index') }}" class="dashboard-card text-decoration-none">
+                    <div class="card-icon">🏆</div>
+                    <h3>Certificados</h3>
+                    <p>Gestionar certificados emitidos.</p>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@endsection
