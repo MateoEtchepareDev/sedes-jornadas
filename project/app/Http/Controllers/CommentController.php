@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Comment;
+use App\Models\Event;
+use app\Models\Participant;
 
 
 class CommentController extends Controller
@@ -32,9 +34,11 @@ class CommentController extends Controller
 {
     $comments = Comment::latest()->get();
 
+    $event = Event::where('status', 'active')->first();
+
     return view(
-        'pages.admin.transmission',
-        compact('comments')
+        'pages.admin.comments',
+        compact('comments','event')
     );
 }
 

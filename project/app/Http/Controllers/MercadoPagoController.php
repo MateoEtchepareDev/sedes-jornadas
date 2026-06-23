@@ -30,7 +30,21 @@ class MercadoPagoController extends Controller
             'product' => 'required|array',
         ]);
 
+        
+
         try {
+
+            if ($request->modality == 'virtual') {
+                do {
+                    $codigo = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+            } while (\App\Models\Participant::where('access_code', $codigo)->exists());
+
+            /* dd($codigo); */
+
+        } else {
+            $codigo = null;
+        }
+
             $participant = Participant::create([
                 'event_id' => $validated['event_id'],
                 'full_name' => $validated['full_name'],
@@ -39,9 +53,21 @@ class MercadoPagoController extends Controller
                 'role' => $validated['role'],
                 'modality' => $validated['modality'],
                 'payment_method' => $validated['payment_method'],
+                'access_code' => $validated['access_code'] ?? null,
                 'payment_status' => 'pending',
                 'registered_at' => now(),
             ]);
+
+            Mail::to($participant->email)->send(
+                    new FormularioMail(
+                        $participant->full_name,
+                        $participant->payment_method,
+                        $participant->payment_status
+                    )
+            );
+
+            $participant->access_code = $codigo;
+            $participant->save();
 
             Log::info('Participante pendiente creado', ['participant_id' => $participant->id]);
 

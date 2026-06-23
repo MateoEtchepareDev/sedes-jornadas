@@ -12,7 +12,7 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\StreamingController;
 use App\Http\Controllers\Admin\DashboardController;
-/* use App\Http\Controllers\Admin\EventController; */
+use App\Http\Controllers\Admin\EventController;
 use App\Models\Event;
 
 
@@ -21,7 +21,8 @@ Route::get('/inscripcion', function () {
     return view('pages.public.inscription');
 });
 
-Route::get('/admin/transmission', [CommentController::class, 'adminTransmission']);
+Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
+
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -76,7 +77,9 @@ Route::get('/transmission', function () {
         return redirect('/code');
     }
 
+
     return view('pages.public.transmission');
+
 
     $event = Event::where('status', 'active')->first();
 

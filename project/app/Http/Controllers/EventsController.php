@@ -80,7 +80,7 @@ class EventsController extends Controller
      */
     public function edit(string $id)
     {
-        $events = Event::findOrFail($id);
+        $event = Event::findOrFail($id);
 
         $events = Event::orderBy('event_starts_at', 'desc')->get();
 
@@ -129,27 +129,15 @@ class EventsController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        $events = Event::findOrFail($id);
+{
+    $event = Event::findOrFail($id);
 
-        if ($events->participants()->exists()) {
-            return back()->with(
-                'error',
-                'No se puede eliminar un evento con participantes inscriptos.'
-            );
-        }
+    $event->participants()->delete();
 
-        if ($events->status !== 'draft') {
-            return back()->with(
-                'error',
-                'Solo se pueden eliminar eventos en estado borrador.'
-            );
-        }
+    $event->delete();
 
-        $events->delete();
-
-        return redirect()
-            ->route('admin.events.index')
-            ->with('success', 'Evento eliminado correctamente.');
-    }
+    return redirect()
+        ->route('admin.events.index')
+        ->with('success', 'Evento eliminado correctamente.');
+}
 }

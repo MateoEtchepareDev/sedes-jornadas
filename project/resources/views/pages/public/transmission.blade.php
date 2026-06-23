@@ -46,25 +46,12 @@
                     Comentarios y Preguntas
                 </h4>
 
-                @if(session('success'))
-
-                    <div style="
-                        background:#d4edda;
-                        color:#155724;
-                        padding:10px;
-                        border-radius:8px;
-                        margin-bottom:15px;
-                    ">
-                        {{ session('success') }}
-                    </div>
-
-                @endif
-
                 <form action="/comments" method="POST">
                     @csrf
 
                     <textarea
                         name="message"
+<<<<<<< HEAD
 <<<<<<< HEAD
                         placeholder="Escribí tu pregunta o comentario..."
                         required
@@ -75,6 +62,8 @@
                     </button>
 
 =======
+=======
+>>>>>>> origin/main
                         class="form-control mb-3"
                         rows="5"
                         placeholder="Escribí tu pregunta o comentario..."
@@ -85,7 +74,10 @@
                             Enviar Comentario
                         </button>
                     </div>
+<<<<<<< HEAD
 >>>>>>> origin/envio-correos
+=======
+>>>>>>> origin/main
                 </form>
 
             </div>
