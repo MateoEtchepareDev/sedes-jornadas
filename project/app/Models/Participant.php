@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -30,6 +31,28 @@ class Participant extends Model
 
     public function event()
     {
-        return $this->belongsTo(Events::class);
+        return $this->belongsTo(Event::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    public function canDownloadCertificate(): bool
+    {
+        if ($this->payment_status !== 'approved') {
+            return false;
+        }
+
+        if ($this->modality === 'in_person') {
+            return (bool) $this->checkin_confirmed;
+        }
+
+        if ($this->modality === 'virtual') {
+            return (bool) $this->questions_completed;
+        }
+
+        return false;
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('event_id')->constrained('events')->onDelete('restrict')->onUpdate('cascade');
             $table->string('full_name');
             $table->string('dni', 20);
