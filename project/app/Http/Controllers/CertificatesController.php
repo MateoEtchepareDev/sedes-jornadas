@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Certificates;
+use App\Models\Certificate;
 
 class CertificatesController extends Controller
 {
@@ -13,8 +13,8 @@ class CertificatesController extends Controller
      */
     public function index()
     {
-        $certificate = Certificates::all();
-        return view('certificates.index', compact('certificate'));
+        $certificate = Certificate::all();
+        return view('pages.admin.certificates.index', compact('certificate'));
     }
 
     /**
@@ -22,7 +22,7 @@ class CertificatesController extends Controller
      */
     public function create()
     {
-        return view('certificates.create');
+        return view('pages.admin.certificates.create');
     }
 
     /**
@@ -37,14 +37,14 @@ class CertificatesController extends Controller
             'issued_at' => 'required|date',
         ]);
 
-        $certificate = Certificates::create($request->only([
+        $certificate = Certificate::create($request->only([
             'participant_id',
             'event_id',
             'certificate_url',
             'issued_at',
         ]));
 
-        return redirect()->route('certificates.index')
+        return redirect()->route('admin.certificates.index')
                         ->with('success', 'Certificado creado correctamente.');
     }
 
@@ -53,8 +53,8 @@ class CertificatesController extends Controller
      */
     public function show(string $id)
     {
-        $certificate = Certificates::findOrFail($id);
-        return view('certificates.show', compact('certificate'));
+        $certificate = Certificate::findOrFail($id);
+        return view('pages.admin.certificates.show', compact('certificate'));
     }
 
     /**
@@ -62,8 +62,8 @@ class CertificatesController extends Controller
      */
     public function edit(string $id)
     {
-        $certificate = Certificates::findOrFail($id);
-        return view('certificates.edit', compact('certificate'));
+        $certificate = Certificate::findOrFail($id);
+        return view('pages.admin.certificates.edit', compact('certificate'));
     }
 
     /**
@@ -71,7 +71,7 @@ class CertificatesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $certificate = Certificates::findOrFail($id);
+        $certificate = Certificate::findOrFail($id);
         $request->validate([
             'participant_id' => 'required|exists:participants,id',
             'event_id' => 'required|exists:events,id',
@@ -85,7 +85,7 @@ class CertificatesController extends Controller
             'issued_at',
         ]));
 
-        return redirect()->route('certificates.index')
+        return redirect()->route('admin.certificates.index')
                         ->with('success', 'Certificado actualizado correctamente.');
     }
 
@@ -94,10 +94,10 @@ class CertificatesController extends Controller
      */
     public function destroy(string $id)
     {
-        $certificate = Certificates::findOrFail($id);
+        $certificate = Certificate::findOrFail($id);
         $certificate->delete();
 
-        return redirect()->route('certificates.index')
+        return redirect()->route('admin.certificates.index')
                         ->with('success', 'Certificado eliminado correctamente.');
     }
 }

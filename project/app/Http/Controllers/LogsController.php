@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Logs;
+use App\Models\Log;
 
 class LogsController extends Controller
 {
@@ -12,9 +12,9 @@ class LogsController extends Controller
      */
     public function index()
     {
-        $log = Logs::all();
+        $log = Log::all();
 
-        return view('logs.index', compact('log'));
+        return view('pages.admin.logs.index', compact('log'));
     }
 
     /**
@@ -22,7 +22,7 @@ class LogsController extends Controller
      */
     public function create()
     {
-        return view('logs.create');
+        return view('pages.admin.logs.create');
     }
 
     /**
@@ -39,9 +39,9 @@ class LogsController extends Controller
             'entity_id' => 'required|integer|min:1',
         ]);
 
-        Logs::create($validated);
+        Log::create($validated);
 
-        return redirect()->route('logs.index')
+        return redirect()->route('admin.logs.index')
             ->with('success', 'Log creado correctamente.');
     }
 
@@ -50,9 +50,9 @@ class LogsController extends Controller
      */
     public function show(string $id)
     {
-        $log = Logs::findOrFail($id);
+        $log = Log::findOrFail($id);
 
-        return view('logs.show', compact('log'));
+        return view('pages.admin.logs.show', compact('log'));
     }
 
     /**
@@ -60,9 +60,9 @@ class LogsController extends Controller
      */
     public function edit(string $id)
     {
-        $log = Logs::findOrFail($id);
+        $log = Log::findOrFail($id);
 
-        return view('logs.edit', compact('log'));
+        return view('pages.admin.logs.edit', compact('log'));
     }
 
     /**
@@ -70,7 +70,7 @@ class LogsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $log = Logs::findOrFail($id);
+        $log = Log::findOrFail($id);
 
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
@@ -83,7 +83,7 @@ class LogsController extends Controller
 
         $log->update($validated);
 
-        return redirect()->route('logs.index')
+        return redirect()->route('admin.logs.index')
             ->with('success', 'Log actualizado correctamente.');
     }
 
@@ -92,11 +92,11 @@ class LogsController extends Controller
      */
     public function destroy(string $id)
     {
-        $log = Logs::findOrFail($id);
+        $log = Log::findOrFail($id);
 
         $log->delete();
 
-        return redirect()->route('logs.index')
+        return redirect()->route('admin.logs.index')
             ->with('success', 'Log eliminado correctamente.');
     }
 }

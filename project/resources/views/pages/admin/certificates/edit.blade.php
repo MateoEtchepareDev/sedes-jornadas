@@ -4,7 +4,7 @@
 <div class="form-wrapper">
     <div class="form-box">
         <h1 class="form-heading">Editar Certificado</h1>
-        <form method="POST" action="{{ route('certificates.update', $certificate->id ?? 1) }}">
+        <form method="POST" action="{{ route('admin.certificates.update', $certificate->id ?? 1) }}">
             @csrf
             @method('PUT')
             <div class="form-grid">
@@ -15,7 +15,7 @@
             </div>
             <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
                 <button type="submit" class="btn btn-primary">Actualizar Certificado</button>
-                <a href="{{ route('certificates.index') }}" class="btn btn-secondary">Volver al listado</a>
+                <a href="{{ route('admin.certificates.index') }}" class="btn btn-secondary">Volver al listado</a>
             </div>
         </form>
     </div>

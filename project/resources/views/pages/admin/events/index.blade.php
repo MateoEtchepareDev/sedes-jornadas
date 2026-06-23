@@ -3,9 +3,10 @@
 ])
 
 @section('form')
-
 <section class="form-wrapper">
 
+    <div>
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Pagina Principal</a>
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
             <h1 class="form-heading mb-0">Eventos</h1>
             <a href="{{ route('admin.events.create') }}" class="btn btn-primary">Crear evento</a>
@@ -48,7 +49,11 @@
                                 <td>{{ ucfirst($item->status) }}</td>
                                 <td class="text-end">
                                     <div class="btn-group" role="group">
+
                                         <a href="{{ route('events.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+
+                                        <a href="{{ route('admin.events.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+
                                         <form action="{{ route('admin.events.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este evento?');">
                                             @csrf
                                             @method('DELETE')

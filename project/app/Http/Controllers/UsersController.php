@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = Users::all();
-        return view('users.index', compact('users'));
+        return view('pages.admin.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +24,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('pages.admin.users.create');
     }
 
     /**
@@ -46,10 +46,10 @@ class UsersController extends Controller
             'is_admin',
         ]));
 
-        $user->access_code = strtoupper(Str::random(6));
-        $user->save();
+        /* $user->access_code = strtoupper(Str::random(6));
+        $user->save(); */
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success', 'Usuario creado correctamente.');
     }
 
@@ -59,7 +59,7 @@ class UsersController extends Controller
     public function show(string $id)
     {
         $users = Users::findOrFail($id);
-        return view('users.show', compact('users'));
+        return view('pages.admin.users.show', compact('users'));
     }
 
     /**
@@ -68,7 +68,7 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         $users = Users::findOrFail($id);
-        return view('users.edit', compact('users'));
+        return view('pages.admin.users.edit', compact('users'));
     }
 
     /**
@@ -91,7 +91,7 @@ class UsersController extends Controller
             'is_admin'=>$request->is_admin,
         ]);
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success', 'Usuario actualizado correctamente.');
     }
 
@@ -103,7 +103,7 @@ class UsersController extends Controller
         $users = Users::findOrFail($id);
         $users->delete();
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success', 'Usuario eliminado correctamente.');
     }
 }

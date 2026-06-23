@@ -29,7 +29,8 @@
                         la jornada
                     </p>
 
-                    <form>
+                    <form method="POST" action="{{ route('code.validate') }}">
+                        @csrf
 
                         <div class="mb-3">
                             <label

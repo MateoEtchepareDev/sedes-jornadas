@@ -13,7 +13,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="{{ route('certificates.store') }}">
+        <form method="POST" action="{{ route('admin.certificates.store') }}">
             @csrf
             <div class="form-grid">
                 <div class="field-group"><label class="field-label">Participante</label><input class="field-input" type="number" name="participant_id" required></div>
@@ -23,7 +23,7 @@
             </div>
             <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
                 <button type="submit" class="btn btn-primary">Crear Certificado</button>
-                <a href="{{ route('certificates.index') }}" class="btn btn-secondary">Volver al listado</a>
+                <a href="{{ route('admin.certificates.index') }}" class="btn btn-secondary">Volver al listado</a>
             </div>
         </form>
     </div>

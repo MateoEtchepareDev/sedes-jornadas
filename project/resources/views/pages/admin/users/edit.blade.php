@@ -13,7 +13,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="{{ route('users.update', $users->id ?? 1) }}">
+        <form method="POST" action="{{ route('admin.users.update', $users->id ?? 1) }}">
             @csrf
             @method('PUT')
             <div class="form-grid">
@@ -30,7 +30,7 @@
             </div>
             <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
                 <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
-                <a href="{{ route('users.index') }}" class="btn btn-secondary">Volver al listado</a>
+                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Volver al listado</a>
             </div>
         </form>
     </div>

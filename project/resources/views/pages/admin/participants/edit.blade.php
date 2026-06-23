@@ -44,7 +44,7 @@
 
         <div class="form-box">
 
-        <form method="POST" action="{{ route('participants.update', $participant->id) }}">
+        <form method="POST" action="{{ route('admin.participants.update', $participant->id) }}">
 
             @csrf
             @method('PUT')
@@ -233,7 +233,7 @@
                 <button type="submit" class="btn btn-primary">
                     Actualizar Participante
                 </button>
-                <a href="{{ route('participants.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.participants.index') }}" class="btn btn-secondary">
                     Volver al listado
                 </a>
             </div>
