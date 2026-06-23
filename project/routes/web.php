@@ -7,7 +7,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\EventsController;
-use App\Http\Controllers\CertificatesController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -140,8 +140,6 @@ Route::middleware(['auth'])
 
         Route::resource('participants', ParticipantsController::class);
 
-        Route::resource('certificates', CertificatesController::class);
-
         Route::resource('users', UsersController::class);
 
         Route::resource('logs', LogsController::class);
@@ -203,3 +201,12 @@ Route::middleware(['auth'])
         |
         */
     });
+
+
+
+//--------certificates------------------
+
+Route::get('/certificates/{participant:uuid}', [CertificateController::class, 'show'])
+    ->name('certificates.show');
+
+//--------------------------------------
