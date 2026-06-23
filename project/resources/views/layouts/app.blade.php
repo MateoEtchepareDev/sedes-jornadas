@@ -57,6 +57,10 @@
 
                 @yield('stream')
 
+            @elseif(!empty($dashboard)) 
+
+                @yield('admin-dashboard')
+
             @else
 
                 @yield('content')

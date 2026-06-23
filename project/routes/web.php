@@ -10,8 +10,19 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\StreamingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Models\Event;
+
+
+
+Route::get('/inscripcion', function () {
+    return view('pages.public.inscription');
+});
+
+Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
+
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
@@ -19,30 +30,63 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/code', function () {
     return view('pages.public.code');
 });
+Route::post('/code', [StreamingController::class, 'validateCode']);
 
 Route::post ('/comments', [CommentController::class, 'store']);
+
+Route::view('/transmission', 'pages.public.transmission')
+    ->name('pages.public.transmission');
+
+
+/* Route::get('/', function () {
+    return view('welcome');
+});
+//
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
 
-Route::view('/transmision', 'pages.public.transmission')
-    ->name('pages.public.transmission');
 
+/* Route::view('/transmision', 'pages.public.transmission')
+    ->name('pages.public.transmission');
+ */
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
 
-Route::resource('participants', ParticipantsController::class);
+Route::post('/participantCrud', [ParticipantsController::class, 'storeCrud'])
+    ->name('participants.storeCrud');
 
-Route::post('/code', [StreamingController::class, 'validateCode']);
+Route::post('/participants', [ParticipantsController::class, 'storeFormulario'])
+    ->name('participants.storeFormulario');
+
+Route::get('/cash/success', function () {
+    return view('cash.success');
+    })->name('cash.success');
+
+Route::post('/code', [StreamingController::class, 'validateCode'])
+    ->name('code.validate');
 
 
 // no se si esta ruta va en esta categoria
 Route::get('/transmission', function () {
-   /* if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
+
+   if (!session ('stream_access')){    //si no tiene acceso lo manda nuevamente al codigo
         return redirect('/code');
-    }*/
-    return view('pages.public.transmission');
+    }
+
+    $event = Event::where('status', 'active')->first();
+
+    if (!$event) {
+
+        session()->flush();
+
+        return redirect('/code')
+            ->with('error', 'No hay ninguna transmisión activa.');
+    }
+
+    return view('pages.public.transmission', compact('event'));
 });
 
 /*RUTAS MERCADO PAGO*/
@@ -97,6 +141,12 @@ Route::prefix('admin')->group(function () {
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
+
+// Página de solicitud de restablecimiento de contraseña: solicita email para enviar enlace.
+// Acción de envío de correo de restablecimiento: genera token y envía el email.
+// Página de restablecimiento de contraseña: permite ingresar nueva contraseña con token.
+// Acción de actualización de contraseña: guarda la nueva contraseña y autentica al admin.
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Features (Planned)
@@ -115,6 +165,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 | POST /reset-password
 |
 */
+
 
 /*
 |--------------------------------------------------------------------------
@@ -136,7 +187,7 @@ Route::middleware(['auth'])
         |--------------------------------------------------------------------------
         */
 
-        Route::resource('events', EventController::class);
+        Route::resource('events', EventsController::class);
 
         Route::resource('participants', ParticipantsController::class);
 

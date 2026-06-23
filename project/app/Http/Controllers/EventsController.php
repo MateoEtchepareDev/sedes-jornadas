@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Event;
 
 class EventsController extends Controller
@@ -13,8 +12,9 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
-        return view('events.index', compact('events'));
+        $events = Event::orderBy('event_starts_at', 'desc')->get();
+
+        return view('pages.admin.events.index', compact('events'));
     }
 
     /**
@@ -22,7 +22,7 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return view('events.create');
+        return view('pages.admin.events.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class EventsController extends Controller
             'status' => 'required|in:draft,published,active,finished,cancelled',
         ]);
 
-        Event::create($request->only([
+        $events = Event::create($request->only([
             'title',
             'description',
             'price',
@@ -56,8 +56,9 @@ class EventsController extends Controller
             'status',
         ]));
 
-        return redirect()->route('events.index')
-                        ->with('success', 'Evento creado correctamente.');
+        return redirect()
+            ->route('admin.events.index', $events)
+            ->with('success', 'Evento creado correctamente.');
     }
 
     /**
@@ -66,7 +67,12 @@ class EventsController extends Controller
     public function show(string $id)
     {
         $events = Event::findOrFail($id);
-        return view('events.show', compact('events'));
+
+        $events->loadCount('participants');
+
+        $events = Event::orderBy('event_starts_at', 'desc')->get();
+
+        return view('pages.admin.events.index', compact('events'));
     }
 
     /**
@@ -74,8 +80,11 @@ class EventsController extends Controller
      */
     public function edit(string $id)
     {
-        $events = Event::findOrFail($id);
-        return view('events.edit', compact('events'));
+        $event = Event::findOrFail($id);
+
+        $events = Event::orderBy('event_starts_at', 'desc')->get();
+
+        return view('pages.admin.events.edit', compact('event', 'events'));
     }
 
     /**
@@ -97,32 +106,38 @@ class EventsController extends Controller
         ]);
 
         $events = Event::findOrFail($id);
+
         $events->update([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'price'=>$request->price,
-            'stream_url'=>$request->stream_url,
-            'registration_opens_at'=>$request->registration_opens_at,
-            'registration_closes_at'=>$request->registration_closes_at,
-            'event_starts_at'=>$request->event_starts_at,
-            'event_ends_at'=>$request->event_ends_at,
-            'max_participants'=>$request->max_participants,
-            'status'=>$request->status,
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stream_url' => $request->stream_url,
+            'registration_opens_at' => $request->registration_opens_at,
+            'registration_closes_at' => $request->registration_closes_at,
+            'event_starts_at' => $request->event_starts_at,
+            'event_ends_at' => $request->event_ends_at,
+            'max_participants' => $request->max_participants,
+            'status' => $request->status,
         ]);
 
-        return redirect()->route('events.index')
-                        ->with('success', 'Evento actualizado correctamente.');
+        return redirect()
+            ->route('admin.events.index', $events)
+            ->with('success', 'Evento actualizado correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        $events = Event::findOrFail($id);
-        $events->delete();
+{
+    $event = Event::findOrFail($id);
 
-        return redirect()->route('events.index')
-                        ->with('success', 'Evento eliminado correctamente.');
-    }
+    $event->participants()->delete();
+
+    $event->delete();
+
+    return redirect()
+        ->route('admin.events.index')
+        ->with('success', 'Evento eliminado correctamente.');
+}
 }

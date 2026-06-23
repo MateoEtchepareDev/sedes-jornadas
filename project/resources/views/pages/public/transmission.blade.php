@@ -4,59 +4,64 @@
 
 @section('stream')
 
-<section class="stream-section">
+<section class="stream-section py-5">
 
-    <div class="stream-container">
+    <div class="container">
 
         <div class="stream-card">
 
-            <div class="live-badge">
-                <span class="live-dot"></span>
-                EN VIVO
+            <div class="d-flex justify-content-center mb-3">
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    EN VIVO
+                </div>
             </div>
 
             <h1 class="stream-title">
-                Transmisión de la Jornada
+                Transmisión de la Jornada {{ $event->title }}
             </h1>
 
             <p class="stream-subtitle">
                 Sigue la transmisión en vivo del evento en tiempo real.
             </p>
 
-            <div class="stream-video-wrapper">
+            <div class="video-wrapper mb-4">
 
-                <iframe 
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="YouTube video player"
+                <iframe
+                    src="{{ $event->stream_url }}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
+                    allow="autoplay"
+                    frameborder="0"
                     allowfullscreen>
                 </iframe>
 
+                <div class="cover-top-left"></div>
+                <div class="cover-bottom-left"></div>
+                <div class="cover-bottom-right"></div>
+
             </div>
 
-            <div class="stream-info">
+            <div class="comments-card">
 
-                <h3>
-                    Información de la transmisión
-                </h3>
-
-                <p>
-                    La transmisión comenzará automáticamente cuando el evento esté en vivo.
-                    Si tienes problemas de reproducción, actualiza la página o verifica tu conexión a internet.
-                </p>
+                <h4 class="comments-title">
+                    Comentarios y Preguntas
+                </h4>
 
                 <form action="/comments" method="POST">
-                @csrf
+                    @csrf
 
-                <textarea
-                    name="message"
-                    placeholder="Escribí tu pregunta o comentario..."
-                    required
-                ></textarea>
+                    <textarea
+                        name="message"
+                        class="form-control mb-3"
+                        rows="5"
+                        placeholder="Escribí tu pregunta o comentario..."
+                        required></textarea>
 
-                <button type="submit">
-                    Enviar
-                </button>
-            </form>
+                    <div class="text-center">
+                        <button class="btn-send">
+                            Enviar Comentario
+                        </button>
+                    </div>
+                </form>
 
             </div>
 

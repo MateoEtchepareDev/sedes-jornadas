@@ -13,7 +13,7 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="{{ route('users.store') }}">
+        <form method="POST" action="{{ route('admin.users.store') }}">
             @csrf
             <div class="form-grid">
                 <div class="field-group"><label class="field-label">Nombre</label><input class="field-input" type="text" name="name" required></div>
@@ -29,7 +29,7 @@
             </div>
             <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
                 <button type="submit" class="btn btn-primary">Crear Usuario</button>
-                <a href="{{ route('users.index') }}" class="btn btn-secondary">Volver al listado</a>
+                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Volver al listado</a>
             </div>
         </form>
     </div>

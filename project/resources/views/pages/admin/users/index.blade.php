@@ -3,9 +3,10 @@
 @section('form')
 <section class="form-wrapper">
     <div class="form-box">
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Pagina Principal</a>
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
             <h1 class="form-heading mb-0">Usuarios</h1>
-            <a href="{{ route('users.create') }}" class="btn btn-primary">Crear usuario</a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Crear usuario</a>
         </div>
 
         @php $items = $users ?? collect(); @endphp
@@ -28,8 +29,8 @@
                                 <td>{{ ($item->is_admin ?? false) ? 'Admin' : 'Usuario' }}</td>
                                 <td class="text-end">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('users.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
-                                        <form action="{{ route('users.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este usuario?');">
+                                        <a href="{{ route('admin.users.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                        <form action="{{ route('admin.users.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este usuario?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>

@@ -18,7 +18,7 @@ class ParticipantsController extends Controller
     public function index()
     {
         $participant = Participant::all();
-        return view('participants.index', compact('participant'));
+        return view('pages.admin.participants.index', compact('participant'));
     }
 
     /**
@@ -26,13 +26,13 @@ class ParticipantsController extends Controller
      */
     public function create()
     {
-        return view('participants.create');
+        return view('pages.admin.participants.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeCrud(Request $request)
     {
 
         $request->validate([
@@ -70,26 +70,82 @@ class ParticipantsController extends Controller
             'registered_at',
             'paid_at',
         ]));
+        
+         return redirect()->route('admin.participants.index')
+                            ->with('success', 'Participante creado correctamente.');
+    }
 
-        if ($participant->payment_method == 'cash') {
-             try {
+    public function storeFormulario(Request $request)
+    {
+
+        $request->validate([
+            'event_id' => 'required',
+            'full_name' => 'required|string|max:255',
+            'dni' => 'required|string|max:20|unique:participants',
+            'email' => 'required|string|email|max:255|unique:participants',
+            'role' => 'required|in:profesor,alumno,oyente',
+            'modality' => 'required|in:in_person,virtual',
+            'payment_status' => 'required|in:pending,approved,rejected,refunded,charged_back,cancelled',
+            'payment_method' => 'required|in:mercado_pago,cash',
+            'payment_external_id' => 'nullable|string|max:255',
+            'qr_token' => 'nullable|string|max:255',
+            'checkin_confirmed' => 'nullable|boolean',
+            'access_code' => 'nullable|string|max:30',
+            'questions_completed' => 'nullable|boolean',
+            'registered_at' => 'nullable|date',
+            'paid_at' => 'nullable|date',
+        ]);
+
+        /* dd($request->modality); */
+
+        if ($request->modality == 'virtual') {
+            do {
+                $codigo = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+            } while (\App\Models\Participant::where('access_code', $codigo)->exists());
+
+            /* dd($codigo); */
+
+        } else {
+            $codigo = null;
+        }
+
+        $participant = Participant::create($request->only([
+            'event_id',
+            'full_name',
+            'dni',
+            'email',
+            'role',
+            'modality',
+            'payment_status',
+            'payment_method',
+            'payment_external_id',
+            'qr_token',
+            'checkin_confirmed',
+            'access_code',
+            'questions_completed',
+            'registered_at',
+            'paid_at',
+        ]));
 
                 Mail::to($participant->email)->send(
                     new FormularioMail(
-                        $participant->full_name
+                        $participant->full_name,
+                        $participant->payment_method,
+                        $participant->payment_status
                     )
                 );
-
-            } catch (\Exception $e) {
-
-                \Log::error($e->getMessage());
-
-            }
-
-        }
         
-         return redirect()->route('participants.index')
-                            ->with('success', 'Participante creado correctamente y correo enviado.');
+        $participant->access_code = $codigo;
+        $participant->save();
+
+        if ($participant->payment_method == 'cash' && $participant->payment_status == 'pending') {
+            return redirect()->route('cash.success')
+                            ->with('success', 'Por favor, complete el pago en efectivo para recibir el correo con el código de acceso.');
+        }
+
+/*         $participant->refresh();
+
+        dd($participant->access_code); */
     }
 
     /**
@@ -97,7 +153,7 @@ class ParticipantsController extends Controller
      */
     public function show(Participant $participant)
     {
-        return view('participants.show', compact('participant'));
+        return view('pages.admin.participants.show', compact('participant'));
     }
 
     /**
@@ -105,7 +161,7 @@ class ParticipantsController extends Controller
      */
     public function edit(Participant $participant)
     {
-        return view('participants.edit', compact('participant'));
+        return view('pages.admin.participants.edit', compact('participant'));
     }
 
     /**
@@ -149,7 +205,7 @@ class ParticipantsController extends Controller
             'paid_at'=>$request->paid_at,
         ]);
 
-        return redirect()->route('participants.index')
+        return redirect()->route('admin.participants.index')
                         ->with('success', 'Participante actualizado correctamente.');
     }
 
@@ -160,7 +216,7 @@ class ParticipantsController extends Controller
     {
         $participant->delete();
 
-        return redirect()->route('participants.index')
+        return redirect()->route('admin.participants.index')
                         ->with('success', 'Participante eliminado correctamente.');
     }
 }

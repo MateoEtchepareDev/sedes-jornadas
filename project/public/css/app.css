@@ -485,3 +485,60 @@ main {
     }
 
 }
+
+.dashboard-wrapper{
+    min-height:100vh;
+    background:#eef3f8;
+    padding:60px 0;
+}
+
+.dashboard-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.dashboard-title{
+    color:#0f4b8d;
+    font-size:3rem;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.dashboard-subtitle{
+    color:#6c757d;
+    font-size:1.1rem;
+}
+
+.dashboard-card{
+    display:block;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    height:100%;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+    color:#212529;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+    color:#0f4b8d;
+}
+
+.card-icon{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.dashboard-card h3{
+    font-size:1.4rem;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.dashboard-card p{
+    color:#6c757d;
+    margin:0;
+}
