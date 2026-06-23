@@ -70,8 +70,6 @@ class EventsController extends Controller
 
         $events->loadCount('participants');
 
-        $events = Event::orderBy('event_starts_at', 'desc')->get();
-
         return view('pages.admin.events.index', compact('events'));
     }
 
@@ -80,7 +78,7 @@ class EventsController extends Controller
      */
     public function edit(string $id)
     {
-        $events = Event::findOrFail($id);
+        $event = Event::findOrFail($id);
 
         $events = Event::orderBy('event_starts_at', 'desc')->get();
 
