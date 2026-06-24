@@ -22,6 +22,9 @@ Route::get('/inscripcion', function () {
 });
 
 Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
+Route::post ('/comments', [CommentController::class, 'store']);
+Route::view('/comments', 'pages.admin.comments')
+    ->name('pages.admin.comments');
 
 
 Route::get('/', [HomeController::class, 'index'])
@@ -31,8 +34,6 @@ Route::get('/code', function () {
     return view('pages.public.code');
 });
 Route::post('/code', [StreamingController::class, 'validateCode']);
-
-Route::post ('/comments', [CommentController::class, 'store']);
 
 Route::view('/transmission', 'pages.public.transmission')
     ->name('pages.public.transmission');
@@ -86,7 +87,9 @@ Route::get('/transmission', function () {
             ->with('error', 'No hay ninguna transmisión activa.');
     }
 
-    return view('pages.public.transmission', compact('event'));
+    $comments = \App\Models\Comment::latest()->get();
+
+    return view('pages.public.transmission', compact('event', 'comments'));
 });
 
 /*RUTAS MERCADO PAGO*/
@@ -194,6 +197,8 @@ Route::middleware(['auth'])
         Route::resource('users', UsersController::class);
 
         Route::resource('logs', LogsController::class);
+        
+        Route::resource('certificate', CertificateController::class);
 
         /*
         |--------------------------------------------------------------------------

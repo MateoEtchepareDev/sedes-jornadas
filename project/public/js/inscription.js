@@ -53,7 +53,7 @@ if (form) {
                 title: `Inscripción evento ${eventId}`,
                 description: 'Inscripción a jornada',
                 currency_id: 'ARS',
-                quantity: 500,
+                quantity: 1,
                 unit_price: 1,
             }],
             name: name,
