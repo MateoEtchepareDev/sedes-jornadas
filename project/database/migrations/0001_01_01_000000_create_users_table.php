@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password_hash');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('access_code')->nullable()->unique();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
