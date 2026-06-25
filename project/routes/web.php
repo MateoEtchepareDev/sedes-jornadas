@@ -257,7 +257,7 @@ Route::middleware(['auth'])
 
 //--------certificates------------------
 
-Route::get('/certificates/{participant:uuid}', [CertificateController::class, 'show'])
+Route::get('/certificates/{uuid}', [CertificateController::class, 'show'])
     ->name('certificates.show');
 
 //--------------------------------------
