@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             EventSeeder::class,
             ParticipantSeeder::class,
-            CertificateSeeder::class,
             LogSeeder::class,
             UsersSeeder::class,
         ]);
