@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('qr_token', 500)->nullable(); // JWT firmado, NULL si es virtual
             $table->boolean('checkin_confirmed')->nullable(); // NULL si es virtual
             // Campos para modalidad virtual
-            $table->string('access_code', 64)->nullable()->unique(); // Código de acceso al stream, NULL si es presencial
+            $table->string('access_code', 20)->nullable()->unique(); // Código de acceso al stream, NULL si es presencial
             $table->boolean('questions_completed')->nullable(); // NULL si es presencial
             $table->dateTime('registered_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('paid_at')->nullable();

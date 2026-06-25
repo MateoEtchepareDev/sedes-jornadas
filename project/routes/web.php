@@ -33,28 +33,16 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/code', function () {
     return view('pages.public.code');
 });
-Route::post('/code', [StreamingController::class, 'validateCode']);
-
-Route::view('/transmission', 'pages.public.transmission')
-    ->name('pages.public.transmission');
 
 
-/* Route::get('/', function () {
-    return view('welcome');
-});
-//
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/code', [StreamingController::class, 'validateCode'])
+    ->name('code.validate');
+
 
 
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
 
-
-/* Route::view('/transmision', 'pages.public.transmission')
-    ->name('pages.public.transmission');
- */
-Route::view('/code', 'pages.public.code')
-    ->name('pages.public.code');
 
 Route::post('/participantCrud', [ParticipantsController::class, 'storeCrud'])
     ->name('participants.storeCrud');
@@ -66,8 +54,6 @@ Route::get('/cash/success', function () {
     return view('cash.success');
     })->name('cash.success');
 
-Route::post('/code', [StreamingController::class, 'validateCode'])
-    ->name('code.validate');
 
 
 // no se si esta ruta va en esta categoria
