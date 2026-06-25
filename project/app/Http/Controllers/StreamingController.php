@@ -10,7 +10,6 @@ class StreamingController extends Controller
     {
 
         $participant = Participant::where(
-
             'access_code',
             $request->access_code        //verifica si esta el codigo
         )->first();

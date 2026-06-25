@@ -19,7 +19,8 @@
                     </ul>
                 </div>
             @endif
-            <form id="inscription-form" method="POST" action=" {{ route('participants.storeFormulario') }} ">
+
+            <form id="inscription-form" method="POST" action="/participants">
                 @csrf
 
                 <div class="row g-3">
@@ -49,7 +50,7 @@
                     </div>
 
                     <div class="col-12">
-                        <label class="field-label">Certificado</label>
+                        <label class="field-label">Modalidad</label>
                         <div class="option-row">
                             <input type="radio" id="mod_in_person" name="modality" value="in_person" class="d-none option-cetificate">
                             <label for="mod_in_person" class="option-btn btn">FISICO</label>

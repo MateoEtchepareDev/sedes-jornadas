@@ -42,6 +42,7 @@
                             <input
                                 type="text"
                                 id="code-input"
+                                name="access_code"
                                 class="form-control code-input">
                         </div>
 
