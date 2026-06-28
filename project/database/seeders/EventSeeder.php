@@ -22,6 +22,20 @@ class EventSeeder extends Seeder
                 'max_participants' => 100,
                 'status' => 'published',
             ]);
+            
         }
+        // Evento ACTIVO (para streaming actual)
+        Event::create([
+            'title' => "Evento Activo",
+            'description' => "Evento actualmente en transmisión",
+            'price' => rand(1000, 5000),
+            'stream_url' => "https://youtube.com/live/active-event",
+            'registration_opens_at' => now()->subDays(5),
+            'registration_closes_at' => now()->addDays(5),
+            'event_starts_at' => now()->subHour(),
+            'event_ends_at' => now()->addHours(4),
+            'max_participants' => 100,
+            'status' => 'active',
+        ]);
     }
 }

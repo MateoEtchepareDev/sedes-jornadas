@@ -55,13 +55,20 @@
             </div>
 
             <div class="col-md-6 col-lg-4">
-                <a href="{{ route('admin.certificates.index') }}" class="dashboard-card text-decoration-none">
+                <a href="{{ route('admin.certificate.index') }}" class="dashboard-card text-decoration-none">
                     <div class="card-icon">🏆</div>
                     <h3>Certificados</h3>
                     <p>Gestionar certificados emitidos.</p>
                 </a>
             </div>
 
+            <div class="col-md-6 col-lg-4">
+                <a href="{{ route('pages.admin.comments') }}" class="dashboard-card text-decoration-none">
+                    <div class="card-icon">💬</div>
+                    <h3>Comentarios</h3>
+                    <p>Administrar comentarios de los usuarios.</p>
+                </a>
+            </div>
         </div>
 
     </div>

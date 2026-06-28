@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\Exceptions\MPApiException;
-use App\Models\Participant;
+use App\Models\Participants;
 use Exception;
 
 use Illuminate\Support\Facades\Log;
@@ -19,6 +19,8 @@ class MercadoPagoController extends Controller
     public function createPaymentPreference(Request $request)
     {
         $this->authenticate();
+
+        // Paso 1: Validar que los datos del formulario sean correctos
         $validated = $request->validate([
             'event_id' => 'required|integer',
             'full_name' => 'required|string|max:255',
@@ -30,22 +32,9 @@ class MercadoPagoController extends Controller
             'product' => 'required|array',
         ]);
 
-        
-
         try {
-
-            if ($request->modality == 'virtual') {
-                do {
-                    $codigo = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
-            } while (\App\Models\Participant::where('access_code', $codigo)->exists());
-
-            /* dd($codigo); */
-
-        } else {
-            $codigo = null;
-        }
-
-            $participant = Participant::create([
+            // Paso 2: Crear el participante pendiente en la base de datos
+            $participant = Participants::create([
                 'event_id' => $validated['event_id'],
                 'full_name' => $validated['full_name'],
                 'dni' => $validated['dni'],
@@ -53,30 +42,20 @@ class MercadoPagoController extends Controller
                 'role' => $validated['role'],
                 'modality' => $validated['modality'],
                 'payment_method' => $validated['payment_method'],
-                'access_code' => $validated['access_code'] ?? null,
                 'payment_status' => 'pending',
                 'registered_at' => now(),
             ]);
 
-            Mail::to($participant->email)->send(
-                    new FormularioMail(
-                        $participant->full_name,
-                        $participant->payment_method,
-                        $participant->payment_status
-                    )
-            );
-
-            $participant->access_code = $codigo;
-            $participant->save();
-
             Log::info('Participante pendiente creado', ['participant_id' => $participant->id]);
 
+            // Paso 3: Información del comprador
             $payer = [
                 "name" => explode(' ', $validated['full_name'])[0],
                 "surname" => trim(str_replace(explode(' ', $validated['full_name'])[0], '', $validated['full_name'])),
                 "email" => $validated['email'],
             ];
- 
+
+            // Paso 4: Crear la solicitud de preferencia 
             $baseUrl = config('app.url') ?: $request->getSchemeAndHttpHost();
             $requestData = $this->createPreferenceRequest(
                 $request->input('product'), 
@@ -113,6 +92,8 @@ class MercadoPagoController extends Controller
         }
     }
 
+
+    // Autenticación con Mercado Pago 
     protected function authenticate()
     {
         $mpAccessToken = config('services.mercadopago.access_token');
@@ -123,6 +104,7 @@ class MercadoPagoController extends Controller
         MercadoPagoConfig::setRuntimeEnviroment(MercadoPagoConfig::SERVER);
     }
 
+    // Función para crear la estructura de preferencia 
     protected function createPreferenceRequest($items, $payer, string $baseUrl, string $externalReference): array
     {
         return [

@@ -5,23 +5,6 @@
 @section('stream')
 
 <div class="container py-5">
-
-    <div class="text-center mb-4">
-
-        <span class="badge bg-danger px-3 py-2 mb-3">
-            🔴 EN VIVO
-        </span>
-
-        <h1 class="fw-bold text-primary">
-            Transmisión de la Jornada {{ $event->title }}
-        </h1>
-
-        <p class="text-muted">
-            Sigue la transmisión en vivo del evento en tiempo real.
-        </p>
-
-    </div>
-
     <div class="row g-4">
 
         {{-- Video --}}
@@ -57,8 +40,8 @@
                     @forelse($comments as $comment)
 
                         <div class="comment-card mb-3">
-
-                            <div class="small text-muted mb-1">
+                             <div>
+                                <strong>{{$comment->participant->full_name }}</strong>
                                 {{ $comment->created_at->format('H:i') }}
                             </div>
 

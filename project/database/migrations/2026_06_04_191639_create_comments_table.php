@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id(); // identifica al comentador
 
-            $table->unsignedBigInteger('participant_id')->nullable();
+            $table->foreignId('participant_id')->constrained('participants')->onDelete('restrict')->onUpdate('cascade'); // id del participante que hace el comentario
             $table->string('full_name');
             $table->text('message'); //comentario
             $table->timestamps(); //fecha y hora del comentario

@@ -22,6 +22,9 @@ Route::get('/inscripcion', function () {
 });
 
 Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
+Route::post ('/comments', [CommentController::class, 'store']);
+Route::view('/comments', 'pages.admin.comments')
+    ->name('pages.admin.comments');
 
 
 Route::get('/', [HomeController::class, 'index'])
@@ -30,23 +33,16 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/code', function () {
     return view('pages.public.code');
 });
-Route::post('/code', [StreamingController::class, 'validateCode']);
-
-Route::post ('/comments', [CommentController::class, 'store']);
-
-Route::view('/transmission', 'pages.public.transmission')
-    ->name('pages.public.transmission');
 
 
-/* Route::get('/', function () {
-    return view('welcome');
-});
-//
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/code', [StreamingController::class, 'validateCode'])
+    ->name('code.validate');
+
 
 
 Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
+
 
 
 /* Route::view('/transmision', 'pages.public.transmission')
@@ -55,6 +51,7 @@ Route::view('/inscripcion', 'pages.public.inscription')
 
 Route::view('/code', 'pages.public.code')
     ->name('pages.public.code');
+
 
 Route::post('/participantCrud', [ParticipantsController::class, 'storeCrud'])
     ->name('participants.storeCrud');
@@ -66,8 +63,6 @@ Route::get('/cash/success', function () {
     return view('cash.success');
     })->name('cash.success');
 
-Route::post('/code', [StreamingController::class, 'validateCode'])
-    ->name('code.validate');
 
 
 // no se si esta ruta va en esta categoria
@@ -91,7 +86,13 @@ Route::get('/transmission', function () {
             ->with('error', 'No hay ninguna transmisión activa.');
     }
 
+
     return view('pages.public.transmission', compact('event'));
+
+
+    $comments = \App\Models\Comment::latest()->get();
+
+    return view('pages.public.transmission', compact('event', 'comments'));
 
 });
 
@@ -200,6 +201,8 @@ Route::middleware(['auth'])
         Route::resource('users', UsersController::class);
 
         Route::resource('logs', LogsController::class);
+        
+        Route::resource('certificate', CertificateController::class);
 
         /*
         |--------------------------------------------------------------------------
@@ -263,7 +266,7 @@ Route::middleware(['auth'])
 
 //--------certificates------------------
 
-Route::get('/certificates/{participant:uuid}', [CertificateController::class, 'show'])
+Route::get('/certificates/{uuid}', [CertificateController::class, 'show'])
     ->name('certificates.show');
 
 //--------------------------------------

@@ -69,6 +69,10 @@
                         placeholder="Escribí tu pregunta o comentario..."
                         required></textarea>
 
+                    <input type="hidden" name="participant_id" value="{{ session('participant_id') }}">
+                    <input type="hidden" name="full_name" value="{{ session('participant_name') }}">
+                    
+
                     <div class="text-center">
                         <button class="btn-send">
                             Enviar Comentario

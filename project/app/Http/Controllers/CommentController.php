@@ -6,22 +6,28 @@ use Illuminate\Http\Request;
 
 use App\Models\Comment;
 use App\Models\Event;
-use app\Models\Participant;
+use App\Models\Participant;
 
 
 class CommentController extends Controller
 {
-    public function store (Request $request){ 
-        $request->validate([
-            'message' => 'required|max:1000',
-        ]);
+    public function store(Request $request)
+{
+    $request->validate([
+        'participant_id' => 'required|exists:participants,id',
+        'message' => 'required|max:1000',
+    ]);
 
-       Comment::create([
-            'participant_id' => null,
-            'message' => $request->message,
-        ]);
-        return back()->with('success', 'Mensaje enviado');
-    }
+    $participant = Participant::findOrFail($request->participant_id);
+
+    Comment::create([
+        'participant_id' => $participant->id,
+        'full_name' => $participant->full_name,
+        'message' => $request->message,
+    ]);
+
+    return back();
+}
 
 
     public function index(){
