@@ -48,26 +48,13 @@
 
                 <form action="/comments" method="POST">
                     @csrf
-
                     <textarea
                         name="message"
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        placeholder="Escribí tu pregunta o comentario..."
-                        required
-                    ></textarea>
-
-                    <button type="submit">
-                        Enviar
-                    </button>
-
-=======
-=======
->>>>>>> origin/main
                         class="form-control mb-3"
                         rows="5"
                         placeholder="Escribí tu pregunta o comentario..."
-                        required></textarea>
+                        required
+                    ></textarea>
 
                     <input type="hidden" name="participant_id" value="{{ session('participant_id') }}">
                     <input type="hidden" name="full_name" value="{{ session('participant_name') }}">
@@ -76,12 +63,8 @@
                     <div class="text-center">
                         <button class="btn-send">
                             Enviar Comentario
-                        </button>
+                    </button>
                     </div>
-<<<<<<< HEAD
->>>>>>> origin/envio-correos
-=======
->>>>>>> origin/main
                 </form>
 
             </div>
