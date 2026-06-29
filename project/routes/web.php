@@ -72,10 +72,6 @@ Route::get('/transmission', function () {
         return redirect('/code');
     }
 
-
-    return view('pages.public.transmission');
-
-
     $event = Event::where('status', 'active')->first();
 
     if (!$event) {
@@ -85,10 +81,6 @@ Route::get('/transmission', function () {
         return redirect('/code')
             ->with('error', 'No hay ninguna transmisión activa.');
     }
-
-
-    return view('pages.public.transmission', compact('event'));
-
 
     $comments = \App\Models\Comment::latest()->get();
 

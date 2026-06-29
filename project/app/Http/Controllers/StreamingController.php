@@ -25,6 +25,32 @@ class StreamingController extends Controller
                 'access_code' => 'Código inválido'
             ])->withInput();
         }
+      
+        $deviceToken = $request->participant_local;
+
+        // Si ya está usado y el dispositivo es distinto
+        if (
+            $participant->stream_used &&
+            $participant->device_token !== $deviceToken
+        ) {
+            return back()->withErrors([
+                'access_code' => 'Este código ya fue utilizado en otro dispositivo'
+            ]);
+        }
+
+// Primera vez que entra
+if (!$participant->stream_used) {
+
+    $participant->stream_used = true;
+    $participant->device_token = $deviceToken;
+    $participant->save();
+}
+
+        // primera vez que entra
+        if (!$participant->stream_used)
+            {$participant->stream_used = true; 
+            $participant->save();
+    }
 
         // Guardar datos en sesión
         session([

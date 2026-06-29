@@ -74,5 +74,12 @@
     </div>
 
 </section>
+<script>
 
+        localStorage.setItem(
+        'participant_id',
+        '{{ session("participant_id") }}'
+    );
+
+</script>
 @endsection
