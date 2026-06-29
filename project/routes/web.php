@@ -43,6 +43,15 @@ Route::view('/inscripcion', 'pages.public.inscription')
     ->name('pages.public.inscription');
 
 
+
+/* Route::view('/transmision', 'pages.public.transmission')
+    ->name('pages.public.transmission');
+ */
+
+Route::view('/code', 'pages.public.code')
+    ->name('pages.public.code');
+
+
 Route::post('/participantCrud', [ParticipantsController::class, 'storeCrud'])
     ->name('participants.storeCrud');
 
@@ -75,7 +84,7 @@ Route::get('/transmission', function () {
     $comments = \App\Models\Comment::latest()->get();
 
     return view('pages.public.transmission', compact('event', 'comments'));
-});
+})->name('transmission');
 
 /*RUTAS MERCADO PAGO*/
 

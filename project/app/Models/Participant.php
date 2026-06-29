@@ -8,6 +8,14 @@ use Illuminate\Support\Str;
 
 class Participant extends Model
 {
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($participant) {
+        $participant->uuid = Str::uuid();
+    });
+}
     protected $table = 'participants';
 
     protected $fillable = 

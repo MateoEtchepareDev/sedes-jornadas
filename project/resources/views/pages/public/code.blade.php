@@ -11,12 +11,25 @@
                 <p> El aula en tiempo de algoritmos, pantalla e inmediatez </p>
             </div>
 
+            @error('access_code')
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+            @enderror
+            
             <div class="code-card-body">
                 <div class="code-form-card">
                     <p class="code-card-info">Ingresar el código enviado al email con el que se inscribió a la jornada </p>
 
                     <form method="POST" action="{{ route('code.validate') }}">
                         @csrf
+
+                        <input
+                            type="hidden"
+                            name="participant_local"
+                            id="participant_local"
+                        >
+
                         <div class="mb-3">
                             <label for="code-input" class="form-label code-label"> CODIGO </label>
                             <input type="text" id="code-input" name="access_code" class="form-control code-input">
@@ -31,4 +44,22 @@
         </div>
 </section>
 
+<script>
+
+let deviceToken = localStorage.getItem('device_token');
+
+if (!deviceToken) {
+    deviceToken = crypto.randomUUID();
+
+    localStorage.setItem(
+        'device_token',
+        deviceToken
+    );
+
+}
+
+document.getElementById('participant_local').value =
+    deviceToken;
+
+</script>
 @endsection
