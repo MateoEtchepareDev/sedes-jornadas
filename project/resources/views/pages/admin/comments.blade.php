@@ -14,7 +14,7 @@
 
                 <div class="ratio ratio-16x9">
                     <iframe
-                        src="{{ $event->stream_url }}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
+                        src="{{$event->stream_url}}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
                         allow="autoplay"
                         frameborder="0"
                         allowfullscreen>
