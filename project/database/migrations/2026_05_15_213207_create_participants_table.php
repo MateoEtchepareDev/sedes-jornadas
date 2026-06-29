@@ -33,6 +33,10 @@ return new class extends Migration
             $table->dateTime('registered_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('paid_at')->nullable();
             $table->timestamps();
+            $table->boolean('stream_used')
+                  ->default(false)
+                  ->after('access_code');
+            $table->string('device_token')->nullable();
         });
     }
 
@@ -42,5 +46,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('participants');
+        $table->dropColumn('stream_used');
+        $table->dropColumn('device_token');
     }
 };

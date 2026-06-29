@@ -49,7 +49,15 @@
                                 <td>{{ ucfirst($item->status) }}</td>
                                 <td class="text-end">
                                     <div class="btn-group" role="group">
+<<<<<<< HEAD
+
+                                        <a href="{{ route('events.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+
                                         <a href="{{ route('admin.events.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+
+=======
+                                        <a href="{{ route('admin.events.edit', $item) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+>>>>>>> origin/main
                                         <form action="{{ route('admin.events.destroy', $item) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar este evento?');">
                                             @csrf
                                             @method('DELETE')

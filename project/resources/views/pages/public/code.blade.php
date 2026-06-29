@@ -19,6 +19,12 @@
                 </p>
             </div>
 
+            @error('access_code')
+                <span class="text-danger">
+                    {{ $message }}
+                </span>
+            @enderror
+            
             <div class="code-card-body">
 
                 <div class="code-form-card">
@@ -31,6 +37,12 @@
 
                     <form method="POST" action="{{ route('code.validate') }}">
                         @csrf
+
+                        <input
+                            type="hidden"
+                            name="participant_local"
+                            id="participant_local"
+                        >
 
                         <div class="mb-3">
                             <label
@@ -66,4 +78,22 @@
 
 </section>
 
+<script>
+
+let deviceToken = localStorage.getItem('device_token');
+
+if (!deviceToken) {
+    deviceToken = crypto.randomUUID();
+
+    localStorage.setItem(
+        'device_token',
+        deviceToken
+    );
+
+}
+
+document.getElementById('participant_local').value =
+    deviceToken;
+
+</script>
 @endsection
