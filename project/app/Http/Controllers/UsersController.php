@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Users;
-
-use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -34,23 +32,21 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password_hash' => 'required|string|min:8|confirmed',
             'is_admin' => 'required|boolean',
         ]);
 
-        Users::create($request->only([
-            'name',
-            'email',
-            'password_hash',
-            'is_admin',
-        ]));
+        Users::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password_hash' => bcrypt($request->password_hash),
+            'is_admin' => $request->is_admin,
+        ]);
 
-        /* $user->access_code = strtoupper(Str::random(6));
-        $user->save(); */
-
-        return redirect()->route('admin.users.index')
-                        ->with('success', 'Usuario creado correctamente.');
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'Usuario creado correctamente.');
     }
 
     /**
@@ -59,6 +55,7 @@ class UsersController extends Controller
     public function show(string $id)
     {
         $users = Users::findOrFail($id);
+
         return view('pages.admin.users.show', compact('users'));
     }
 
@@ -68,6 +65,7 @@ class UsersController extends Controller
     public function edit(string $id)
     {
         $users = Users::findOrFail($id);
+
         return view('pages.admin.users.edit', compact('users'));
     }
 
@@ -77,22 +75,33 @@ class UsersController extends Controller
     public function update(Request $request, string $id)
     {
         $users = Users::findOrFail($id);
+
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password_hash' => 'required|string|min:8|confirmed',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($users->id),
+            ],
+            'password_hash' => 'nullable|string|min:8|confirmed',
             'is_admin' => 'required|boolean',
         ]);
 
-        $users->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password_hash'=>$request->password_hash,
-            'is_admin'=>$request->is_admin,
-        ]);
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->is_admin = $request->is_admin;
 
-        return redirect()->route('admin.users.index')
-                        ->with('success', 'Usuario actualizado correctamente.');
+        if ($request->filled('password_hash')) {
+            $users->password_hash = bcrypt($request->password_hash);
+        }
+
+        $users->save();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'Usuario actualizado correctamente.');
     }
 
     /**
@@ -103,7 +112,8 @@ class UsersController extends Controller
         $users = Users::findOrFail($id);
         $users->delete();
 
-        return redirect()->route('admin.users.index')
-                        ->with('success', 'Usuario eliminado correctamente.');
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'Usuario eliminado correctamente.');
     }
 }

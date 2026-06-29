@@ -1,102 +1,83 @@
-@extends('layouts.app', [
-    'transmission' => true
-])
+@extends('layouts.app', ['transmission' => true])
 
 @section('stream')
 
-<div class="container py-5">
-    <div class="row g-4">
+<section class="form-wrapper py-4">
 
-        {{-- Video --}}
-        <div class="col-lg-8">
+    <div class="container-fluid">
+        <div class="mb-4">
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-primary rounded-pill">
+                <i class="bi bi-arrow-left me-1"></i>
+                Volver al Panel
+            </a>
+        </div>
 
-            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
-
-                <div class="ratio ratio-16x9">
-                    <iframe
-                        src="{{ $event->stream_url }}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
-                        allow="autoplay"
-                        frameborder="0"
-                        allowfullscreen>
-                    </iframe>
+        <div class="row g-4 align-items-start">
+            <div class="col-xl-8">
+                <div class="card border-0 shadow-sm overflow-hidden">
+                    <div class="ratio ratio-16x9">
+                        <iframe
+                            src="{{ $event->stream_url }}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
+                            allow="autoplay"
+                            frameborder="0"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
 
             </div>
 
-        </div>
+            <div class="col-xl-4">
+                <div class="card border-0 shadow-sm comments-panel">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
 
-        {{-- Preguntas --}}
-        <div class="col-lg-4">
+                            <span class="fw-semibold">
+                                <i class="bi bi-chat-left-dots-fill me-2"></i>
+                                Preguntas
+                            </span>
 
-            <div class="card shadow-sm border-0 rounded-4 h-100">
+                            <span class="badge bg-light text-primary rounded-pill">
+                                {{ $comments->count() }}
+                            </span>
+                        </div>
+                    </div>
 
-                <div class="card-header bg-primary text-white fw-bold">
-                    💬 Preguntas en vivo
-                </div>
+                    <div class="card-body comments-body">
+                        @forelse($comments as $comment)
+                            <div class="comment-card">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
 
-                <div class="card-body"
-                     style="max-height: 600px; overflow-y: auto;">
+                                        <div class="fw-semibold">
+                                            <i class="bi bi-person-circle text-primary me-1"></i>
+                                            {{ $comment->participant?->full_name ?? 'Participante eliminado' }}
+                                        </div>
 
-                    @forelse($comments as $comment)
+                                        <small class="text-muted">
+                                            {{ $comment->created_at->format('H:i') }}
+                                        </small>
 
-                        <div class="comment-card mb-3">
-                             <div>
-                                <strong>{{$comment->participant->full_name }}</strong>
-                                {{ $comment->created_at->format('H:i') }}
+                                    </div>
+                                </div>
+                                <p class="mb-0">
+                                    {{ $comment->message }}
+                                </p>
                             </div>
 
-                            <div>
-                                {{ $comment->message }}
+                        @empty
+
+                            <div class="alert alert-light text-center mb-0">
+                                <i class="bi bi-chat-square-text me-2"></i>
+                                No hay preguntas todavía.
                             </div>
 
-                        </div>
-
-                    @empty
-
-                        <div class="alert alert-light text-center">
-                            No hay preguntas todavía.
-                        </div>
-
-                    @endforelse
-
+                        @endforelse
+                    </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-</div>
-
-<style>
-
-.comment-card{
-    background:#f8f9fa;
-    border-left:4px solid #0d6efd;
-    padding:12px;
-    border-radius:10px;
-    transition:.2s;
-}
-
-.comment-card:hover{
-    background:#eef5ff;
-}
-
-.card{
-    transition:.2s;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-}
-
-</style>
-
-<script>
-    setTimeout(function () {
-        location.reload();
-    }, 30000);
-</script>
+</section>
 
 @endsection

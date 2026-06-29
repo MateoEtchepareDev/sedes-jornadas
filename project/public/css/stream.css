@@ -1,138 +1,128 @@
-.stream-section{
+html, body{
+    height:100%;
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.stream-layout{
+    display:flex;
+    height:100%;
+    width:100%;
     background:#eef3f8;
-    min-height:100vh;
 }
 
-.stream-card{
-    background:#fff;
-    padding:40px;
-    border-radius:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.stream-title{
-    text-align:center;
-    font-size:3rem;
-    font-weight:800;
-    color:#0f4b8d;
-    margin-bottom:15px;
-}
-
-.stream-subtitle{
-    text-align:center;
-    color:#6b7280;
-    font-size:1.1rem;
-    margin-bottom:30px;
-}
-
-.live-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:#ffebee;
-    color:#d32f2f;
-    font-weight:700;
-    padding:10px 20px;
-    border-radius:50px;
-}
-
-.live-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:red;
-    animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-    0%{
-        transform:scale(1);
-        opacity:1;
-    }
-    100%{
-        transform:scale(1.8);
-        opacity:.2;
-    }
+.stream-video{
+    flex:3;
+    padding:10px;
+    min-height:0;
 }
 
 .video-wrapper{
     position:relative;
-    border-radius:20px;
+    width:100%;
+    height:100%;
+    border-radius:18px;
     overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    background:black;
 }
 
 .video-wrapper iframe{
     width:100%;
-    height:650px;
-    border:none;
+    height:100%;
+    border:0;
 }
 
-/* TAPAS YOUTUBE */
-
-.cover-top-left{
+.cover{
     position:absolute;
+    z-index:10;
+    pointer-events:auto;
+}
+
+.cover-top{
     top:0;
     left:0;
-    width:1000px;
+    width:100%;
     height:90px;
-    z-index:999;
 }
 
 .cover-bottom-left{
-    position:absolute;
     bottom:0;
     left:0;
-    width:140px;
-    height:90px;
-    z-index:999;
+    width:220px;
+    height:100px;
 }
 
 .cover-bottom-right{
-    position:absolute;
     bottom:0;
     right:0;
-    width:220px;
-    height:90px;
-    z-index:999;
+    width:260px;
+    height:100px;
 }
 
-.comments-card{
-    background:#f8fafc;
-    border-radius:20px;
-    padding:30px;
+.stream-chat{
+    flex:1;
+    background:#fff;
+    border-left:1px solid #ddd;
+    display:flex;
+    flex-direction:column;
+    padding:15px;
+    min-height:0;
 }
 
-.comments-title{
+.chat-header{
+    font-weight:700;
     text-align:center;
     color:#0f4b8d;
-    font-weight:700;
-    margin-bottom:25px;
+    padding:10px 0;
+    border-bottom:1px solid #eee;
 }
 
-.comments-card textarea{
-    border-radius:15px;
-    border:2px solid #dbe3ec;
+.chat-form{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.chat-form textarea{
+    flex:1;
     resize:none;
+    border:2px solid #dbe3ec;
+    border-radius:12px;
+    padding:10px;
+    outline:none;
 }
 
-.comments-card textarea:focus{
-    box-shadow:none;
-    border-color:#0f4b8d;
-}
-
-.btn-send{
+.chat-form button{
     background:#eab82b;
-    color:#000;
     border:none;
-    padding:15px 40px;
-    border-radius:15px;
+    padding:14px;
+    border-radius:12px;
     font-weight:700;
-    font-size:1.1rem;
-    transition:.3s;
+    cursor:pointer;
 }
 
-.btn-send:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(234,184,43,.35);
+
+@media(max-width:992px){
+
+    html, body{
+        overflow:auto;
+    }
+
+    main{
+        height:auto;
+    }
+
+    .stream-layout{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .stream-video{
+        height:55vh;
+    }
+
+    .stream-chat{
+        height:45vh;
+    }
 }

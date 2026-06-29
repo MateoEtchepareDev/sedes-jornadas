@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 
 class Participant extends Model
@@ -29,6 +30,16 @@ class Participant extends Model
         'paid_at'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (!$model->uuid) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
+
+
     public function event()
     {
         return $this->belongsTo(Event::class);
@@ -36,7 +47,7 @@ class Participant extends Model
 
     public function getRouteKeyName()
     {
-        return 'uuid';
+        return 'id';
     }
 
     public function canDownloadCertificate(): bool

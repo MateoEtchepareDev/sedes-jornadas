@@ -23,9 +23,8 @@ Route::get('/inscripcion', function () {
 
 Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
 Route::post ('/comments', [CommentController::class, 'store']);
-Route::view('/comments', 'pages.admin.comments')
+Route::get('/comments', [CommentController::class, 'adminTransmission'])
     ->name('pages.admin.comments');
-
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');

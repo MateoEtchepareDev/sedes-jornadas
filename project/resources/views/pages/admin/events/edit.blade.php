@@ -1,38 +1,246 @@
 @extends('layouts.app', ['edit' => true])
 
 @section('edit')
-<div class="form-wrapper">
-    <div class="form-box">
-        <h1 class="form-heading">Editar Evento</h1>
 
-        <form method="POST" action="{{ route('admin.events.update', $event->id ?? 1) }}">
-            @csrf
-            @method('PUT')
-            <div class="form-grid">
-                <div class="field-group"><label class="field-label">Título</label><input class="field-input" type="text" name="title" value="{{ $event->title ?? '' }}" required></div>
-                <div class="field-group"><label class="field-label">Descripción</label><textarea class="field-input" name="description" rows="3" required>{{ $event->description ?? '' }}</textarea></div>
-                <div class="field-group"><label class="field-label">Precio</label><input class="field-input" type="number" step="0.01" name="price" value="{{ $event->price ?? 0 }}" required></div>
-                <div class="field-group"><label class="field-label">URL de transmisión</label><input class="field-input" type="url" name="stream_url" value="{{ $event->stream_url ?? '' }}"></div>
-                <div class="field-group"><label class="field-label">Inicio de inscripción</label><input class="field-input" type="datetime-local" name="registration_opens_at" value="{{ $event->registration_opens_at ?? '' }}"></div>
-                <div class="field-group"><label class="field-label">Fin de inscripción</label><input class="field-input" type="datetime-local" name="registration_closes_at" value="{{ $event->registration_closes_at ?? '' }}"></div>
-                <div class="field-group"><label class="field-label">Inicio del evento</label><input class="field-input" type="datetime-local" name="event_starts_at" value="{{ $event->event_starts_at ?? '' }}" required></div>
-                <div class="field-group"><label class="field-label">Fin del evento</label><input class="field-input" type="datetime-local" name="event_ends_at" value="{{ $event->event_ends_at ?? '' }}" required></div>
-                <div class="field-group"><label class="field-label">Máximo de participantes</label><input class="field-input" type="number" name="max_participants" value="{{ $event->max_participants ?? '' }}"></div>
-                <div class="field-group"><label class="field-label">Estado</label>
-                    <select class="field-select" name="status" required>
-                        <option value="draft" {{ ($event->status ?? '') == 'draft' ? 'selected' : '' }}>Borrador</option>
-                        <option value="published" {{ ($event->status ?? '') == 'published' ? 'selected' : '' }}>Publicado</option>
-                        <option value="active" {{ ($event->status ?? '') == 'active' ? 'selected' : '' }}>Activo</option>
-                        <option value="finished" {{ ($event->status ?? '') == 'finished' ? 'selected' : '' }}>Finalizado</option>
-                        <option value="cancelled" {{ ($event->status ?? '') == 'cancelled' ? 'selected' : '' }}>Cancelado</option>
-                    </select>
+<div class="container py-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white border-bottom">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                <div>
+                    <h2 class="fw-bold text-primary mb-1">
+                        Editar Evento
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Modifica la información del evento.
+                    </p>
                 </div>
+
+                <a href="{{ route('admin.events.index') }}"
+                   class="btn btn-outline-secondary rounded-pill">
+
+                    <i class="bi bi-arrow-left me-1"></i>
+
+                    Volver
+
+                </a>
+
             </div>
-            <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
-                <button type="submit" class="btn btn-primary">Actualizar Evento</button>
-                <a href="{{ route('admin.events.index') }}" class="btn btn-secondary">Volver al listado</a>
-            </div>
-        </form>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST" action="{{ route('admin.events.update', $event->id ?? 1) }}">
+
+                @csrf
+                @method('PUT')
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Título
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="title"
+                            value="{{ $event->title ?? '' }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Precio
+                        </label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            class="form-control"
+                            name="price"
+                            value="{{ $event->price ?? 0 }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <label class="form-label fw-semibold">
+                            Descripción
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            rows="4"
+                            name="description"
+                            required>{{ $event->description ?? '' }}</textarea>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            URL de transmisión
+                        </label>
+
+                        <input
+                            type="url"
+                            class="form-control"
+                            name="stream_url"
+                            value="{{ $event->stream_url ?? '' }}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Máximo de participantes
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="max_participants"
+                            value="{{ $event->max_participants ?? '' }}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Inicio de inscripción
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            name="registration_opens_at"
+                            value="{{ $event->registration_opens_at ?? '' }}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Fin de inscripción
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            name="registration_closes_at"
+                            value="{{ $event->registration_closes_at ?? '' }}">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Inicio del evento
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            name="event_starts_at"
+                            value="{{ $event->event_starts_at ?? '' }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Fin del evento
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            name="event_ends_at"
+                            value="{{ $event->event_ends_at ?? '' }}"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label fw-semibold">
+                            Estado
+                        </label>
+
+                        <select
+                            class="form-select"
+                            name="status"
+                            required>
+
+                            <option value="draft" {{ ($event->status ?? '') == 'draft' ? 'selected' : '' }}>
+                                Borrador
+                            </option>
+
+                            <option value="published" {{ ($event->status ?? '') == 'published' ? 'selected' : '' }}>
+                                Publicado
+                            </option>
+
+                            <option value="active" {{ ($event->status ?? '') == 'active' ? 'selected' : '' }}>
+                                Activo
+                            </option>
+
+                            <option value="finished" {{ ($event->status ?? '') == 'finished' ? 'selected' : '' }}>
+                                Finalizado
+                            </option>
+
+                            <option value="cancelled" {{ ($event->status ?? '') == 'cancelled' ? 'selected' : '' }}>
+                                Cancelado
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-flex flex-wrap justify-content-end gap-2">
+
+                    <a href="{{ route('admin.events.index') }}"
+                       class="btn btn-outline-secondary rounded-pill">
+
+                        <i class="bi bi-arrow-left me-1"></i>
+
+                        Volver
+
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary rounded-pill">
+
+                        <i class="bi bi-check-circle me-1"></i>
+
+                        Actualizar Evento
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
+
 </div>
+
 @endsection
