@@ -1,98 +1,94 @@
 @extends('layouts.app', ['edit' => true])
 
 @section('edit')
-<div class="form-wrapper">
-    <div class="form-box">
-        <h1 class="form-heading">Nuevo Log</h1>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+<section class="form-wrapper py-4">
 
-        <form method="POST" action="{{ route('admin.logs.store') }}">
-            @csrf
-
-            <div class="form-grid">
-
-                <div class="field-group">
-                    <label class="field-label">ID Usuario</label>
-                    <input
-                        class="field-input"
-                        type="number"
-                        name="user_id"
-                        value="{{ old('user_id') }}"
-                    >
+    <div class="container-fluid">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h2 class="fw-bold text-primary mb-1"><i class="bi bi-journal-plus me-2"></i> Nuevo Log </h2>
+                        <p class="text-muted mb-0"> Registrar una nueva acción del sistema.</p>
+                    </div>
+                    <a href="{{ route('admin.logs.index') }}" class="btn btn-outline-primary rounded-pill"><i class="bi bi-arrow-left me-1"></i> Volver al listado </a>
                 </div>
-
-                <div class="field-group">
-                    <label class="field-label">ID Evento</label>
-                    <input
-                        class="field-input"
-                        type="number"
-                        name="event_id"
-                        value="{{ old('event_id') }}"
-                    >
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Tipo de Acción</label>
-                    <input
-                        class="field-input"
-                        type="text"
-                        name="action_type"
-                        value="{{ old('action_type') }}"
-                        required
-                    >
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Actor</label>
-                    <select class="field-input" name="actor_type" required>
-                        <option value="admin">Admin</option>
-                        <option value="system">System</option>
-                    </select>
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">Tabla afectada</label>
-                    <input
-                        class="field-input"
-                        type="text"
-                        name="affected_table"
-                        value="{{ old('affected_table') }}"
-                        required
-                    >
-                </div>
-
-                <div class="field-group">
-                    <label class="field-label">ID Entidad</label>
-                    <input
-                        class="field-input"
-                        type="number"
-                        name="entity_id"
-                        value="{{ old('entity_id') }}"
-                        required
-                    >
-                </div>
-
             </div>
 
-            <div class="submit-zone d-flex flex-wrap gap-2 mt-3">
-                <button type="submit" class="btn btn-primary">
-                    Crear Log
-                </button>
+            <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show"><i class="bi bi-exclamation-triangle-fill me-2"></i><strong>Se encontraron errores:</strong>
+                        
+                        <ul class="mb-0 mt-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
 
-                <a href="{{ route('admin.logs.index') }}" class="btn btn-secondary">
-                    Volver al listado
-                </a>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('admin.logs.store') }}">
+                    @csrf
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold"> ID Usuario </label>
+                            <input type="number" name="user_id" class="form-control" value="{{ old('user_id') }}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold"> ID Evento </label>
+                            <input type="number" name="event_id" class="form-control" value="{{ old('event_id') }}">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold"> Tipo de Acción </label>
+                            <input type="text" name="action_type" class="form-control" value="{{ old('action_type') }}" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold"> Actor </label>
+                            <select name="actor_type" class="form-select" required>
+                                <option value="admin">
+                                    Admin
+                                </option>
+
+                                <option value="system">
+                                    System
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold"> Tabla afectada </label>
+                            <input type="text" name="affected_table" class="form-control" value="{{ old('affected_table') }}" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold"> ID Entidad </label>
+                            <input type="number" name="entity_id" class="form-control" value="{{ old('entity_id') }}" required>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-end gap-2 mt-4">
+                        <a href="{{ route('admin.logs.index') }}" class="btn btn-outline-secondary rounded-pill">
+                            <i class="bi bi-arrow-left me-1"></i>
+                            Volver
+                        </a>
+
+                        <button type="submit" class="btn btn-success rounded-pill">
+                            <i class="bi bi-plus-circle me-1"></i>
+                            Crear Log
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+
+</section>
+
 @endsection

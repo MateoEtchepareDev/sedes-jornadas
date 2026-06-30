@@ -5,84 +5,36 @@
 <section class="hero-section">
 
     <div class="container custom-container">
-
         <div class="hero-card">
-
             <div class="container-custom row align-items-center g-5">
-
                 <div class="col-12 col-lg-4">
-
-                    <h1 class="hero-title">
-                        {{ $jornada['titulo'] }}
-                    </h1>
-
-                    <p class="hero-subtitle">
-                        {{ $jornada['subtitulo'] }}
-                    </p>
+                    <h1 class="hero-title"> {{ $jornada['titulo'] }} </h1>
+                    <p class="hero-subtitle"> {{ $jornada['subtitulo'] }} </p>
 
                     <div class="hero-info-box">
-
                         <ul>
-
-                            <li>
-                                <strong>Fecha: </strong>{{ $jornada['fecha'] }}
-                            </li>
-
-                            <li>
-                                <strong>Horario: </strong>{{ $jornada['hora'] }}
-                            </li>
-
-                            <li>
-                                <strong>Modalidad: </strong>{{ $jornada['modalidad'] }}
-                            </li>
-
-                            <li>
-                                <strong>Lugar: </strong>{{ $jornada['lugar'] }}
-                            </li>
-
-                            <li>
-                                <strong>Precio: </strong>{{ $jornada['precio'] }}
-                            </li>
+                            <li><strong>Fecha: </strong>{{ $jornada['fecha'] }}</li>
+                            <li><strong>Horario: </strong>{{ $jornada['hora'] }}</li>
+                            <li><strong>Modalidad: </strong>{{ $jornada['modalidad'] }}</li>
+                            <li><strong>Lugar: </strong>{{ $jornada['lugar'] }}</li>
+                            <li><strong>Precio: </strong>{{ $jornada['precio'] }}</li>
                         </ul>
-
                     </div>
 
                     <div class="hero-buttons col-12">
-
-                        <a
-                            href="/inscripcion"
-                            class="btn-yellow" >
-
-                            Inscribirse
-
-                        </a>
-
-                        <a
-                            href="#sobre"
-                            class="btn-blue">
-
-                            Ver Información
-
-                        </a>
-
+                        <a href="/inscripcion" class="btn-yellow" > Inscribirse </a>
+                        <a href="#sobre" class="btn-blue"> Ver Información </a>
                     </div>
 
                 </div>
 
                 <div class="col-12 col-lg-8">
-
-                    <img
-                        src="{{ asset($jornada['flyer2']) }}"
-                        alt="jornada"
-                        class="hero-image">
+                    <img src="{{ asset($jornada['flyer2']) }}" alt="jornada" class="hero-image">
                 </div>
 
             </div>
-
         </div>
-
     </div>
-
 </section>
 
 <section id="sobre" class="section-custom section-white">

@@ -20,12 +20,11 @@ use App\Models\Event;
 Route::get('/inscripcion', function () {
     return view('pages.public.inscription');
 });
-Route::get('/admin/comments', [CommentController::class, 'adminTransmission'])
+
+Route::get('/admin/comments', [CommentController::class, 'adminTransmission']);
+Route::post ('/comments', [CommentController::class, 'store']);
+Route::get('/comments', [CommentController::class, 'adminTransmission'])
     ->name('pages.admin.comments');
-
-Route::post('/comments', [CommentController::class, 'store']);
-
-Route::get('/comments', [CommentController::class, 'adminTransmission'])->name('pages.admin.comments');
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
